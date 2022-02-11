@@ -1,12 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import './index.css';
+import React from 'react'
+
+import Home from './Home.js'
+import Chat from './Chat.js'
 
 function App() {
   return (
+  
     <div className="App">
-     <p>let's chat</p>
-     <p>hi</p>
+      <Home/>
     </div>
+     
   );
 }
 
