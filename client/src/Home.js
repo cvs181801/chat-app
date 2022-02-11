@@ -7,17 +7,20 @@ export default function Home() {
                     className="title"
                 >Hey. Let's Chat.</h1>
                 <p>Please Login</p>
-                <input
-                      type="text"     
-                      placeholder="username"
-                      //value={inputValue}
-                      //onChange={event=>setInputValue(event.target.value)}> 
-                ></input>
-                <input
-                    type="password"     
-                    placeholder="username"
-                ></input>
-
+                <div
+                    className="container_input"
+                >
+                    <input
+                        type="text"     
+                        placeholder="username"
+                        //value={inputValue}
+                        //onChange={event=>setInputValue(event.target.value)}> 
+                    ></input>
+                    <input
+                        type="password"     
+                        placeholder="username"
+                    ></input>
+                </div>
             </div>
 
          </div>;
