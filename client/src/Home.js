@@ -5,7 +5,7 @@ export default function Home() {
             <div className="container">
                 <h1
                     className="title"
-                >Let's Chat.</h1>
+                >Hey. Let's Chat.</h1>
                 <p>Please Login</p>
                 <input
                       type="text"     

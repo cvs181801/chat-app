@@ -17,14 +17,21 @@ body {
 
 .container {
   margin: 2em auto 0 auto;
+  color: white;
+  padding: .2em;
   letter-spacing: .1rem;
   box-shadow: 2px 5px 4px rgba(0, 0, 0, 0.25);
   border-radius: 13px 0px 13px 0px;
   height: 60vh;
-  width: 60vw;
+  width: 70vw;
   text-align: center;
+  background: linear-gradient(217deg, rgb(253, 144, 2), rgba(57, 2, 255, 0.53) 70.71%),
+            linear-gradient(127deg, rgb(211, 207, 1), rgb(0, 51, 54) 70.71%),
+            linear-gradient(336deg, rgba(0, 99, 61, 0.781), rgba(0, 255, 234, 0.993) 70.71%);
 }
 
 .title {
   font-family: var(--ff-accent);
+  color: white;
+  margin-top: .7em;
 }
