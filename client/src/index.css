@@ -3,6 +3,7 @@
 :root {
   --ff-main: 'Dosis', sans-serif;
   --ff-accent: 'Fredoka One', sans-serif;
+  --dark-orange: rgb(131, 74, 1);
 }
 
 body {
@@ -37,6 +38,10 @@ body {
   font-size: 2rem;
 }
 
+.title_login {
+  font-family: var(--ff-accent);
+}
+
 .container_input {
   display: flex;
   flex-direction: column;
@@ -51,4 +56,17 @@ body {
   margin-top: .5em;
   font-size: 1rem;
   text-align: center;
+}
+
+.loginBtn {
+  background-color: white;
+  color: var(--dark-orange);
+  border-style: none;
+  border-radius: 13px;
+  margin-top: 1.5em;
+  padding: .5em;
+  font-size: 1rem;
+  font-family: var(--ff-accent);
+  letter-spacing: .1rem;
+  cursor: pointer;
 }

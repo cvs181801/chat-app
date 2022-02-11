@@ -6,7 +6,9 @@ export default function Home() {
                 <h1
                     className="title"
                 >Hey. Let's Chat.</h1>
-                <p>Please Login</p>
+                <p
+                    className="title_login"
+                >Please Login</p>
                 <div
                     className="container_input"
                 >
@@ -18,9 +20,12 @@ export default function Home() {
                     ></input>
                     <input
                         type="password"     
-                        placeholder="username"
+                        placeholder="password"
                     ></input>
                 </div>
+                <button
+                    className="loginBtn"
+                >Let's Go</button>
             </div>
 
          </div>;
