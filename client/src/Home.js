@@ -5,10 +5,12 @@ export default function Home() {
 
 const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
+const [loggedIn, setLoggedIn] = useState(false);
 
 function handleClick() {
     if (usernameInputValue !== "" && passwordInputValue !== "" ) {
         console.log('liuakinwaekufhskjanusdhjkfabmjsahsfdjkhnsajvkfakfdj')
+        setLoggedIn(true);
     }
 }
 
@@ -41,8 +43,13 @@ function handleClick() {
                         <button
                             className="loginBtn"
                             onClick={handleClick}
-                        >Let's Go
+                        >Log In
                         </button>
+                        <div>{loggedIn ? 
+                            <Link to="/chat"
+                            className= "nav_link"
+                            >Enter the Chat
+                            </Link > : ''}</div>
                         <p>New here? 
                             <Link to="/createlogin"
                             className= "nav_link"
