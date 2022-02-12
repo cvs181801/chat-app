@@ -6,11 +6,15 @@ export default function Home() {
 const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
 const [loggedIn, setLoggedIn] = useState(false);
+const [error, setError] = useState('');
 
-function handleClick() {
+function handleClick(event) {
+    event.preventDefault();
     if (usernameInputValue !== "" && passwordInputValue !== "" ) {
-        console.log('liuakinwaekufhskjanusdhjkfabmjsahsfdjkhnsajvkfakfdj')
+        setError(false);
         setLoggedIn(true);
+    } else {
+        setError('User not found...please try again.')
     }
 }
 
@@ -49,7 +53,9 @@ function handleClick() {
                             <Link to="/chat"
                             className= "nav_link"
                             >Enter the Chat
-                            </Link > : ''}</div>
+                            </Link > : ''}
+                        </div>
+                        <p>{error}</p>
                         <p>New here? 
                             <Link to="/createlogin"
                             className= "nav_link"

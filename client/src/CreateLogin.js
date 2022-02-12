@@ -3,7 +3,12 @@ import {Link} from "react-router-dom"
 
 export default function CreateLogin() {
   return <div>
-      create your login here!
+    <form>
+       <label>Choose a screen name:</label><input type="text"></input>  
+       <label>Login username:</label><input type="text"></input>  
+       <label>Password</label><input type="password"></input>  
+       
+    </form>
       <Link to="/"
             className= "nav_link">
                 Log In
