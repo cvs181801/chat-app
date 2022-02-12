@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
-import {BrowserRouter, NavLink, Route, Routes} from "react-router-dom"
-import CreateLogin from './CreateLogin.js'
-import Chat from './Chat.js'
+import {Link} from "react-router-dom"
 
 export default function Home() {
 
@@ -14,7 +12,7 @@ function handleClick() {
     }
 }
 
-  return <BrowserRouter><div>
+  return <div>
             <div className="container">
                 <h1
                     className="title"
@@ -46,26 +44,22 @@ function handleClick() {
                         >Let's Go
                         </button>
                         <p>New here? 
-                            <NavLink exact="true" to="/createlogin"
+                            <Link to="/createlogin"
                             className= "nav_link"
                             >Create a login
-                            </NavLink > or 
-                            <Navlink exact="true" to="/chat"
+                            </Link > or 
+                            <Link to="/chat"
                             className= "nav_link"
                             >view as a guest
-                            </Navlink>
+                            </Link> 
 
                         </p>
                 </form>
-                <Routes>
-                    <Route path="/createlogin" element={<CreateLogin />} />
-                    <Route path="/chat" element={<Chat />} />
-                    <Route path="/" element={<Home />} />
-                </Routes>
+                
             
             </div>
 
          </div>
-         </BrowserRouter>
+       
 }
 

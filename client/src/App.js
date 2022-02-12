@@ -6,11 +6,9 @@ import Chat from './Chat.js'
 
 function App() {
   return (
-  
     <div className="App">
       <Home/>
     </div>
-     
   );
 }
 
