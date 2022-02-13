@@ -70,3 +70,9 @@ body {
   letter-spacing: .1rem;
   cursor: pointer;
 }
+.inactiveTab {
+  display: none;
+}
+.activeTab {
+  display: block;
+}
