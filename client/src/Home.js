@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom"
+import axios from 'axios'
 
 export default function Home() {
 
@@ -7,6 +8,27 @@ const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
 const [loggedIn, setLoggedIn] = useState(false);
 const [error, setError] = useState('');
+
+
+async function login() {  
+    try {
+        var search = await axios.get(`api/users/${usernameInputValue}`)
+        return search
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+async function getUsers() {
+    try {
+        var search = await axios.get('api/users')
+        return search
+    }
+    catch(err) {
+        console.log(err)
+    }
+}
 
 function handleClick(event) {
     event.preventDefault();
@@ -68,11 +90,14 @@ function handleClick(event) {
 
                         </p>
                 </form>
-                
-            
+
             </div>
 
          </div>
        
 }
 
+//upon clicking 'login' , return a user id that will essentially allow the user to log in
+//that user id gets saved in local storage to allow user to log in.
+//local storage: later
+//browser router 'go' will automatically send the user to new page upon login/authentication

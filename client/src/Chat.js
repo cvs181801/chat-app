@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom"
 import Usercard from './Usercard'
+import axios from 'axios'
 
 export default function Chat() {
 
@@ -10,25 +11,7 @@ const [chinesetabclass, setChinesetabclass] = useState('inactiveTab')
 //const [message, setMessage] = useState('')
 //const [messageInputValue, setMessageInputValue] = useState('')
 
-const [users, setUsers] = useState(
-    [
-        {
-            id: 1,
-            username: 'green123',
-            password: 'hatsoff'
-        },
-        {
-            id: 2,
-            username: 'SammieGurl',
-            password: 'hacktheplanet24' 
-        },
-        {
-            id: 3,
-            username: 'TacoTownLover',
-            password: 'tacos_forever'    
-        }
-    ]
-)
+const [users, setUsers] = useState([])
 
 const [englishChats, setEnglishChats] = useState(
     [
@@ -91,9 +74,7 @@ const [spanishChats, setSpanishChats] = useState(
     ]
 )
 
-const usersLoop = users.map(user => {
-    return <Usercard key={user.id} username={user.username}/>
-  })
+
 
 const englishChatsLoop = englishChats.map(chat=> {
     return <p key={chat.chat_id}>{chat.text}</p>
@@ -126,6 +107,32 @@ function openTabChinese() {
 // function postMessage() {
 //     setMessage(messageInputValue)
 // }
+
+async function getUsers() {
+    try {
+        var search = await axios.get('api/users')
+        return search
+    }
+    catch(err) {
+        console.log(err)
+    }
+}
+
+useEffect(()=>{
+    getUsers()
+        .then((res) => {
+         console.log(res.data)
+         setUsers([res.data])
+    })
+},[])
+
+useEffect(()=> {
+    console.log(users)
+}, [users])
+
+const usersLoop = users.map(user => {
+    return <Usercard key={user.id} username={user.username}/>
+  })
 
   return <div>
       <div
@@ -188,5 +195,5 @@ function openTabChinese() {
             className= "nav_link">
                 Log Out
       </Link>
-  </div>;
+  </div>
 }
