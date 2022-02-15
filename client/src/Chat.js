@@ -59,13 +59,17 @@ async function getMessages() {
 //     method: 'post',
 //     url: 'http://localhost:3000/api/messages',
 //     data: {
-//       firstName: 'Fred',
-//       lastName: 'Flintstone'
+//       text: 
 //     }
 //   });
 // }
 
 // postMsg();
+
+let englishChats = []
+let spanishChats = []
+let chineseChats = []
+
 
 useEffect(()=>{
     getUsers()
@@ -75,37 +79,33 @@ useEffect(()=>{
     getMessages()
         .then((res)=>{   
             setAllmessages(res.data)
+            for (var i=0; i< allmessages.length; i++ ) {
+                for (var j=0; j< allmessages[i].length; j++ ) {
+                   if (allmessages[i][j].lang === 'EN') {
+                       englishChats.push(allmessages[i][j])
+                       setENchats(englishChats)
+                       console.log('english chats :', englishChats)
+                       console.log(ENchats)
+                   } else if (allmessages[i][j].lang === 'SP') {
+                       spanishChats.push(allmessages[i][j])
+                    
+                   } else if (allmessages[i][j].lang === 'CH') {
+                       chineseChats.push(allmessages[i][j])
+                   } 
+                }
+           }
         })
+
 },[])
 
-let englishChats = []
-let spanishChats = []
-let chineseChats = []
+
 
 useEffect(()=> {
-    console.log('users :', users,'allmessages :', allmessages) 
-    let [usersArray] = users;
+    //console.log('users :', users,'allmessages :', allmessages) 
+    //let [usersArray] = users;
     console.log('allmsgs :', allmessages)
-    for (var i=0; i< allmessages.length; i++ ) {
-         for (var j=0; j< allmessages[i].length; j++ ) {
-            if (allmessages[i][j].lang === 'EN') {
-                englishChats.push(allmessages[i][j])
-                setENchats(englishChats)
-                console.log(ENchats)
-            } else if (allmessages[i][j].lang === 'SP') {
-                spanishChats.push(allmessages[i][j])
-             
-            } else if (allmessages[i][j].lang === 'CH') {
-                chineseChats.push(allmessages[i][j])
-       
-            } 
-         }
-    }
-    
-
+    console.log(ENchats)
 }, [users, allmessages])
-
-
 
 const usersLoop = users.map(user => {
     return <Usercard key={user.id} username={user.username}/>
@@ -177,6 +177,7 @@ const usersLoop = users.map(user => {
                 type='text'
                 placeholder='Type your message here!'
                 onChange={event=>setMessageInputValue(event.target.value)}
+                value={setMessageInputValue(e.target.value)}
             > </input> 
             <button
                 onClick={postMessage}
