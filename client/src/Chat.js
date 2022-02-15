@@ -30,9 +30,9 @@ function openTabChinese() {
     setChinesetabclass('activeTab')
 }
 
-// function postMessage() {
-//     setMessage(messageInputValue)
-// }
+ function postMessage() {
+     setMessage(messageInputValue)
+ }
 
 async function getUsers() {
     try {
@@ -140,13 +140,13 @@ const usersLoop = users.map(user => {
         <div
             className="message_area"
         >
-            {/* <input
+            <input
                 type='text'
                 placeholder='Type your message here!'
-                //onChange={event=>setMessageInputValue(event.target.value)}
-            > </input> */}
+                onChange={event=>setMessageInputValue(event.target.value)}
+            > </input> 
             <button
-                //onClick={postMessage}
+                onClick={postMessage}
             >post</button>
         </div>
 
@@ -158,6 +158,5 @@ const usersLoop = users.map(user => {
   </div>
 }
 
-//a 'see who's here' button
 //a 'see all chats' button
 //a 'post my chat' button 
