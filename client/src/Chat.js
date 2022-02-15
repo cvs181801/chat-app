@@ -8,9 +8,10 @@ export default function Chat() {
 const [englishtabclass, setEnglishtabclass] = useState('activeTab')
 const [spanishtabclass, setSpanishtabclass] = useState('inactiveTab')
 const [chinesetabclass, setChinesetabclass] = useState('inactiveTab')
-//const [message, setMessage] = useState('')
-//const [messageInputValue, setMessageInputValue] = useState('')
+const [message, setMessage] = useState('')
+const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllmessages] = useState('')
+const [ENchats, setENchats] = useState('')
 
 const [users, setUsers] = useState([])
 
@@ -31,7 +32,7 @@ function openTabChinese() {
 }
 
  function postMessage() {
-     setMessage(messageInputValue)
+    console.log('yes')
  }
 
 async function getUsers() {
@@ -54,34 +55,66 @@ async function getMessages() {
     }
 }
 
+// function postMsg() { axios({
+//     method: 'post',
+//     url: 'http://localhost:3000/api/messages',
+//     data: {
+//       firstName: 'Fred',
+//       lastName: 'Flintstone'
+//     }
+//   });
+// }
+
+// postMsg();
+
 useEffect(()=>{
     getUsers()
-        .then((res) => {
-         console.log('users :', res.data)
+        .then((res) => {        
          setUsers(res.data)
     })
     getMessages()
-        .then((res)=>{
-            console.log('messages :', res.data)
+        .then((res)=>{   
             setAllmessages(res.data)
         })
 },[])
 
+let englishChats = []
+let spanishChats = []
+let chineseChats = []
+
 useEffect(()=> {
     console.log('users :', users,'allmessages :', allmessages) 
     let [usersArray] = users;
-    let spanishMsgs = allmessages[1];
-    console.log(spanishMsgs)
+    console.log('allmsgs :', allmessages)
+    for (var i=0; i< allmessages.length; i++ ) {
+         for (var j=0; j< allmessages[i].length; j++ ) {
+            if (allmessages[i][j].lang === 'EN') {
+                englishChats.push(allmessages[i][j])
+                setENchats(englishChats)
+                console.log(ENchats)
+            } else if (allmessages[i][j].lang === 'SP') {
+                spanishChats.push(allmessages[i][j])
+             
+            } else if (allmessages[i][j].lang === 'CH') {
+                chineseChats.push(allmessages[i][j])
+       
+            } 
+         }
+    }
     
+
 }, [users, allmessages])
+
+
 
 const usersLoop = users.map(user => {
     return <Usercard key={user.id} username={user.username}/>
   })
 
-// const englishChats = englishChats.map(chat=> {
-//     return <p key={chat.chat_id}>{chat.text}</p>
-// })  
+
+// const englishChatRoom = ENchats.map(chat=> {
+//             return <p key={chat.chat_id}>{chat.text}</p>
+//             })    
 
 // const spanishChats = spanishChats.map(chat=> {
 //     return <p key={chat.chat_id}>{chat.text}</p>
@@ -118,21 +151,21 @@ const usersLoop = users.map(user => {
                 id="english"
                 className={englishtabclass}
              >
-            {/* {englishChats} */}
+               
                  
             </div>
             <div
                 id="spanish"
                 className={spanishtabclass}
              > 
-            {/*  {spanishChats} */}
+             {/* {spanishChats}  */}
                 
             </div>
             <div
                 id="chinese"
                 className={chinesetabclass}
             > 
-            {/* {chineseChats} */}
+             {/* {chineseChats}  */}
             
             </div> 
         </div>
@@ -140,14 +173,14 @@ const usersLoop = users.map(user => {
         <div
             className="message_area"
         >
-            <input
+            {/* <input
                 type='text'
                 placeholder='Type your message here!'
                 onChange={event=>setMessageInputValue(event.target.value)}
             > </input> 
             <button
                 onClick={postMessage}
-            >post</button>
+            >post</button> */}
         </div>
 
       </div>

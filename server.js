@@ -44,70 +44,74 @@ app.get(`/api/users`, function (req, res) {
 
 
 app.get(`/api/messages`, function(req, res) {
+    const {search} = req.query;
+    console.log(search)
     res.send(
-        [
-            {
-            English : 
+                [
                     [
                        {
                             chat_id: 4,
                             user_id: 3,
-                            text: "hey, what's upall."
+                            text: "hey, what's upall.",
+                            lang: 'EN'
                         },
                         {
                             chat_id: 5,
                             user_id: 3,
-                            text: "I want tacos!"
+                            text: "I want tacos!",
+                            lang: 'EN'
                         },
                         {
                             chat_id: 6,
                             user_id: 2,
-                            text: "??"
+                            text: "??",
+                            lang: 'EN'
                         }
                 
-                    ]
-            },
-            {
-            Spanish:  
+                    ],
                     [
                         {
                             chat_id: 10,
                             user_id: 3,
-                            text: "¿Cómo te llamas?"
+                            text: "¿Cómo te llamas?",
+                            lang: 'SP'
                         },
                         {
                             chat_id: 11,
                             user_id: 1,
-                            text: "Me llamo Kermit."
+                            text: "Me llamo Kermit.",
+                            lang: 'SP'
                         },
                         {
                             chat_id: 12,
                             user_id: 2,
-                            text: "¿Me puede pasar la sal/la pimienta?"
+                            text: "¿Me puede pasar la sal/la pimienta?",
+                            lang: 'SP'
                         } 
-                    ]
-            },
-            {
-            Chinese:
+                    ],
+
                     [
                         {
                             chat_id: 7,
                             user_id: 3,
-                            text: "你好"
+                            text: "你好",
+                            lang: 'CH'
                         },
                         {
                             chat_id: 8,
                             user_id: 3,
-                            text: "你从哪里来？"
+                            text: "你从哪里来？",
+                            lang: 'CH'
                         },
                         {
                             chat_id: 9,
                             user_id: 2,
-                            text: "我从 中国 来。"
+                            text: "我从 中国 来。",
+                            lang: 'CH'
                         }
                     ]
-            
-            }
-        ]
+
+                ]
     )
 })
+
