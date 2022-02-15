@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom"
 import Usercard from './Usercard'
 import axios from 'axios'
-import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 
 export default function Chat() {
 
@@ -14,20 +13,6 @@ const [chinesetabclass, setChinesetabclass] = useState('inactiveTab')
 const [allmessages, setAllmessages] = useState('')
 
 const [users, setUsers] = useState([])
-
-//**
- 
-// const englishChats = englishChats.map(chat=> {
-//     return <p key={chat.chat_id}>{chat.text}</p>
-// })  
-
-// const spanishChats = spanishChats.map(chat=> {
-//     return <p key={chat.chat_id}>{chat.text}</p>
-// })  
-
-// const chineseChats = chineseChats.map(chat=> {
-//     return <p key={chat.chat_id}>{chat.text}</p>
-// })  
 
 function openTabEnglish() {
     setEnglishtabclass('activeTab')
@@ -73,22 +58,38 @@ useEffect(()=>{
     getUsers()
         .then((res) => {
          console.log('users :', res.data)
-         setUsers([res.data])
+         setUsers(res.data)
     })
     getMessages()
         .then((res)=>{
             console.log('messages :', res.data)
-            setAllmessages([res.data])
+            setAllmessages(res.data)
         })
 },[])
 
 useEffect(()=> {
-    console.log('users :', users, 'allmessages :', allmessages)
+    console.log('users :', users,'allmessages :', allmessages) 
+    let [usersArray] = users;
+    let spanishMsgs = allmessages[1];
+    console.log(spanishMsgs)
+    
 }, [users, allmessages])
 
 const usersLoop = users.map(user => {
     return <Usercard key={user.id} username={user.username}/>
   })
+
+// const englishChats = englishChats.map(chat=> {
+//     return <p key={chat.chat_id}>{chat.text}</p>
+// })  
+
+// const spanishChats = spanishChats.map(chat=> {
+//     return <p key={chat.chat_id}>{chat.text}</p>
+// })  
+
+// const chineseChats = chineseChats.map(chat=> {
+//     return <p key={chat.chat_id}>{chat.text}</p>
+// })  
 
   return <div>
       <div
@@ -117,20 +118,22 @@ const usersLoop = users.map(user => {
                 id="english"
                 className={englishtabclass}
              >
-            {/*{englishChats}
-                 <p>{message}</p> */}
+            {/* {englishChats} */}
+                 
             </div>
             <div
                 id="spanish"
                 className={spanishtabclass}
-            > {/* {spanishChats}
-                <p>{message}</p> */}
+             > 
+            {/*  {spanishChats} */}
+                
             </div>
             <div
                 id="chinese"
                 className={chinesetabclass}
-            > {/*{chineseChats}
-                 <p>{message}</p> */}
+            > 
+            {/* {chineseChats} */}
+            
             </div> 
         </div>
 
@@ -154,3 +157,7 @@ const usersLoop = users.map(user => {
       </Link>
   </div>
 }
+
+//a 'see who's here' button
+//a 'see all chats' button
+//a 'post my chat' button 
