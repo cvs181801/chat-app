@@ -64,6 +64,11 @@ useEffect(()=>{
         }
     }
 
+    getUsers();
+    
+},[])
+
+useEffect(()=> {
     async function getMessages() {
         try {
             const response = await axios.get('api/messages')
@@ -73,10 +78,8 @@ useEffect(()=>{
             console.log(err)
         }
     }
-
-    getUsers();
     getMessages();
-},[])
+}, [])
 
 // useEffect(()=> {
 //     for (var i=0; i< allmessages.length; i++ ) {

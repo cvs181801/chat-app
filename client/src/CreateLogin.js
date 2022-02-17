@@ -15,3 +15,5 @@ export default function CreateLogin() {
       </Link>
   </div>;
 }
+//create mock 'create your login' functionality
+//draft up tables

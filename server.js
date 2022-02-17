@@ -44,7 +44,8 @@ app.get(`/api/users`, function (req, res) {
 
 
 app.get(`/api/messages`, function(req, res) {
-    const {text} = req.query;
+    let {text} = req.query;
+    //text="hiiiii";
     console.log(text)
     res.send(
                 [
