@@ -9,7 +9,7 @@ const [englishtabclass, setEnglishtabclass] = useState('activeTab')
 const [spanishtabclass, setSpanishtabclass] = useState('inactiveTab')
 const [chinesetabclass, setChinesetabclass] = useState('inactiveTab')
 const [messageInputValue, setMessageInputValue] = useState('')
-const [allmessages, setAllmessages] = useState('')
+const [allmessages, setAllMessages] = useState([])
 const [ENchats, setENchats] = useState('')
 
 const [users, setUsers] = useState([])
@@ -30,36 +30,8 @@ function openTabChinese() {
     setChinesetabclass('activeTab')
 }
 
-async function getUsers() {
-    try {
-        var search = await axios.get('api/users')
-        return search
-    }
-    catch(err) {
-        console.log(err)
-    }
-}
-
-async function getMessages() {
-    try {
-        var search = await axios.get('api/messages')
-        return search
-    }
-    catch(err) {
-        console.log(err)
-    }
-}
-
 async function postMyMessage() { 
     try { 
-        // axios({
-        //     method: 'post',
-        //     url: `/api/messages`, //`/api/messages?text=${messageInputValue}`  ??? 
-        //     data: {
-        //         text: {messageInputValue}
-        //     } 
-        // });
-
         var search = await axios.get(`/api/messages?text=${messageInputValue}`)
         return search;
 
@@ -73,10 +45,8 @@ function postMsg() {
     postMyMessage()
         .then(res => {
             console.log(res.data)
-
     })
 }
-
 
 let englishChats = []
 let spanishChats = []
@@ -84,15 +54,28 @@ let chineseChats = []
 
 
 useEffect(()=>{
-    getUsers()
-        .then((res) => {        
-         setUsers(res.data)
-    })
-    getMessages()
-        .then((res)=>{   
-            setAllmessages(res.data)
-            
-        })
+    async function getUsers() {
+        try {
+            const response = await axios.get('api/users')
+            setUsers(response.data)
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+
+    async function getMessages() {
+        try {
+            const response = await axios.get('api/messages')
+            setAllMessages(response.data)
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+
+    getUsers();
+    getMessages();
 },[])
 
 // useEffect(()=> {
@@ -115,7 +98,7 @@ useEffect(()=>{
 //     console.log(ENchats)
 // }, [users, allmessages])
 
-const usersLoop = users.map(user => {
+const allUsers = users.map(user => {
     return <Usercard key={user.id} username={user.username}/>
   })
 
@@ -131,6 +114,10 @@ const usersLoop = users.map(user => {
 //     return <p key={chat.chat_id}>{chat.text}</p>
 // })  
 
+const allChats = allmessages.map(msg => {
+    return <p key={msg.chat_id}>{msg.text}</p>
+})
+
   return <div>
       <div
         className="chatContainer"
@@ -138,7 +125,7 @@ const usersLoop = users.map(user => {
         <div
             className="chat_usersArea"
           >
-              {usersLoop}
+              {allUsers}
         </div>
 
         <div
@@ -158,7 +145,7 @@ const usersLoop = users.map(user => {
                 id="english"
                 className={englishtabclass}
              >
-               
+                {allChats}  
                  
             </div>
             <div
@@ -200,5 +187,3 @@ const usersLoop = users.map(user => {
   </div>
 }
 
-//massage data on the server side first, then return to client and set in state  ?
-//a 'post my chat' button 
