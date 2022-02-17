@@ -8,7 +8,6 @@ export default function Chat() {
 const [englishtabclass, setEnglishtabclass] = useState('activeTab')
 const [spanishtabclass, setSpanishtabclass] = useState('inactiveTab')
 const [chinesetabclass, setChinesetabclass] = useState('inactiveTab')
-const [message, setMessage] = useState('')
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllmessages] = useState('')
 const [ENchats, setENchats] = useState('')
@@ -31,10 +30,6 @@ function openTabChinese() {
     setChinesetabclass('activeTab')
 }
 
- function postMessage() {
-    console.log('yes')
- }
-
 async function getUsers() {
     try {
         var search = await axios.get('api/users')
@@ -55,16 +50,33 @@ async function getMessages() {
     }
 }
 
-// function postMsg() { axios({
-//     method: 'post',
-//     url: 'http://localhost:3000/api/messages',
-//     data: {
-//       text: 
-//     }
-//   });
-// }
+async function postMyMessage() { 
+    try { 
+        // axios({
+        //     method: 'post',
+        //     url: `/api/messages`, //`/api/messages?text=${messageInputValue}`  ??? 
+        //     data: {
+        //         text: {messageInputValue}
+        //     } 
+        // });
 
-// postMsg();
+        var search = await axios.get(`/api/messages?text=${messageInputValue}`)
+        return search;
+
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
+function postMsg() {
+    postMyMessage()
+        .then(res => {
+            console.log(res.data)
+
+    })
+}
+
 
 let englishChats = []
 let spanishChats = []
@@ -79,38 +91,33 @@ useEffect(()=>{
     getMessages()
         .then((res)=>{   
             setAllmessages(res.data)
-            for (var i=0; i< allmessages.length; i++ ) {
-                for (var j=0; j< allmessages[i].length; j++ ) {
-                   if (allmessages[i][j].lang === 'EN') {
-                       englishChats.push(allmessages[i][j])
-                       setENchats(englishChats)
-                       console.log('english chats :', englishChats)
-                       console.log(ENchats)
-                   } else if (allmessages[i][j].lang === 'SP') {
-                       spanishChats.push(allmessages[i][j])
-                    
-                   } else if (allmessages[i][j].lang === 'CH') {
-                       chineseChats.push(allmessages[i][j])
-                   } 
-                }
-           }
+            
         })
-
 },[])
 
-
-
-useEffect(()=> {
-    //console.log('users :', users,'allmessages :', allmessages) 
-    //let [usersArray] = users;
-    console.log('allmsgs :', allmessages)
-    console.log(ENchats)
-}, [users, allmessages])
+// useEffect(()=> {
+//     for (var i=0; i< allmessages.length; i++ ) {
+//         for (var j=0; j< allmessages[i].length; j++ ) {
+//            if (allmessages[i][j].lang === 'EN') {
+//                englishChats.push(allmessages[i][j])
+//                setENchats(englishChats)
+//                console.log('english chats :', englishChats)
+//                console.log(ENchats)
+//            } else if (allmessages[i][j].lang === 'SP') {
+//                spanishChats.push(allmessages[i][j])
+            
+//            } else if (allmessages[i][j].lang === 'CH') {
+//                chineseChats.push(allmessages[i][j])
+//            } 
+//         }
+//    }
+//     console.log('allmsgs :', allmessages)
+//     console.log(ENchats)
+// }, [users, allmessages])
 
 const usersLoop = users.map(user => {
     return <Usercard key={user.id} username={user.username}/>
   })
-
 
 // const englishChatRoom = ENchats.map(chat=> {
 //             return <p key={chat.chat_id}>{chat.text}</p>
@@ -173,15 +180,16 @@ const usersLoop = users.map(user => {
         <div
             className="message_area"
         >
-            {/* <input
-                type='text'
-                placeholder='Type your message here!'
-                onChange={event=>setMessageInputValue(event.target.value)}
-                value={setMessageInputValue(e.target.value)}
-            > </input> 
+            <input 
+                type="text"     
+                placeholder="Type your message here"
+                value={messageInputValue}
+                onChange={event=>setMessageInputValue(event.target.value)}> 
+            </input>
             <button
-                onClick={postMessage}
-            >post</button> */}
+                onClick={postMsg}
+            >post</button> 
+
         </div>
 
       </div>
@@ -192,5 +200,5 @@ const usersLoop = users.map(user => {
   </div>
 }
 
-//a 'see all chats' button
+//massage data on the server side first, then return to client and set in state  ?
 //a 'post my chat' button 

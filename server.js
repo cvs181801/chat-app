@@ -44,8 +44,8 @@ app.get(`/api/users`, function (req, res) {
 
 
 app.get(`/api/messages`, function(req, res) {
-    const {search} = req.query;
-    console.log(search)
+    const {text} = req.query;
+    console.log(text)
     res.send(
                 [
                     [
@@ -108,6 +108,9 @@ app.get(`/api/messages`, function(req, res) {
                             user_id: 2,
                             text: "我从 中国 来。",
                             lang: 'CH'
+                        },
+                        {
+                            message: `${text}`
                         }
                     ]
 
