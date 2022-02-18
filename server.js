@@ -21,22 +21,33 @@ app.listen(port);
 //
 
 app.get(`/api/users`, function (req, res) {
+    let {reg} = req.query;
+    console.log(reg)
     res.send(
                 [
                     {
                         "id": 1,
+                        "screenname": "frogman",
                         "username": "green123",
                         "password": "hatsoff"
                     },
                     {
                         "id": 2,
+                        "screenname": "crazycodegurl",
                         "username": "SammieGurl",
                         "password": "hacktheplanet24" 
                     },
                     {
                         "id": 3,
+                        "screenname": "veganhippie",
                         "username": "TacoTownLover",
                         "password": "tacos_forever"    
+                    },
+                    {
+                        "id": 4,
+                        "screenname": `${reg}`,
+                        "username": "notausername",
+                        "password": "notapassword" 
                     }
                 ]
             )
