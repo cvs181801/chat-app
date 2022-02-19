@@ -2,8 +2,7 @@ const express = require('express')
 const axios = require('axios')
 const app = express()
 const path = require('path')
-const port = 3000;
-const cors = require("cors")
+//const port = 3001;
 
 app.use('/', express.static(path.join(__dirname, "client", "build")));
 
@@ -17,7 +16,10 @@ app.get('/', (req, res) => {
 // if (port == null || port == "") {
 //   port = 8000;
 // }
-app.listen(port);
+
+app.listen(process.env.PORT || 3000);
+
+//app.listen(port);
 
 app.get(`/api/users`, function (req, res) {
     let {reg} = req.query;
@@ -51,6 +53,14 @@ app.get(`/api/users`, function (req, res) {
                     // }
                 ]
             )
+})
+
+app.post(`/api/users`, function(req, res) { 
+    console.log('received!!')
+    console.log(req.body)
+    let {username, password} = req.body;
+    console.log(username, password)
+    res.send([username, password]);
 })
 
 

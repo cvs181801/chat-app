@@ -9,18 +9,7 @@ const [passwordInputValue, setPasswordInputValue] = useState('');
 const [loggedIn, setLoggedIn] = useState(false);
 const [error, setError] = useState('');
 
-
-async function login() {  
-    try {
-        var search = await axios.get(`api/users/${usernameInputValue}`)
-        return search
-    }
-    catch(err){
-        console.log(err)
-    }
-}
-
-async function getUsers() {
+async function login() {
     try {
         var search = await axios.get('api/users')
         return search
@@ -33,8 +22,12 @@ async function getUsers() {
 function handleClick(event) {
     event.preventDefault();
     if (usernameInputValue !== "" && passwordInputValue !== "" ) {
-        setError(false);
-        setLoggedIn(true);
+        login()
+            .then(res=>{
+                console.log(res.data)
+            })
+       // setError(false);
+       // setLoggedIn(true);
     } else {
         setError('User not found...please try again.')
     }
