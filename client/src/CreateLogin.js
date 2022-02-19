@@ -4,41 +4,27 @@ import axios from 'axios';
 
 export default function CreateLogin() {
 
-const [screenname, setScreenname] = useState('')
 const [username, setUsername] = useState('')
 const [password, setPassword] = useState('')
 
-async function createUser() {
-    try {
-        const response = await axios.get(`/api/users?reg=${screenname}/${username}/${password}`) 
-        return response;
-    }
-    catch(err) {
-        console.log(err)
-    }
+const registration = {
+  username: username,
+  password: password
 }
 
 function handleSubmit(event) { 
   event.preventDefault()
-  createUser()
-  .then(res=>{
-    console.log(res.data)
-  })
+    axios.post(`/api/users`, registration) 
+      .then(res=>{
+        console.log(res)
+      })
 }
 
   return <div>
     <form
       onSubmit={handleSubmit}
     >
-       <label>Choose a screen name:</label>
-       <input 
-          type="text"
-          placeholder="choose a screenname"
-          onChange={event=>setScreenname(event.target.value)}
-          value={screenname}
-
-       ></input>  
-       <label>Login username:</label>
+       <label>Login username (this will also be your screen name): </label>
        <input 
           type="text"
           placeholder="login username"
@@ -63,5 +49,3 @@ function handleSubmit(event) {
       </Link>
   </div>;
 }
-//create mock 'create your login' functionality
-//draft up tables

@@ -3,8 +3,11 @@ const axios = require('axios')
 const app = express()
 const path = require('path')
 const port = 3000;
+const cors = require("cors")
 
 app.use('/', express.static(path.join(__dirname, "client", "build")));
+
+app.use(express.json())
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
@@ -15,10 +18,6 @@ app.get('/', (req, res) => {
 //   port = 8000;
 // }
 app.listen(port);
-
-//data arrays/objects goes here
-//when moving the objects over here, ...the client needs to request the deata from an endpoint on server where data lives
-//
 
 app.get(`/api/users`, function (req, res) {
     let {reg} = req.query;
@@ -42,13 +41,14 @@ app.get(`/api/users`, function (req, res) {
                         "screenname": "veganhippie",
                         "username": "TacoTownLover",
                         "password": "tacos_forever"    
-                    },
-                    {
-                        "id": 4,
-                        "screenname": `${reg}`,
-                        "username": "notausername",
-                        "password": "notapassword" 
                     }
+                    // ,
+                    // {
+                    //     "id": 4,
+                    //     "screenname": `${reg}`,
+                    //     "username": "notausername",
+                    //     "password": "notapassword" 
+                    // }
                 ]
             )
 })
