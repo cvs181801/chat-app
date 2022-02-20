@@ -2,7 +2,24 @@ const express = require('express')
 const axios = require('axios')
 const app = express()
 const path = require('path')
-//const port = 3001;
+
+require("dotenv").config();
+
+const Pool = require('pg').Pool;
+
+const pool = new Pool({
+    user: `${process.env.USER}`,
+    password: `${process.env.PASSWORD}`,
+    host: `${process.env.HOST}`,
+    port: 5432,
+    database: `${process.env.DATABASE}`
+})
+
+pool.query('SELECT * FROM users', (err, res) => {
+    console.log(err, res)
+    pool.end()
+  })
+
 
 app.use('/', express.static(path.join(__dirname, "client", "build")));
 
@@ -12,14 +29,8 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
 
-// let port = process.env.PORT;
-// if (port == null || port == "") {
-//   port = 8000;
-// }
-
 app.listen(process.env.PORT || 3000);
 
-//app.listen(port);
 
 app.get(`/api/users`, function (req, res) {
     let {reg} = req.query;
