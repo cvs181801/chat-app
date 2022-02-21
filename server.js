@@ -129,8 +129,11 @@ app.post(`/api/messages`, async (req, res)=> {
     let {text} = req.body;
     console.log(text)
     try {
-        const newMessage = await pool.query(`INSERT INTO messages(text, user_id, created_at) VALUES (${text}, 2, February 21 2022)`);
-        res.send(`hi post req!`)
+        const newMessage =  await pool.query(`INSERT INTO messages(text, user_id, created_at) VALUES ($1, $2, $3) RETURNING *`, 
+            [`${text}`, 2, `February 21 2022` ]);// (err, res)=>{console.log(res)});
+        //res.send(`hi post req!`)
+        console.log(newMessage)
+        res.json(newMessage.rows[0]);
     } catch(err) {
         console.log(err)
     }  
