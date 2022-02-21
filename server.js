@@ -81,9 +81,9 @@ app.post(`/api/users`, function(req, res) {
 
 
 app.get(`/api/messages`, async (req, res)=> {
-    //let {text} = req.query;
+    let {text} = req.query;
     //text="hiiiii";
-    //console.log(text)
+    console.log(text)
     try {
         const messages = await pool.query('SELECT text FROM messages')
         console.log(messages.rows)
@@ -124,3 +124,34 @@ app.get(`/api/messages`, async (req, res)=> {
    
 })
 
+app.post(`/api/messages`, async (req, res)=> {
+    console.log(req.body)
+    let {text} = req.body;
+    console.log(text)
+    try {
+        const newMessage = await pool.query(`INSERT INTO messages(text, user_id, created_at) VALUES (${text}, 2, February 21 2022)`);
+        res.send(`hi post req!`)
+    } catch(err) {
+        console.log(err)
+    }  
+})
+
+// router.post("/messages", async (req, res) => {
+//     const { id, text, userName } = req.body;
+//     const date = new Date();
+//     const io = req.app.get("socketio");
+  
+//     try {
+//       const newMessage = await pool.query(
+//         "INSERT INTO messages(messages_text, created_date, user_id) VALUES($1, $2, $3) RETURNING *",
+//         [text, date, id]
+//       );
+  
+//       // add firstname to object below coming from req.body
+//       io.emit("receive-message", { firstname: userName, messages_text: text });
+  
+//       res.json(newMessage.rows[0]);
+//     } catch (err) {
+//       res.status(500).send(err.message);
+//     }
+//   });

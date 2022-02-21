@@ -10,19 +10,8 @@ const [allmessages, setAllMessages] = useState([])
 
 const [users, setUsers] = useState([])
 
-async function postMyMessage() { 
-    try { 
-        var search = await axios.get(`/api/messages?text=${messageInputValue}`)
-        return search;
-
-        }
-        catch(err){
-            console.log(err)
-        }
-    }
-
 function postMsg() {
-    postMyMessage()
+    axios.post(`/api/messages`, `${messageInputValue}`)
         .then(res => {
             console.log(res.data)
     })
