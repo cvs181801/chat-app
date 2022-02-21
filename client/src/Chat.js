@@ -5,9 +5,6 @@ import axios from 'axios'
 
 export default function Chat() {
 
-const [englishtabclass, setEnglishtabclass] = useState('activeTab')
-const [spanishtabclass, setSpanishtabclass] = useState('inactiveTab')
-const [chinesetabclass, setChinesetabclass] = useState('inactiveTab')
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
 
@@ -50,7 +47,7 @@ useEffect(()=> {
     async function getMessages() {
         try {
             const response = await axios.get('api/messages')
-            console.log(response.data)
+            console.log('all messages :', response.data)
             setAllMessages(response.data)
         }
         catch(err) {
@@ -84,18 +81,6 @@ const allUsers = users.map(user => {
     return <Usercard key={user.id} username={user.username}/>
   })
 
-// const englishChatRoom = ENchats.map(chat=> {
-//             return <p key={chat.chat_id}>{chat.text}</p>
-//             })    
-
-// const spanishChats = spanishChats.map(chat=> {
-//     return <p key={chat.chat_id}>{chat.text}</p>
-// })  
-
-// const chineseChats = chineseChats.map(chat=> {
-//     return <p key={chat.chat_id}>{chat.text}</p>
-// })  
-
 const allChats = allmessages.map(msg => {
     return <p key={msg.chat_id}>{msg.text}</p>
 })
@@ -113,16 +98,6 @@ const allChats = allmessages.map(msg => {
         <div
             className="chat_area"
         >
-            <button
-                onClick={openTabEnglish}
-            >English</button>
-            <button
-                onClick={openTabSpanish}
-            >Espanol</button>
-            <button
-                onClick={openTabChinese}
-            >中文</button> 
-
             <div
                 id="english"
                 className={englishtabclass}
@@ -130,20 +105,6 @@ const allChats = allmessages.map(msg => {
                 {allChats}  
                  
             </div>
-            <div
-                id="spanish"
-                className={spanishtabclass}
-             > 
-             {/* {spanishChats}  */}
-                
-            </div>
-            <div
-                id="chinese"
-                className={chinesetabclass}
-            > 
-             {/* {chineseChats}  */}
-            
-            </div> 
         </div>
 
         <div

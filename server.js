@@ -32,42 +32,47 @@ app.get('/', (req, res) => {
 
 app.listen(process.env.PORT || 3000);
 
-app.get(`/api/users`, function (req, res) {
+app.get(`/api/users`, async (req, res)=> {
     let {reg} = req.query;
     console.log(reg)
-    res.send(
-                [
-                    {
-                        "id": 1,
-                        "screenname": "frogman",
-                        "username": "green123",
-                        "password": "hatsoff"
-                    },
-                    {
-                        "id": 2,
-                        "screenname": "crazycodegurl",
-                        "username": "SammieGurl",
-                        "password": "hacktheplanet24" 
-                    },
-                    {
-                        "id": 3,
-                        "screenname": "veganhippie",
-                        "username": "TacoTownLover",
-                        "password": "tacos_forever"    
-                    }
-                    // ,
-                    // {
-                    //     "id": 4,
-                    //     "screenname": `${reg}`,
-                    //     "username": "notausername",
-                    //     "password": "notapassword" 
-                    // }
-                ]
-            )
+    try {
+        const usernames = await pool.query('SELECT username FROM users')
+        console.log(usernames.rows)
+        res.send(usernames.rows)
+                    // [
+                    //     {
+                    //         "id": 1,
+                    //         "screenname": "frogman",
+                    //         "username": "green123",
+                    //         "password": "hatsoff"
+                    //     },
+                    //     {
+                    //         "id": 2,
+                    //         "screenname": "crazycodegurl",
+                    //         "username": "SammieGurl",
+                    //         "password": "hacktheplanet24" 
+                    //     },
+                    //     {
+                    //         "id": 3,
+                    //         "screenname": "veganhippie",
+                    //         "username": "TacoTownLover",
+                    //         "password": "tacos_forever"    
+                    //     }
+                    //     // ,
+                    //     // {
+                    //     //     "id": 4,
+                    //     //     "screenname": `${reg}`,
+                    //     //     "username": "notausername",
+                    //     //     "password": "notapassword" 
+                    //     // }
+                    // ]
+                
+            } catch(err){
+                console.log(err)
+            }    
 })
 
 app.post(`/api/users`, function(req, res) { 
-    console.log('received!!')
     console.log(req.body)
     let {username, password} = req.body;
     console.log(username, password)
