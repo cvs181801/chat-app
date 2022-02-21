@@ -5,21 +5,22 @@ const path = require('path')
 
 require("dotenv").config();
 
+//console.log(process.env)
+
 const Pool = require('pg').Pool;
 
 const pool = new Pool({
-    user: `${process.env.USER}`,
-    password: `${process.env.PASSWORD}`,
-    host: `${process.env.HOST}`,
+    user: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    host: process.env.HOST,
     port: 5432,
-    database: `${process.env.DATABASE}`
+    database: process.env.DATABASE
 })
 
-pool.query('SELECT * FROM users', (err, res) => {
-    console.log(err, res)
-    pool.end()
-  })
-
+// pool.query('SELECT * FROM messages', (err, res) => {
+//     console.log(err, res)
+//     pool.end()
+//   })
 
 app.use('/', express.static(path.join(__dirname, "client", "build")));
 
@@ -30,7 +31,6 @@ app.get('/', (req, res) => {
 })
 
 app.listen(process.env.PORT || 3000);
-
 
 app.get(`/api/users`, function (req, res) {
     let {reg} = req.query;
@@ -75,83 +75,47 @@ app.post(`/api/users`, function(req, res) {
 })
 
 
-app.get(`/api/messages`, function(req, res) {
-    let {text} = req.query;
+app.get(`/api/messages`, async (req, res)=> {
+    //let {text} = req.query;
     //text="hiiiii";
-    console.log(text)
-    res.send(
-                [
-                    //[
-                       {
-                            chat_id: 4,
-                            user_id: 3,
-                            text: "hey, what's upall.",
-                            lang: 'EN'
-                        },
-                        {
-                            chat_id: 5,
-                            user_id: 3,
-                            text: "I want tacos!",
-                            lang: 'EN'
-                        },
-                        {
-                            chat_id: 6,
-                            user_id: 2,
-                            text: "??",
-                            lang: 'EN'
-                        },
-                
-                    // ],
-                    // [
-                    //     {
-                    //         chat_id: 10,
-                    //         user_id: 3,
-                    //         text: "¿Cómo te llamas?",
-                    //         lang: 'SP'
-                    //     },
-                    //     {
-                    //         chat_id: 11,
-                    //         user_id: 1,
-                    //         text: "Me llamo Kermit.",
-                    //         lang: 'SP'
-                    //     },
-                    //     {
-                    //         chat_id: 12,
-                    //         user_id: 2,
-                    //         text: "¿Me puede pasar la sal/la pimienta?",
-                    //         lang: 'SP'
-                    //     } 
-                    // ],
-
-                    //[
-                        // {
-                        //     chat_id: 7,
-                        //     user_id: 3,
-                        //     text: "你好",
-                        //     lang: 'CH'
-                        // },
-                        // {
-                        //     chat_id: 8,
-                        //     user_id: 3,
-                        //     text: "你从哪里来？",
-                        //     lang: 'CH'
-                        // },
-                        // {
-                        //     chat_id: 9,
-                        //     user_id: 2,
-                        //     text: "我从 中国 来。",
-                        //     lang: 'CH'
-                        // },
-                        {
-                           
-                            chat_id: 10,
-                            user_id: 2,
-                            text: `${text}`,
-                            lang: 'EN'
-                        }
-                    //]
-
-                ]
-    )
+    //console.log(text)
+    try {
+        const messages = await pool.query('SELECT text FROM messages')
+        console.log(messages.rows)
+        res.send(messages.rows
+            // [
+            //        {
+            //             chat_id: 4,
+            //             user_id: 3,
+            //             text: "hey, what's upall.",
+            //             lang: 'EN'
+            //         },
+            //         {
+            //             chat_id: 5,
+            //             user_id: 3,
+            //             text: "I want tacos!",
+            //             lang: 'EN'
+            //         },
+            //         {
+            //             chat_id: 6,
+            //             user_id: 2,
+            //             text: "??",
+            //             lang: 'EN'
+            //         },
+            //         {
+                       
+            //             chat_id: 10,
+            //             user_id: 2,
+            //             text: `${text}`,
+            //             lang: 'EN'
+            //         }
+            // ]
+        )
+    }
+        catch(err) {
+            res.send(err)
+            
+        }
+   
 })
 

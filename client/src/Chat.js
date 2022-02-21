@@ -10,25 +10,8 @@ const [spanishtabclass, setSpanishtabclass] = useState('inactiveTab')
 const [chinesetabclass, setChinesetabclass] = useState('inactiveTab')
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
-const [ENchats, setENchats] = useState('')
 
 const [users, setUsers] = useState([])
-
-function openTabEnglish() {
-    setEnglishtabclass('activeTab')
-    setSpanishtabclass('inactiveTab')
-    setChinesetabclass('inactiveTab')
-}
-function openTabSpanish() {
-    setEnglishtabclass('inactiveTab')
-    setSpanishtabclass('activeTab')
-    setChinesetabclass('inactiveTab')
-}
-function openTabChinese() {
-    setEnglishtabclass('inactiveTab')
-    setSpanishtabclass('inactiveTab')
-    setChinesetabclass('activeTab')
-}
 
 async function postMyMessage() { 
     try { 
@@ -47,11 +30,6 @@ function postMsg() {
             console.log(res.data)
     })
 }
-
-let englishChats = []
-let spanishChats = []
-let chineseChats = []
-
 
 useEffect(()=>{
     async function getUsers() {
@@ -72,6 +50,7 @@ useEffect(()=> {
     async function getMessages() {
         try {
             const response = await axios.get('api/messages')
+            console.log(response.data)
             setAllMessages(response.data)
         }
         catch(err) {
