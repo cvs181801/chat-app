@@ -5,15 +5,15 @@ import axios from 'axios'
 
 export default function Chat() {
 
-const [messageInputValue, setMessageInputValue] = useState('')
+const [messageInputValue, setMessageInputValue] = useState({})
 const [allmessages, setAllMessages] = useState([])
 
 const [users, setUsers] = useState([])
 
 function postMsg() {
-    axios.post(`/api/messages`, `${messageInputValue}`)
+    axios.post(`/api/messages`, `${{text: messageInputValue}}`)
         .then(res => {
-            console.log(res.data)
+            console.log("yes!", res.data)
     })
 }
 

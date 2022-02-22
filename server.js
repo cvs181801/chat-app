@@ -5,8 +5,6 @@ const path = require('path')
 
 require("dotenv").config();
 
-//console.log(process.env)
-
 const Pool = require('pg').Pool;
 
 const pool = new Pool({
@@ -34,10 +32,10 @@ app.listen(process.env.PORT || 3000);
 
 app.get(`/api/users`, async (req, res)=> {
     let {reg} = req.query;
-    console.log(reg)
+    
     try {
         const usernames = await pool.query('SELECT username FROM users')
-        console.log(usernames.rows)
+        //console.log(usernames.rows)
         res.send(usernames.rows)
                     // [
                     //     {
@@ -73,9 +71,9 @@ app.get(`/api/users`, async (req, res)=> {
 })
 
 app.post(`/api/users`, function(req, res) { 
-    console.log(req.body)
+    //console.log(req.body)
     let {username, password} = req.body;
-    console.log(username, password)
+    //console.log(username, password)
     res.send([username, password]);
 })
 
@@ -83,10 +81,10 @@ app.post(`/api/users`, function(req, res) {
 app.get(`/api/messages`, async (req, res)=> {
     let {text} = req.query;
     //text="hiiiii";
-    console.log(text)
+    //console.log(text)
     try {
         const messages = await pool.query('SELECT text FROM messages')
-        console.log(messages.rows)
+        //console.log(messages.rows)
         res.send(messages.rows
             // [
             //        {
@@ -125,17 +123,18 @@ app.get(`/api/messages`, async (req, res)=> {
 })
 
 app.post(`/api/messages`, async (req, res)=> {
-    console.log(req.body)
+    //console.log(req.body)
     let {text} = req.body;
     console.log(text)
     try {
-        const newMessage =  await pool.query(`INSERT INTO messages(text, user_id, created_at) VALUES ($1, $2, $3) RETURNING *`, 
-            [`${text}`, 2, `February 21 2022` ]);
-        console.log(newMessage)
-        res.json(newMessage.rows[0]);
+        const newMessage =  await pool.query(`INSERT INTO messages(id, text, user_id, created_at) VALUES ($1, $2, $3, $4) RETURNING *`, 
+            [7, text, 2, `February 21 2022` ]);
+        //console.log(newMessage)
+        console.log('rows :', newMessage)
     } catch(err) {
         console.log(err)
     }  
+    res.send(newMessage.rows[0])
 })
 
 // router.post("/messages", async (req, res) => {
