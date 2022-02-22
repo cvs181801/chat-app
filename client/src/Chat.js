@@ -10,10 +10,15 @@ const [allmessages, setAllMessages] = useState([])
 
 const [users, setUsers] = useState([])
 
+const data = {
+    text: messageInputValue,
+  }
+
 function postMsg() {
-    axios.post(`/api/messages`, `${{text: messageInputValue}}`)
+    console.log(messageInputValue)
+    axios.post(`/api/messages`, data)
         .then(res => {
-            console.log("yes!", res.data)
+            console.log("success!", res.data)
     })
 }
 

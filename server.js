@@ -86,33 +86,6 @@ app.get(`/api/messages`, async (req, res)=> {
         const messages = await pool.query('SELECT text FROM messages')
         //console.log(messages.rows)
         res.send(messages.rows
-            // [
-            //        {
-            //             chat_id: 4,
-            //             user_id: 3,
-            //             text: "hey, what's upall.",
-            //             lang: 'EN'
-            //         },
-            //         {
-            //             chat_id: 5,
-            //             user_id: 3,
-            //             text: "I want tacos!",
-            //             lang: 'EN'
-            //         },
-            //         {
-            //             chat_id: 6,
-            //             user_id: 2,
-            //             text: "??",
-            //             lang: 'EN'
-            //         },
-            //         {
-                       
-            //             chat_id: 10,
-            //             user_id: 2,
-            //             text: `${text}`,
-            //             lang: 'EN'
-            //         }
-            // ]
         )
     }
         catch(err) {
@@ -123,36 +96,19 @@ app.get(`/api/messages`, async (req, res)=> {
 })
 
 app.post(`/api/messages`, async (req, res)=> {
-    //console.log(req.body)
-    let {text} = req.body;
-    console.log(text)
+    console.log(req.body)
+    //let {text} = req.body;
+    //console.log(text)
     try {
         const newMessage =  await pool.query(`INSERT INTO messages(id, text, user_id, created_at) VALUES ($1, $2, $3, $4) RETURNING *`, 
-            [7, text, 2, `February 21 2022` ]);
+            [7, 'hi', 2, `February 21 2022` ]);
         //console.log(newMessage)
-        console.log('rows :', newMessage)
+        console.log('message', newMessage)
+        console.log('rows :', newMessage.rows[0])
     } catch(err) {
         console.log(err)
     }  
-    res.send(newMessage.rows[0])
+    // res.send(newMessage.rows[0])
+    res.send('posted!')
 })
 
-// router.post("/messages", async (req, res) => {
-//     const { id, text, userName } = req.body;
-//     const date = new Date();
-//     const io = req.app.get("socketio");
-  
-//     try {
-//       const newMessage = await pool.query(
-//         "INSERT INTO messages(messages_text, created_date, user_id) VALUES($1, $2, $3) RETURNING *",
-//         [text, date, id]
-//       );
-  
-//       // add firstname to object below coming from req.body
-//       io.emit("receive-message", { firstname: userName, messages_text: text });
-  
-//       res.json(newMessage.rows[0]);
-//     } catch (err) {
-//       res.status(500).send(err.message);
-//     }
-//   });
