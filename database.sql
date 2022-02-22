@@ -1,16 +1,16 @@
 CREATE DATABASE chat_app_db;
 
 CREATE TABLE users(
-    id SERIAL PRIMARY KEY,
-    username TEXT,
-    password TEXT
+    id uuid DEFAULT public.uuid_generate_v4 () NOT NULL,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL
     );
 
 CREATE TABLE messages(
-    id SERIAL PRIMARY KEY,
+    id uuid DEFAULT public.uuid_generate_v4 () NOT NULL,
 	text TEXT,
     user_id int REFERENCES users(id),
-    created_at DATE
+    created_at timestamp without time zone DEFAULT now() NOT NULL
     );
 
 INSERT INTO users(id, username, password) 

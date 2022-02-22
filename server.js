@@ -96,19 +96,26 @@ app.get(`/api/messages`, async (req, res)=> {
 })
 
 app.post(`/api/messages`, async (req, res)=> {
-    console.log(req.body)
-    //let {text} = req.body;
-    //console.log(text)
+    //console.log(req.body)
+    let {text} = req.body;
+    console.log(text)
     try {
-        const newMessage =  await pool.query(`INSERT INTO messages(id, text, user_id, created_at) VALUES ($1, $2, $3, $4) RETURNING *`, 
-            [7, 'hi', 2, `February 21 2022` ]);
+        const newMessage =  await pool.query(`INSERT INTO messages(text) VALUES ($1) RETURNING *`, 
+            [text]);
         //console.log(newMessage)
         console.log('message', newMessage)
         console.log('rows :', newMessage.rows[0])
+        res.send(newMessage.rows[0])
     } catch(err) {
         console.log(err)
     }  
-    // res.send(newMessage.rows[0])
-    res.send('posted!')
+    
+    // res.send('posted!')
 })
 
+//this is the line of code needed to get node to route the user to the correct page w/o needing to go back through the home page
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Client', 'build', 'index.html'));
+  });
+
+  ///ALTER TABLE tableA ALTER COLUMN colA SET DATA TYPE UUID USING (uuid_generate_v4());

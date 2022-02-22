@@ -10,16 +10,13 @@ const [allmessages, setAllMessages] = useState([])
 
 const [users, setUsers] = useState([])
 
-const data = {
-    text: messageInputValue,
-  }
-
 function postMsg() {
+    const data = {
+        text: messageInputValue,
+      }
     console.log(messageInputValue)
-    axios.post(`/api/messages`, data)
-        .then(res => {
-            console.log("success!", res.data)
-    })
+    const response = axios.post(`/api/messages`, data);
+    console.log(response.data)
 }
 
 useEffect(()=>{
@@ -94,7 +91,7 @@ const allChats = allmessages.map(msg => {
         >
             <div
                 id="english"
-                className={englishtabclass}
+                //className={englishtabclass}
              >
                 {allChats}  
                  
