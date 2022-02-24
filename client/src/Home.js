@@ -25,9 +25,16 @@ function handleClick(event) {
         login()
             .then(res=>{
                 console.log(res.data)
+                if (res.data[0].username === usernameInputValue && res.data[0].password === passwordInputValue) {
+                    setError(false);
+                    setLoggedIn(true);
+                    console.log('login , yes', res.data[0].username, usernameInputValue)
+                } else {
+                    setError(true);
+                    setLoggedIn(false);
+                    console.log('login, no', res.data[0].password, passwordInputValue)
+                }
             })
-       // setError(false);
-       // setLoggedIn(true);
     } else {
         setError('User not found...please try again.')
     }

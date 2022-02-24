@@ -34,7 +34,7 @@ app.get(`/api/users`, async (req, res)=> {
     let {reg} = req.query;
     
     try {
-        const usernames = await pool.query('SELECT username FROM users')
+        const usernames = await pool.query('SELECT username, password FROM users')
         //console.log(usernames.rows)
         res.send(usernames.rows)
   

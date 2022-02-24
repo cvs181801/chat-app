@@ -5,9 +5,8 @@ import axios from 'axios'
 
 export default function Chat() {
 
-const [messageInputValue, setMessageInputValue] = useState({})
+const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
-
 const [users, setUsers] = useState([])
 
 function postMsg() {
