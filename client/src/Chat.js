@@ -71,9 +71,10 @@ const allUsers = users.map(user => {
     return <Usercard key={user.id} username={user.username}/>
   })
 
-const allChats = allmessages.map(msg => {
-    return <p key={msg.chat_id}>{msg.text}</p>
-})
+// const allChats = allmessages.map(msg => {
+//     return <p key={msg.chat_id}>{msg.text}</p>
+// })
+console.log(allmessages)
 
   return <div>
       <div
@@ -92,7 +93,7 @@ const allChats = allmessages.map(msg => {
                 id="english"
                 //className={englishtabclass}
              >
-                {allChats}  
+                {/* {allChats}   */}
                  
             </div>
         </div>
