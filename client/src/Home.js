@@ -11,7 +11,7 @@ const [error, setError] = useState('');
 
 async function login() {
     try {
-        var search = await axios.get('api/users')
+        var search = await axios.get('api/users') //change to POST request 
         return search
     }
     catch(err) {
@@ -25,7 +25,7 @@ function handleClick(event) {
         login()
             .then(res=>{
                 console.log(res.data)
-                if (res.data[0].username === usernameInputValue && res.data[0].password === passwordInputValue) {
+                if (res.data[0].username === usernameInputValue && res.data[0].password === passwordInputValue) { //and move logic to server 
                     setError(false);
                     setLoggedIn(true);
                     console.log('login , yes', res.data[0].username, usernameInputValue)

@@ -15,13 +15,12 @@ require("dotenv").config();
 //     port: 5432,
 //     database: process.env.DATABASE
 // })
+app.use(express.json())
 
 app.use('/', express.static(path.join(__dirname, "client", "build")));
 app.use("/api", require("./routes/authRoutes"));
 app.use("/api", require("./routes/userRoutes"));
 app.use("/api", require("./routes/messageRoutes"));
-
-app.use(express.json())
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
@@ -35,13 +34,12 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'Client', 'build', 'index.html'));
   });
 
- //how to re-render just the new messages when user posts a new one, so you can see the new one 
+ //how to re-render just the new messages when user posts a new one, so you can see the new one ***** create a GET request  to pass back to URL of the newly created msg in hTTP header!
  //how to prevent any passwords from coming to the client? JWT?
  //create a way to see which user posts which messages based on login.  ?
  //a way to see who is currently logged in
  //socket.io
  //modular design?
- //separate route files?
  //bootstrap / styling
 
  //user gets a JWT to login

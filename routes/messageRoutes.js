@@ -1,5 +1,4 @@
 const express = require('express')
-const app = express()
 //const pool = require('pg').Pool;
 const pool = require('../db-pool')
 
@@ -8,9 +7,9 @@ const pool = require('../db-pool')
 const router = express.Router();
 
 router.post(`/messages`, async (req, res)=> {
-    //console.log(req.body)
+    console.log(req.body)
     let {text} = req.body;
-    console.log(text)
+   // console.log(text)
     try {
         const newMessage =  await pool.query(`INSERT INTO messages(text) VALUES ($1) RETURNING *`, 
             [text]);

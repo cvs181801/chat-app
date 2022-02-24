@@ -6,7 +6,7 @@ const app = express()
 //const pool = new Pool()
 const router = express.Router();
 const pool = require('../db-pool')
-console.log(pool);
+//console.log(pool);
 
 router.get(`/users`, async (req, res)=> {
     try {
@@ -15,7 +15,7 @@ router.get(`/users`, async (req, res)=> {
         res.send(usernames.rows)
         } 
     catch(err) {
-                console.log(err)
+            console.log(err)
             }    
 })
 
