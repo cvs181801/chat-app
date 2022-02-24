@@ -37,44 +37,10 @@ app.get(`/api/users`, async (req, res)=> {
         const usernames = await pool.query('SELECT username FROM users')
         //console.log(usernames.rows)
         res.send(usernames.rows)
-                    // [
-                    //     {
-                    //         "id": 1,
-                    //         "screenname": "frogman",
-                    //         "username": "green123",
-                    //         "password": "hatsoff"
-                    //     },
-                    //     {
-                    //         "id": 2,
-                    //         "screenname": "crazycodegurl",
-                    //         "username": "SammieGurl",
-                    //         "password": "hacktheplanet24" 
-                    //     },
-                    //     {
-                    //         "id": 3,
-                    //         "screenname": "veganhippie",
-                    //         "username": "TacoTownLover",
-                    //         "password": "tacos_forever"    
-                    //     }
-                    //     // ,
-                    //     // {
-                    //     //     "id": 4,
-                    //     //     "screenname": `${reg}`,
-                    //     //     "username": "notausername",
-                    //     //     "password": "notapassword" 
-                    //     // }
-                    // ]
-                
+  
             } catch(err){
                 console.log(err)
             }    
-})
-
-app.post(`/api/users`, function(req, res) { 
-    //console.log(req.body)
-    let {username, password} = req.body;
-    //console.log(username, password)
-    res.send([username, password]);
 })
 
 
@@ -93,6 +59,21 @@ app.get(`/api/messages`, async (req, res)=> {
             
         }
    
+})
+app.post(`/api/users`, async (req, res)=> { 
+    //console.log(req.body)
+    let {username, password} = req.body;
+    console.log(username, password)
+    try{
+        const newUser =  await pool.query(`INSERT INTO users(username, password) VALUES ($1, $2) RETURNING *`, 
+            [username, password]);
+            console.log('rows :', newUser.rows[0])
+            res.send(newUser.rows[0])
+    } 
+    catch(err){
+        console.log(err)
+    }
+    
 })
 
 app.post(`/api/messages`, async (req, res)=> {
@@ -118,4 +99,17 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'Client', 'build', 'index.html'));
   });
 
-  ///ALTER TABLE tableA ALTER COLUMN colA SET DATA TYPE UUID USING (uuid_generate_v4());
+ //re-render just the new messages when user posts a new one, so you can see the new one 
+ //create a way to see which user posts which messages based on login.  ?
+ //a way to see who is currently logged in
+ //socket.io
+ //modular design?
+ //separate route files?
+ //bootstrap / styling
+
+ //user gets a JWT to login
+ //if not logged in, they cannot access chat room. Only home page.
+
+ //SQL injection attack and XSS attack and write blog post
+
+ 

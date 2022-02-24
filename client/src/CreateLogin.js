@@ -1,24 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Link} from "react-router-dom"
 import axios from 'axios';
-//const cors = require("cors")
 
 export default function CreateLogin() {
 
 const [username, setUsername] = useState('')
 const [password, setPassword] = useState('')
 
-const registration = {
-  username: `${username}`,
-  password: `${password}`
-}
-
-function handleSubmit(event) { 
-  event.preventDefault()
-    axios.post(`/api/users`, registration) 
-      .then(res=>{
-        console.log(res.data)
-      })
+function handleSubmit(event) {
+  event.preventDefault() 
+  const registration = {
+    username: username,
+    password: password
+  }
+    const response = axios.post(`/api/users`, registration) 
+    console.log(response)
 }
 
   return <div>
