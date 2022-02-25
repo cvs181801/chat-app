@@ -35,12 +35,12 @@ router.post(`/login`, (req, res)=> {
     pool.query(loginQuery, (err, res)=> {
         if (err) {
             console.log(err.stack)
+            res.send('Login not found - please try again.')
         } else {
             console.log(res.rows[0])
-            //res.send(res.rows[0])
+            res.send('successfully logged in!')
         }    
     })
-    res.send(res.rows[0])
 })
 
 module.exports = router;
