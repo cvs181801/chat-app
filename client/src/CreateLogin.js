@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom"
 import axios from 'axios';
 
@@ -6,16 +6,36 @@ export default function CreateLogin() {
 
 const [username, setUsername] = useState('')
 const [password, setPassword] = useState('')
+const [confirmMsg, setConfirmMsg] = useState('')
+const [confirmed, setConfirmed] = useState(false);
+const [screenname, setScreenname] = useState('')
+
+const registration = {
+  username: username,
+  password: password
+}
+
+async function addNewUser() {
+  const response = await axios.post(`/api/login`, registration) 
+  //setScreenname(response.data)
+  return response
+}
 
 function handleSubmit(event) {
   event.preventDefault() 
-  const registration = {
-    username: username,
-    password: password
-  }
-    const response = axios.post(`/api/users`, registration) 
-    console.log(response)
+    addNewUser()
+      .then(response => {
+        console.log(response.data)
+        setScreenname(response.data)
+        setConfirmed(true)
+      })
 }
+
+useEffect(()=> {
+  if(confirmed) {
+    setConfirmMsg(`Welcome, ${screenname}!  You may now log in.`)
+  }
+},[confirmed])
 
   return <div>
     <form
@@ -40,6 +60,8 @@ function handleSubmit(event) {
        >Register</button> 
        
     </form>
+
+    {confirmed ? confirmMsg : ''}
       <Link to="/"
             className= "nav_link">
                 Log In

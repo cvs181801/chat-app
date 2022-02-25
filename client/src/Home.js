@@ -11,7 +11,7 @@ const [error, setError] = useState('');
 
 async function login() {
     try {
-        var search = await axios.get('api/users') //change to POST request 
+        var search = await axios.post('api/users')
         return search
     }
     catch(err) {
