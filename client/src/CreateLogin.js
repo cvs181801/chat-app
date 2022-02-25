@@ -16,8 +16,7 @@ const registration = {
 }
 
 async function addNewUser() {
-  const response = await axios.post(`/api/login`, registration) 
-  //setScreenname(response.data)
+  const response = await axios.post(`/api/register`, registration) 
   return response
 }
 

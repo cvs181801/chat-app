@@ -9,9 +9,14 @@ const [passwordInputValue, setPasswordInputValue] = useState('');
 const [loggedIn, setLoggedIn] = useState(false);
 const [error, setError] = useState('');
 
+const loginObj = {
+    username: usernameInputValue,
+    password: passwordInputValue
+}
+
 async function login() {
     try {
-        var search = await axios.post('api/users')
+        var search = await axios.post('api/login', loginObj)
         return search
     }
     catch(err) {
@@ -25,15 +30,15 @@ function handleClick(event) {
         login()
             .then(res=>{
                 console.log(res.data)
-                if (res.data[0].username === usernameInputValue && res.data[0].password === passwordInputValue) { //and move logic to server 
-                    setError(false);
-                    setLoggedIn(true);
-                    console.log('login , yes', res.data[0].username, usernameInputValue)
-                } else {
-                    setError(true);
-                    setLoggedIn(false);
-                    console.log('login, no', res.data[0].password, passwordInputValue)
-                }
+                // if (res.data[0].username === usernameInputValue && res.data[0].password === passwordInputValue) { //and move logic to server 
+                //     setError(false);
+                //     setLoggedIn(true);
+                //     console.log('login , yes', res.data[0].username, usernameInputValue)
+                // } else {
+                //     setError(true);
+                //     setLoggedIn(false);
+                //     console.log('login, no', res.data[0].password, passwordInputValue)
+                // }
             })
     } else {
         setError('User not found...please try again.')
