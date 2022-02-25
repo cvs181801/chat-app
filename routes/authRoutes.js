@@ -28,8 +28,8 @@ router.post(`/login`, (req, res)=> {
 
     const loginQuery = {
         name: "select-user",
-        text: 'SELECT username FROM users WHERE password = $1',
-        values: [password]
+        text: 'SELECT username FROM users WHERE username = $1 AND password = $2',
+        values: [username, password]
     }
 
     pool.query(loginQuery, (err, res)=> {
