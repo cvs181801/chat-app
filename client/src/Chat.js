@@ -19,9 +19,27 @@ function postMsg() {
     console.log(messageInputValue)
     const response = axios.post(`/api/messages`, data);
     console.log(response)
-    //getNewMessages() 
     setNewMsgQueued(true)
 }
+
+// const loginObj = {
+//     username: usernameInputValue,
+//     password: passwordInputValue
+// }
+
+// function logOut() {
+//     async function login() {
+//         try {
+//             var search = await axios.post('api/login', loginObj)
+//             return search
+//         }
+//         catch(err) {
+//             console.log(err)
+//         }
+//     }
+// }
+
+//the log out button runs the function which calls the route to update that users' isloggedin from true to false
 
 useEffect(()=>{
     async function getUsers() {
@@ -132,10 +150,13 @@ console.log(allmessages)
         </div>
 
       </div>
-      <Link to="/"
+      {/* <Link to="/"
             className= "nav_link">
                 Log Out
-      </Link>
+      </Link> */}
+      <button
+        onClick={logOut}
+      >Log Out</button>
   </div>
 }
 
