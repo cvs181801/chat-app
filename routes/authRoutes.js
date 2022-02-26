@@ -28,19 +28,26 @@ router.post(`/login`, (req, res)=> {
 
     const loginQuery = {
         name: "select-user",
-        text: 'SELECT username FROM users WHERE username = $1 AND password = $2',
-        values: [username, password]
-    }
-
-    pool.query(loginQuery, (err, res)=> {
-        if (err) {
-            console.log(err.stack)
-            res.send('Login not found - please try again.')
-        } else {
-            console.log(res.rows[0])
-            res.send('successfully logged in!')
-        }    
-    })
+        text: 'SELECT * FROM users WHERE username = $1',
+        values: [username]
+    }  
+    
+    pool
+        .query(loginQuery)
+        .then((res)=>{
+            console.log(res.rows[0].username)
+            if(res.rows[0].password == password) {
+                console.log('Welcome back!')
+                //res.send('Welcome back!')
+            } else {
+                console.log('Please try re-entering your password, or re-set your password here.')
+                //res.send('Please try re-entering your password, or re-set your password here.')
+            }
+        })
+        .catch((e)=>{
+            console.error(e.stack)
+            res.send(['Username not found. Please try again.', e.stack])
+        })
 })
 
 module.exports = router;
