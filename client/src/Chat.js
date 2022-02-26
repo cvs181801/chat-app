@@ -8,14 +8,19 @@ export default function Chat() {
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
 const [users, setUsers] = useState([])
+const [newMsgQueued, setNewMsgQueued] = useState(false)
 
 function postMsg() {
+    messageInputValue('')
+    setNewMsgQueued(false)
     const data = {
         text: messageInputValue,
       }
     console.log(messageInputValue)
     const response = axios.post(`/api/messages`, data);
-    console.log(response.data)
+    console.log(response)
+    //getNewMessages() 
+    setNewMsgQueued(true)
 }
 
 useEffect(()=>{
@@ -29,8 +34,7 @@ useEffect(()=>{
         }
     }
 
-    getUsers();
-    
+    getUsers(); 
 },[])
 
 useEffect(()=> {
@@ -46,6 +50,20 @@ useEffect(()=> {
     }
     getMessages();
 }, [])
+
+useEffect(()=>{
+    async function getNewMessages() {
+        try {
+            const response = await axios.get('api/messages')
+            console.log('all messages :', response.data)
+            setAllMessages(response.data)
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+    getNewMessages();
+},[newMsgQueued])
 
 // useEffect(()=> {
 //     for (var i=0; i< allmessages.length; i++ ) {

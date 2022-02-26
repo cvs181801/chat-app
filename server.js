@@ -35,17 +35,15 @@ app.get('/*', (req, res) => {
   });
 
  //how to re-render just the new messages when user posts a new one, so you can see the new one ***** create a GET request  to pass back to URL of the newly created msg in hTTP header!
+ //local storage
+ //a way to prevent user viewing as a guest (aka not logged in) to not be able to post a message until they are logged in. OR  if not logged in, they cannot access chat room. Only home page.
  // JWT?
  //create a way to see which user posts which messages based on login.  ?
  //a way to see who is currently logged in
  //socket.io
  //modular design?
- //hashing passwords - bcrypt
  //bootstrap / styling
  //create a prevention method to prevent users from creating the same username - must be unique
-
- //user gets a JWT to login
- //if not logged in, they cannot access chat room. Only home page.
 
  //SQL injection attack and XSS attack and write blog post
  //timing attacks ?
