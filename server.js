@@ -34,7 +34,7 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'Client', 'build', 'index.html'));
   });
 
- //how to re-render just the new messages when user posts a new one, so you can see the new one ***** create a GET request  to pass back to URL of the newly created msg in hTTP header!
+
  //local storage
  //a way to prevent user viewing as a guest (aka not logged in) to not be able to post a message until they are logged in. OR  if not logged in, they cannot access chat room. Only home page.
  // JWT?

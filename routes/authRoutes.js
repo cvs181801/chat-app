@@ -49,8 +49,12 @@ router.post(`/login`, async (req, res)=> {
             console.log(loginResponse1.rows[0].hash)
             const hash = loginResponse1.rows[0].hash;
             bcrypt.compare(password, hash, function(err, result) {
+                const loggedInNow = true;
                 if(result == true) {
-                    res.send("welcome back!")
+                    const logInBool = pool.query(`UPDATE users SET isloggedin = $2 WHERE username = $1 RETURNING *`, 
+                    [username,loggedInNow]);
+                    console.log(loginResponse1.rows[0].isloggedin)
+                    res.send(["Welcome back!", loginResponse1.rows[0].username, loginResponse1.rows[0].isloggedin])
                 } else {
                     console.log(err)
                 }
@@ -64,7 +68,6 @@ router.post(`/login`, async (req, res)=> {
         console.error(e.stack)
         res.send(["Something went wrong.  Please try again.", e.stack])
     }
-
 })
 
 module.exports = router;
