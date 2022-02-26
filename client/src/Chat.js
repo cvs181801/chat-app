@@ -11,7 +11,7 @@ const [users, setUsers] = useState([])
 const [newMsgQueued, setNewMsgQueued] = useState(false)
 
 function postMsg() {
-    messageInputValue('')
+    setMessageInputValue('')
     setNewMsgQueued(false)
     const data = {
         text: messageInputValue,
