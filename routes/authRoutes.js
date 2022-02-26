@@ -31,7 +31,6 @@ router.post(`/register`, (req, res)=> {
     }
 })
 
-
 router.post(`/login`, async (req, res)=> {
     console.log(req.body)
     let {username, password} = req.body;
@@ -46,7 +45,7 @@ router.post(`/login`, async (req, res)=> {
     try {
         const loginResponse1 = await pool.query(loginQuery);
         if (loginResponse1.rows[0].password === password) {
-            console.log(loginResponse1.rows[0].hash)
+            //console.log(loginResponse1.rows[0].hash)
             const hash = loginResponse1.rows[0].hash;
             bcrypt.compare(password, hash, function(err, result) {
                 const loggedInNow = true;
@@ -67,6 +66,23 @@ router.post(`/login`, async (req, res)=> {
     } catch(e) {
         console.error(e.stack)
         res.send(["Something went wrong.  Please try again.", e.stack])
+    }
+})
+
+router.post(`/logout`, async (req, res)=> {
+    console.log(req.body)
+    let {username, isloggedin} = req.body;
+    console.log(username, isloggedin)
+    
+    try {     
+        const logOutNow = !isloggedin;
+        const logOutBool = await pool.query(`UPDATE users SET isloggedin = $2 WHERE username = $1 RETURNING *`, 
+        [username,logOutNow]);
+        console.log('logoutbool', logOutBool.rows[0].username, logOutBool.rows[0].isloggedin)
+        res.send('See you later!' )
+    }
+    catch(err) {
+        console.log(err)
     }
 })
 

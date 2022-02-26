@@ -22,24 +22,23 @@ function postMsg() {
     setNewMsgQueued(true)
 }
 
-// const loginObj = {
-//     username: usernameInputValue,
-//     password: passwordInputValue
-// }
+const logoutObj = {
+    username: 'hoopla',
+    isloggedin: true
+}
 
-// function logOut() {
-//     async function login() {
-//         try {
-//             var search = await axios.post('api/login', loginObj)
-//             return search
-//         }
-//         catch(err) {
-//             console.log(err)
-//         }
-//     }
-// }
-
-//the log out button runs the function which calls the route to update that users' isloggedin from true to false
+function logOut() {
+    async function logout() {
+        try {
+            var search = await axios.post('api/logout', logoutObj)
+            return search
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+    logout();
+}
 
 useEffect(()=>{
     async function getUsers() {
