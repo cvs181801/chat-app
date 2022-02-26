@@ -9,6 +9,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(
   <BrowserRouter>
