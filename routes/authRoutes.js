@@ -21,7 +21,7 @@ router.post(`/register`, async (req, res)=>{
 })
 
 
-router.post(`/login`, (req, res)=> {
+router.post(`/login`, async (req, res)=> {
     console.log(req.body)
     let {username, password} = req.body;
     console.log(username, password)
@@ -32,22 +32,29 @@ router.post(`/login`, (req, res)=> {
         values: [username]
     }  
     
-    pool
-        .query(loginQuery)
-        .then((res)=>{
-            console.log(res.rows[0].username)
-            if(res.rows[0].password == password) {
-                console.log('Welcome back!')
-                //res.send('Welcome back!')
-            } else {
-                console.log('Please try re-entering your password, or re-set your password here.')
-                //res.send('Please try re-entering your password, or re-set your password here.')
-            }
-        })
-        .catch((e)=>{
-            console.error(e.stack)
-            res.send(['Username not found. Please try again.', e.stack])
-        })
+        const loginResponse = await pool
+            .query(loginQuery)
+            .then((res)=>{
+                console.log(res.rows[0].username)
+                if(res.rows[0].password == password) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+            .catch((e)=>{
+                console.error(e.stack)
+                //res.send(['Username not found. Please try again.', e.stack])
+                return false;
+            })
+
+    if (loginResponse) {
+        console.log('Welcome back!')
+        res.send("welcome back!")
+    } else {
+        console.log('Please try re-entering your password, or re-set your password here.')
+        res.send("Something went wrong.  Please try again.")
+    }
 })
 
 module.exports = router;
