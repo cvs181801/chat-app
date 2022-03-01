@@ -4,12 +4,15 @@ import Usercard from './Usercard'
 import axios from 'axios'
 import { io } from "socket.io-client";
 
+const socket = io();
+
 export default function Chat() {
 
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
 const [users, setUsers] = useState([])
 const [newMsgQueued, setNewMsgQueued] = useState(false)
+const [newUserJoined, setNewUserJoined] = useState(true)
 
 function postMsg() {
     setMessageInputValue('')
@@ -29,6 +32,7 @@ const logoutObj = {
 }
 
 function logOut() {
+    setNewUserJoined(false)
     async function logout() {
         try {
             var search = await axios.post('api/logout', logoutObj)
@@ -54,6 +58,20 @@ useEffect(()=>{
 
     getUsers(); 
 },[])
+
+useEffect(()=>{
+    async function getUsers() {
+        try {
+            const response = await axios.get('api/users')
+            setUsers(response.data)
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+
+    getUsers(); 
+},[newUserJoined])
 
 useEffect(()=> {
     async function getMessages() {
@@ -82,6 +100,8 @@ useEffect(()=>{
     }
     getNewMessages();
 },[newMsgQueued])
+
+
 
 // useEffect(()=> {
 //     for (var i=0; i< allmessages.length; i++ ) {

@@ -92,7 +92,6 @@ function handleClick(event) {
                             className= "nav_link"
                             >view as a guest
                             </Link> 
-
                         </p>
                 </form>
 
@@ -102,7 +101,4 @@ function handleClick(event) {
        
 }
 
-//upon clicking 'login' , return a user id that will essentially allow the user to log in
-//that user id gets saved in local storage to allow user to log in.
-//local storage: later
-//browser router 'go' will automatically send the user to new page upon login/authentication
+

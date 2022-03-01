@@ -51,9 +51,14 @@ app.get('/*', (req, res) => {
  //create a way to see which user posts which messages based on login.  ?
  //a way to see who is currently logged in
  //socket.io
+ //use react context for storing the logged in users? as well as dark/light mode
  //modular design?
  //bootstrap / styling
  //create a prevention method to prevent users from creating the same username - must be unique
+ //upon clicking 'login' , return a user id that will essentially allow the user to log in
+//that user id gets saved in local storage to allow user to log in.
+//local storage: later
+//browser router 'go' will automatically send the user to new page upon login/authentication
 
  //SQL injection attack and XSS attack and write blog post
  //timing attacks ?
