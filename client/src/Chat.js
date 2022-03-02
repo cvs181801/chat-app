@@ -74,10 +74,14 @@ useEffect(()=>{
 },[newUserJoined])
 
 useEffect(()=> {
+    socket.on("newMessage", (data)=>{
+        setAllMessages((allMessages)=>[...allMessages, data.msg])
+        console.log(data)
+    });
     async function getMessages() {
         try {
             const response = await axios.get('api/messages')
-            console.log('all messages :', response.data)
+            //console.log('all messages :', response.data)
             setAllMessages(response.data)
         }
         catch(err) {
@@ -87,41 +91,21 @@ useEffect(()=> {
     getMessages();
 }, [])
 
-useEffect(()=>{
-    async function getNewMessages() {
-        try {
-            const response = await axios.get('api/messages')
-            console.log('all messages :', response.data)
-            setAllMessages(response.data)
-        }
-        catch(err) {
-            console.log(err)
-        }
-    }
-    getNewMessages();
-},[newMsgQueued])
 
-
-
-// useEffect(()=> {
-//     for (var i=0; i< allmessages.length; i++ ) {
-//         for (var j=0; j< allmessages[i].length; j++ ) {
-//            if (allmessages[i][j].lang === 'EN') {
-//                englishChats.push(allmessages[i][j])
-//                setENchats(englishChats)
-//                console.log('english chats :', englishChats)
-//                console.log(ENchats)
-//            } else if (allmessages[i][j].lang === 'SP') {
-//                spanishChats.push(allmessages[i][j])
-            
-//            } else if (allmessages[i][j].lang === 'CH') {
-//                chineseChats.push(allmessages[i][j])
-//            } 
+// useEffect(()=>{
+//     async function getNewMessages() {
+//         try {
+//             const response = await axios.get('api/messages')
+//             console.log('all messages :', response.data)
+//             setAllMessages(response.data)
 //         }
-//    }
-//     console.log('allmsgs :', allmessages)
-//     console.log(ENchats)
-// }, [users, allmessages])
+//         catch(err) {
+//             console.log(err)
+//         }
+//     }
+//     getNewMessages();
+// },[newMsgQueued])
+
 
 const allUsers = users.map(user => {
     return <Usercard key={user.id} username={user.username}/>

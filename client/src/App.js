@@ -2,12 +2,15 @@ import './index.css';
 import React from 'react'
 import Home from './Home.js'
 import Chat from './Chat.js'
+import Context from './Context'
 
 
 function App() {
   return (
     <div className="App">
-      <Home/>
+      <Context.Provider value ={[]}>
+        <Home/>
+      </Context.Provider>
     </div>
   );
 }

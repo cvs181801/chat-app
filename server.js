@@ -8,17 +8,8 @@ const socket = require("socket.io");
 const server = http.createServer(app);
 const io = socket(server);
 
-require("dotenv").config();
+require("dotenv").config(); 
 
-// const Pool = require('pg').Pool;
-
-// const pool = new Pool({
-//     user: process.env.USERNAME,
-//     password: process.env.PASSWORD,
-//     host: process.env.HOST,
-//     port: 5432,
-//     database: process.env.DATABASE
-// })
 app.use(express.json())
 
 app.set("socketio", io);
@@ -36,7 +27,7 @@ io.on('connection', (socket) => {
     console.log('a user connected');
   });
 
-app.listen(process.env.PORT || 3000);
+server.listen(process.env.PORT || 3000);
 
 
 //this is the line of code needed to get node to route the user to the correct page w/o needing to go back through the home page
@@ -51,6 +42,8 @@ app.get('/*', (req, res) => {
  //create a way to see which user posts which messages based on login.  ?
  //a way to see who is currently logged in
  //socket.io
+ //do not store pw in DB. set up logic for use with hashing***
+ //a foreign key for relation . user_id on msgs table.
  //use react context for storing the logged in users? as well as dark/light mode
  //modular design?
  //bootstrap / styling
