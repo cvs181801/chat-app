@@ -3,15 +3,17 @@ CREATE DATABASE chat_app_db;
 CREATE TABLE users(
     id uuid DEFAULT public.uuid_generate_v4 () NOT NULL,
     username TEXT NOT NULL,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    isloggedin boolean DEFAULT false,
+    UNIQUE (id, username)
     );
 
 CREATE TABLE messages(
-    id uuid DEFAULT public.uuid_generate_v4 () NOT NULL,
-	text TEXT,
-    user_id int REFERENCES users(id),
-    created_at timestamp without time zone DEFAULT now() NOT NULL
-    );
+    messageid SERIAL PRIMARY KEY,
+    text TEXT,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    user_id integer REFERENCES users(id) NOT NULL
+);
 
 INSERT INTO users(id, username, password) 
     VALUES
@@ -26,3 +28,5 @@ INSERT INTO messages(id, text, user_id, created_at)
         (3, 'I like clarinet', 3, February 21, 2022);
 
          --ALTER TABLE tableA ALTER COLUMN colA SET DATA TYPE UUID USING (uuid_generate_v4());
+         --CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+         --CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;

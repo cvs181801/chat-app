@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Link} from "react-router-dom"
 import axios from 'axios'
 import Context from './Context'
@@ -32,12 +32,27 @@ function handleClick(event) {
         login()
             .then(res=>{
                 console.log(res.data)
-                setLoggedInUsers(res.data.username)  //need to spread in at all ? or use socket.io?
+                //setLoggedInUsers(res.data.username)  //need to spread in at all ? or use socket.io?
             })
     } else {
         setError('User not found...please try again.')
     }
 }
+
+useEffect(()=>{
+    async function getUsers() {
+        try {
+            const response = await axios.get('api/users')
+            console.log(response.data)
+            setLoggedInUsers([response.data.username])
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+
+    getUsers(); 
+},[])
 
   return <div>
             <div className="container">
