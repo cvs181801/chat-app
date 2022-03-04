@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 //import './index.css';
-import App from './App';
-import Chat from './Chat';
-import CreateLogin from './CreateLogin';
+import App from './components/App';
+import Chat from './components/Chat';
+import CreateLogin from './components/CreateLogin'
 import {
   BrowserRouter,
   Routes,

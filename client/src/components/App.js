@@ -8,9 +8,9 @@ import UserContext from '../contexts/UserContext'
 function App() {
   return (
     <div className="App">
-      <UserContext.Provider>
+      <UserContext>
         <Home/>
-      </UserContext.Provider>
+      </UserContext>
        
       
     </div>

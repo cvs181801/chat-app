@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {Link} from "react-router-dom"
 import Usercard from './Usercard'
 import axios from 'axios'
 import { io } from "socket.io-client";
-import Context from './Context'
+import UserContext from '../contexts/UserContext'
 
 const socket = io();
 

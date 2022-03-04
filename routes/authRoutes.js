@@ -17,10 +17,10 @@ router.post(`/register`, (req, res)=> {
             bcrypt.hash(password, salt, async function(err, hash) { //adding async returns a promise! 
                 console.log('hash :', hash)
                 console.log('salt :', salt)
-                console.log(username, password)
+                //console.log(username, password)
                 
-                const newUser = await pool.query(`INSERT INTO users(username, password, hash, salt) VALUES ($1, $2, $3, $4) RETURNING *`, 
-                [username, password, hash, salt]);
+                const newUser = await pool.query(`INSERT INTO users(username, password) VALUES ($1, $2) RETURNING *`, 
+                [username, hash]);
                 console.log('user rows', newUser.rows[0])
                 res.send(newUser.rows[0].username)
             })
@@ -34,7 +34,7 @@ router.post(`/register`, (req, res)=> {
 router.post(`/login`, async (req, res)=> {
     console.log(req.body)
     let {username, password} = req.body;
-    console.log(username, password)
+    //console.log(username, password)
 
     const loginQuery = {
         name: "select-user",
@@ -46,14 +46,14 @@ router.post(`/login`, async (req, res)=> {
         const loginResponse1 = await pool.query(loginQuery);
         if (loginResponse1.rows[0].password === password) {
             //console.log(loginResponse1.rows[0].hash)
-            const hash = loginResponse1.rows[0].hash;
+            const hash = loginResponse1.rows[0].password;
             bcrypt.compare(password, hash, function(err, result) {
                 const loggedInNow = true;
                 if(result == true) {
                     const logInBool = pool.query(`UPDATE users SET isloggedin = $2 WHERE username = $1 RETURNING *`, 
                     [username,loggedInNow]);
                     console.log(loginResponse1.rows[0].isloggedin)
-                    res.send(["Welcome back!", loginResponse1.rows[0].username, loginResponse1.rows[0].isloggedin])
+                    res.send(["Welcome back!", loginResponse1.rows[0].id, loginResponse1.rows[0].username])
                 } else {
                     console.log(err)
                 }

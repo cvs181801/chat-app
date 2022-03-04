@@ -11,6 +11,7 @@ const pool = require('../db-pool')
 router.get(`/users`, async (req, res)=> {
     try {
         const usernames = await pool.query('SELECT id, username FROM users WHERE isloggedin = true')
+        console.log(usernames.rows)
         res.send(usernames.rows)
         } 
     catch(err) {
