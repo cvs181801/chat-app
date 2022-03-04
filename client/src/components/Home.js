@@ -39,9 +39,9 @@ function handleClick(event) {
     }
 }
 
-const userList = loggedInUsers.map(user=>{
-    return <p key={user.id}>{user.username}</p>
-})
+// const userList = loggedInUsers.map(user=>{
+//     return <p key={user.id}>{user.username}</p>
+// })
 
   return <div>
             <div className="container">
@@ -96,7 +96,7 @@ const userList = loggedInUsers.map(user=>{
                             </Link> 
                         </p>
                 </form>   
-               {loggedInUsers}
+               {/* {loggedInUsers} */}
 
             </div>
 

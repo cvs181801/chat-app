@@ -22,7 +22,7 @@ export default function UserContextProvider(props) {
     //         getUsers(); 
     //       },[])
   return (
-        <UserContext.Provider value={[loggedInUsers]}>
+        <UserContext.Provider value={{loggedInUsers}}>
             {props.children}
         </UserContext.Provider>
   )
