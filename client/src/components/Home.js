@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {Link} from "react-router-dom"
 import axios from 'axios'
-import Context from './Context'
+import UserContext from '../contexts/UserContext'
 
 export default function Home() {
 
@@ -9,7 +9,7 @@ const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
 const [loggedIn, setLoggedIn] = useState(false);
 const [error, setError] = useState('');
-const [loggedInUsers, setLoggedInUsers] = useState([])
+const {loggedInUsers} = useContext(UserContext)
 
 const loginObj = {
     username: usernameInputValue,
@@ -39,20 +39,9 @@ function handleClick(event) {
     }
 }
 
-useEffect(()=>{
-    async function getUsers() {
-        try {
-            const response = await axios.get('api/users')
-            console.log(response.data)
-            setLoggedInUsers([response.data.username])
-        }
-        catch(err) {
-            console.log(err)
-        }
-    }
-
-    getUsers(); 
-},[])
+const userList = loggedInUsers.map(user=>{
+    return <p key={user.id}>{user.username}</p>
+})
 
   return <div>
             <div className="container">
@@ -62,6 +51,8 @@ useEffect(()=>{
                 <p
                     className="title_login"
                 >Please Login</p>
+
+            
                 <form>
                     <div
                         className="container_input"
@@ -85,6 +76,8 @@ useEffect(()=>{
                             onClick={handleClick}
                         >Log In
                         </button>
+
+                        
                         <div>{loggedIn ? 
                             <Link to="/chat"
                             className= "nav_link"
@@ -102,11 +95,8 @@ useEffect(()=>{
                             >view as a guest
                             </Link> 
                         </p>
-                </form>
-
-                 <Context.Provider value={[loggedInUsers]}>
-                    
-                </Context.Provider> 
+                </form>   
+               {loggedInUsers}
 
             </div>
 
