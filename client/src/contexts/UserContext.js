@@ -5,22 +5,23 @@ export const UserContext = createContext()
 
 export default function UserContextProvider(props) {
     const [loggedInUsers, setLoggedInUsers] = useState([
-        {id: '123', username: 'diabla'}, {id: '456', username: 'bardot'}
+        //{id: '123', username: 'diabla'}, {id: '456', username: 'bardot'}
     ]);
-    // useEffect(()=> {
-    //         async function getUsers() {
-    //             try {
-    //                 const response = await axios.get('api/users')
-    //                 console.log(response.data)
-    //                 //setLoggedInUsers([response.data.username])
-    //             }
-    //             catch(err) {
-    //                 console.log(err)
-    //             }
-    //         }
+    console.log(loggedInUsers)
+    useEffect(()=> {
+            async function getUsers() {
+                try {
+                    const response = await axios.get('api/users')
+                    console.log(response.data)
+                    setLoggedInUsers([response.data])
+                }
+                catch(err) {
+                    console.log(err)
+                }
+            }
           
-    //         getUsers(); 
-    //       },[])
+            getUsers(); 
+          },[])
   return (
         <UserContext.Provider value={{loggedInUsers}}>
             {props.children}

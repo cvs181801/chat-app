@@ -1,15 +1,16 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {Link} from "react-router-dom"
 import axios from 'axios'
-import UserContext from '../contexts/UserContext'
+import {UserContext} from '../contexts/UserContext'
 
 export default function Home() {
-
+//console.log(props)
 const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
 const [loggedIn, setLoggedIn] = useState(false);
 const [error, setError] = useState('');
-const {loggedInUsers} = useContext(UserContext)
+const {loggedInUsers} = useContext(UserContext)  //**** 
+console.log(loggedInUsers)
 
 const loginObj = {
     username: usernameInputValue,
