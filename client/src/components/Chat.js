@@ -15,32 +15,41 @@ const [allmessages, setAllMessages] = useState([])
 //const [users, setUsers] = useState([])
 const [newMsgQueued, setNewMsgQueued] = useState(false)
 const [newUserJoined, setNewUserJoined] = useState(true)
-//const {loggedInUsers} = useContext(UserContext)  
+const [loggedInUsers, setLoggedInUsers] = useState([])
 //console.log(loggedInUsers)
 
 function postMsg() {
     setMessageInputValue('')
-    setNewMsgQueued(false)
+    //setNewMsgQueued(false)
     const data = {
         text: messageInputValue,
       }
     console.log(messageInputValue)
     const response = axios.post(`/api/messages`, data);
     console.log(response)
-    setNewMsgQueued(true)
+    //setNewMsgQueued(true)
 }
 
 const logoutObj = {
-    username: 'hoopla',
+    username: localStorage.getItem('user'),
     isloggedin: true
 }
 
 function logOut() {
-    setNewUserJoined(false)
+    //setNewUserJoined(false)
     async function logout() {
         try {
-            var search = await axios.post('api/logout', logoutObj)
-            return search
+            var response = await axios.post('api/logout', logoutObj)
+            //console.log(response)
+            //return response
+            if(response.data === "See you later!") {
+                localStorage.removeItem('user')
+                console.log('see you later!')
+                //const checkit = localStorage.getItem('user');
+                //console.log(checkit)
+            } else {
+               console.log("please try logging out again")
+            }
         }
         catch(err) {
             console.log(err)
@@ -49,20 +58,20 @@ function logOut() {
     logout();
 }
 
-// useEffect(()=>{
-//     async function getUsers() {
-//         try {
-//             const response = await axios.get('api/users')
-//             setUsers(response.data)
-//         }
-//         catch(err) {
-//             console.log(err)
-//         }
-//     }
-
-//     getUsers(); 
-//need to set the users in state - coming in from context
-// },[])
+useEffect(()=> {
+    async function getUsers() {
+        try {
+            const response = await axios.get('api/users')
+            console.log(response.data)
+            setLoggedInUsers(response.data)
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+  
+    getUsers(); 
+  },[])
 
 // useEffect(()=>{
 //     async function getUsers() {
@@ -93,6 +102,7 @@ useEffect(()=> {
             console.log(err)
         }
     }
+
     getMessages();
 }, [])
 
@@ -111,10 +121,14 @@ useEffect(()=> {
 //     getNewMessages();
 // },[newMsgQueued])
 
+useEffect(()=>{
+    console.log(loggedInUsers)
+})
 
-// const allUsers = users.map(user => {
-//     return <Usercard key={user.id} username={user.username}/>
-//   })
+
+const allUsers = loggedInUsers.map(user => {
+    return <Usercard key={user.id} username={user.username}/>
+  })
 
 const allChats = allmessages.map(msg => {
     return <p key={msg.chat_id}>{msg.text}</p>
@@ -128,7 +142,7 @@ console.log(allmessages)
         <div
             className="chat_usersArea"
           >
-              {/* {allUsers} */}
+               {allUsers} 
         </div>
 
         <div

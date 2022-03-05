@@ -14,8 +14,7 @@ import {
 
 const App = () => {
 
-const [isLoggedIn, setIsLoggedIn] = useState(false)
-
+const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('user'))
 
   return (
     <div className="App">     
@@ -24,8 +23,8 @@ const [isLoggedIn, setIsLoggedIn] = useState(false)
         <Route 
           path="/chat"
           render={()=>{
-            return isLoggedIn ? (
-              <Chat setIsLoggedIn={setIsLoggedIn} />
+            return loggedInUser ? (
+              <Chat setIsLoggedIn={loggedInUser} />
               ) : (
               <Redirect to= "/" />
               );
@@ -40,10 +39,10 @@ const [isLoggedIn, setIsLoggedIn] = useState(false)
         <Route 
           exact path="/" 
           render={()=>{
-              return isLoggedIn ? (
+              return loggedInUser ? (
                 <Redirect to="/chat"/>
               ) : (
-                <Home setIsLoggedIn={setIsLoggedIn}/>
+                <Home setIsLoggedIn={loggedInUser}/>
               );
             }} 
           />

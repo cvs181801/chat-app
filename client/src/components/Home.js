@@ -2,7 +2,6 @@ import React, {useState, useEffect, useContext} from 'react';
 import App from '../App'
 import {Link} from "react-router-dom"
 import axios from 'axios'
-import {UserContext} from '../contexts/UserContext'
 import Chat from './Chat'
 import CreateLogin from './CreateLogin';
 import '../index.css';
@@ -14,8 +13,7 @@ const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
 const [loggedIn, setLoggedIn] = useState(false);
 const [error, setError] = useState('');
-//const {loggedInUsers} = useContext(UserContext)  
-//console.log(loggedInUsers)
+
 
 const loginObj = {
     username: usernameInputValue,
@@ -37,17 +35,17 @@ function handleClick(event) {
     if (usernameInputValue !== "" && passwordInputValue !== "" ) {
         login()
             .then(res=>{
-                console.log(res.data)
-                //setLoggedInUsers(res.data.username)  //need to spread in at all ? or use socket.io?
+                if(res.data[0] === "Welcome back!") {
+                    localStorage.setItem(`user`, `${res.data[2]}`)
+                    console.log(res.data[2])
+                } else {
+                    setError('sorry, something went wrong!  Please try again.')
+                }
             })
     } else {
         setError('User not found...please try again.')
     }
 }
-
-// const userList = loggedInUsers.map(user=>{
-//     return <p key={user.id}>{user.username}</p>
-// })
 
   return <div>
             <div className="container">
