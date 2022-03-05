@@ -3,17 +3,19 @@ import {Link} from "react-router-dom"
 import Usercard from './Usercard'
 import axios from 'axios'
 import { io } from "socket.io-client";
-import UserContext from '../contexts/UserContext'
+//import {UserContext} from '../contexts/UserContext'
 
 const socket = io();
 
-export default function Chat() {
+export default function Chat(loggedInUsers) {
+    console.log(loggedInUsers)
 
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
-const [users, setUsers] = useState([])
+//const [users, setUsers] = useState([])
 const [newMsgQueued, setNewMsgQueued] = useState(false)
 const [newUserJoined, setNewUserJoined] = useState(true)
+//const {loggedInUsers} = useContext(UserContext)  
 
 function postMsg() {
     setMessageInputValue('')
@@ -46,33 +48,34 @@ function logOut() {
     logout();
 }
 
-useEffect(()=>{
-    async function getUsers() {
-        try {
-            const response = await axios.get('api/users')
-            setUsers(response.data)
-        }
-        catch(err) {
-            console.log(err)
-        }
-    }
+// useEffect(()=>{
+//     async function getUsers() {
+//         try {
+//             const response = await axios.get('api/users')
+//             setUsers(response.data)
+//         }
+//         catch(err) {
+//             console.log(err)
+//         }
+//     }
 
-    getUsers(); 
-},[])
+//     getUsers(); 
+//need to set the users in state - coming in from context
+// },[])
 
-useEffect(()=>{
-    async function getUsers() {
-        try {
-            const response = await axios.get('api/users')
-            setUsers(response.data)
-        }
-        catch(err) {
-            console.log(err)
-        }
-    }
+// useEffect(()=>{
+//     async function getUsers() {
+//         try {
+//             const response = await axios.get('api/users')
+//             setUsers(response.data)
+//         }
+//         catch(err) {
+//             console.log(err)
+//         }
+//     }
 
-    getUsers(); 
-},[newUserJoined])
+//     getUsers(); 
+// },[newUserJoined])
 
 useEffect(()=> {
     socket.on("newMessage", (data)=>{
@@ -108,9 +111,9 @@ useEffect(()=> {
 // },[newMsgQueued])
 
 
-const allUsers = users.map(user => {
-    return <Usercard key={user.id} username={user.username}/>
-  })
+// const allUsers = users.map(user => {
+//     return <Usercard key={user.id} username={user.username}/>
+//   })
 
 const allChats = allmessages.map(msg => {
     return <p key={msg.chat_id}>{msg.text}</p>
@@ -124,16 +127,13 @@ console.log(allmessages)
         <div
             className="chat_usersArea"
           >
-              {allUsers}
+              {/* {allUsers} */}
         </div>
 
         <div
             className="chat_area"
         >
-            <div
-                id="english"
-                //className={englishtabclass}
-             >
+            <div>
                  {allChats}  
                  
             </div>

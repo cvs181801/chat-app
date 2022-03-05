@@ -1,15 +1,17 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Link} from "react-router-dom"
+import {Link, Route} from "react-router-dom"
 import axios from 'axios'
 import {UserContext} from '../contexts/UserContext'
+import Chat from './Chat'
+import CreateLogin from './CreateLogin';
 
 export default function Home() {
-//console.log(props)
+
 const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
 const [loggedIn, setLoggedIn] = useState(false);
 const [error, setError] = useState('');
-const {loggedInUsers} = useContext(UserContext)  //**** 
+const {loggedInUsers} = useContext(UserContext)  
 console.log(loggedInUsers)
 
 const loginObj = {
@@ -80,24 +82,39 @@ function handleClick(event) {
 
                         
                         <div>{loggedIn ? 
-                            <Link to="/chat"
+                            <Route to="/chat"
                             className= "nav_link"
+                            render={(props)=>(
+                                <UserContext>
+                                    <Chat {...props}/>
+                                </UserContext>
+                            )}
                             >Enter the Chat
-                            </Link > : ''}
+                            </Route > : ''}
                         </div>
                         <p>{error}</p>
                         <p>New here? 
                             <Link to="/createlogin"
                             className= "nav_link"
+                            // render={(loggedInUsers)=>(
+                            //     <UserContext>
+                            //         <CreateLogin {...loggedInUsers}/>
+                            //     </UserContext>
+                            // )}
                             >Create a login
                             </Link > or 
                             <Link to="/chat"
                             className= "nav_link"
+                            // render={(loggedInUsers)=>(
+                            //     <UserContext>
+                            //         <Chat {...loggedInUsers}/>
+                            //     </UserContext>
+                            // )}
                             >view as a guest
                             </Link> 
                         </p>
                 </form>   
-               {/* {loggedInUsers} */}
+               
 
             </div>
 
