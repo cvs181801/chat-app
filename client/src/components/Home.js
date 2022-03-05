@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import App from './App'
+import App from '../App'
 import {Link} from "react-router-dom"
 import axios from 'axios'
 import {UserContext} from '../contexts/UserContext'

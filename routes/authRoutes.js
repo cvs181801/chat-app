@@ -44,8 +44,9 @@ router.post(`/login`, async (req, res)=> {
 
     try {
         const loginResponse1 = await pool.query(loginQuery);
+        console.log(loginResponse1.rows[0])
         const hash = loginResponse1.rows[0].password;
-        if (hash === password) {
+        if (hash) {
             bcrypt.compare(password, hash, function(err, result) {
                 const loggedInNow = true;
                 if(result == true) {
@@ -59,7 +60,7 @@ router.post(`/login`, async (req, res)=> {
             });
         
         } else {
-            console.log('Something went wrong.  Please try again..')
+            console.log("Something went wrong.  Please try again.")
             res.send("Something went wrong.  Please try again.")
         }
     } catch(e) {
