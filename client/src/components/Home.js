@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Link, Route, Switch} from "react-router-dom"
+import {Link, Route, Switch, BrowserRouter} from "react-router-dom"
 import axios from 'axios'
 import {UserContext} from '../contexts/UserContext'
 import Chat from './Chat'
@@ -81,7 +81,9 @@ function handleClick(event) {
                         </button>
 
                         
-                        <div> {loggedIn ? 
+                        <div> 
+                            {loggedIn ? 
+                        <BrowserRouter>
                         <Switch>
                             <Route to="/chat"
                             className= "nav_link"
@@ -90,9 +92,11 @@ function handleClick(event) {
                                     <Chat {...loggedInUsers}/>
                                 </UserContext>
                             )}
-                            >Enter the Chat
+                            >
+                            Enter the Chat
                             </Route > 
-                        </Switch> : ''} 
+                        </Switch>
+                        </BrowserRouter> : ''} 
                             
                         </div>
                         
@@ -119,10 +123,7 @@ function handleClick(event) {
                             
                         </p>
                     
-                </form> 
-
-
-               
+                </form>                
 
             </div>
 
