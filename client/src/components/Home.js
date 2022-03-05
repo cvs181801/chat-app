@@ -1,9 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Link, Route, Switch, BrowserRouter} from "react-router-dom"
+import App from './App'
+import {Link} from "react-router-dom"
 import axios from 'axios'
 import {UserContext} from '../contexts/UserContext'
 import Chat from './Chat'
 import CreateLogin from './CreateLogin';
+import '../index.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Home() {
 
@@ -11,8 +14,8 @@ const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
 const [loggedIn, setLoggedIn] = useState(false);
 const [error, setError] = useState('');
-const {loggedInUsers} = useContext(UserContext)  
-console.log(loggedInUsers)
+//const {loggedInUsers} = useContext(UserContext)  
+//console.log(loggedInUsers)
 
 const loginObj = {
     username: usernameInputValue,
@@ -83,20 +86,16 @@ function handleClick(event) {
                         
                         <div> 
                             {loggedIn ? 
-                        <BrowserRouter>
-                        <Switch>
-                            <Route to="/chat"
+                        <Link to="/chat"
                             className= "nav_link"
-                            render={(loggedInUsers)=>(
-                                <UserContext>
-                                    <Chat {...loggedInUsers}/>
-                                </UserContext>
-                            )}
+                            // render={(loggedInUsers)=>(
+                            //     <UserContext>
+                            //         <Chat {...loggedInUsers}/>
+                            //     </UserContext>
+                            //)}
                             >
                             Enter the Chat
-                            </Route > 
-                        </Switch>
-                        </BrowserRouter> : ''} 
+                            </Link> : ''} 
                             
                         </div>
                         

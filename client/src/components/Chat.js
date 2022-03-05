@@ -4,11 +4,12 @@ import Usercard from './Usercard'
 import axios from 'axios'
 import { io } from "socket.io-client";
 //import {UserContext} from '../contexts/UserContext'
+import 'bootstrap/dist/css/bootstrap.css';
 
 const socket = io();
 
-export default function Chat(loggedInUsers) {
-    console.log(loggedInUsers)
+export default function Chat() {
+
 
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
@@ -16,6 +17,7 @@ const [allmessages, setAllMessages] = useState([])
 const [newMsgQueued, setNewMsgQueued] = useState(false)
 const [newUserJoined, setNewUserJoined] = useState(true)
 //const {loggedInUsers} = useContext(UserContext)  
+//console.log(loggedInUsers)
 
 function postMsg() {
     setMessageInputValue('')
