@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {Link, Route} from "react-router-dom"
+import {Link, Route, Switch} from "react-router-dom"
 import axios from 'axios'
 import {UserContext} from '../contexts/UserContext'
 import Chat from './Chat'
@@ -81,17 +81,21 @@ function handleClick(event) {
                         </button>
 
                         
-                        <div>{loggedIn ? 
+                        <div> {loggedIn ? 
+                        <Switch>
                             <Route to="/chat"
                             className= "nav_link"
-                            render={(props)=>(
+                            render={(loggedInUsers)=>(
                                 <UserContext>
-                                    <Chat {...props}/>
+                                    <Chat {...loggedInUsers}/>
                                 </UserContext>
                             )}
                             >Enter the Chat
-                            </Route > : ''}
+                            </Route > 
+                        </Switch> : ''} 
+                            
                         </div>
+                        
                         <p>{error}</p>
                         <p>New here? 
                             <Link to="/createlogin"
@@ -112,8 +116,12 @@ function handleClick(event) {
                             // )}
                             >view as a guest
                             </Link> 
+                            
                         </p>
-                </form>   
+                    
+                </form> 
+
+
                
 
             </div>

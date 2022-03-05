@@ -21,7 +21,7 @@ router.post(`/register`, (req, res)=> {
                 
                 const newUser = await pool.query(`INSERT INTO users(username, password) VALUES ($1, $2) RETURNING *`, 
                 [username, hash]);
-                console.log('user rows', newUser.rows[0])
+                console.log('user rows', newUser.rows[0].username)
                 res.send(newUser.rows[0].username)
             })
         })
@@ -44,9 +44,8 @@ router.post(`/login`, async (req, res)=> {
 
     try {
         const loginResponse1 = await pool.query(loginQuery);
-        if (loginResponse1.rows[0].password === password) {
-            //console.log(loginResponse1.rows[0].hash)
-            const hash = loginResponse1.rows[0].password;
+        const hash = loginResponse1.rows[0].password;
+        if (hash === password) {
             bcrypt.compare(password, hash, function(err, result) {
                 const loggedInNow = true;
                 if(result == true) {
