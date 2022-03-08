@@ -21,11 +21,12 @@ const [loggedInUsers, setLoggedInUsers] = useState([])
 function postMsg() {
     setMessageInputValue('')
     //setNewMsgQueued(false)
-    const data = {
-        text: messageInputValue,
+    const msgData = {
+        userid: localStorage.getItem('userid'),
+        text: messageInputValue
       }
-    console.log(messageInputValue)
-    const response = axios.post(`/api/messages`, data);
+   // console.log(messageInputValue)
+    const response = axios.post(`/api/messages`, msgData);
     console.log(response)
     //setNewMsgQueued(true)
 }
@@ -125,10 +126,10 @@ useEffect(()=> {
 
 useEffect(()=>{
     console.log(loggedInUsers)
-    const checkit = localStorage.getItem('userid');
-    console.log(checkit)
-    const checkitname = localStorage.getItem('username');
-    console.log(checkitname)
+    // const checkit = localStorage.getItem('userid');
+    // console.log(checkit)
+    // const checkitname = localStorage.getItem('username');
+    // console.log(checkitname)
    
 })
 
@@ -138,7 +139,7 @@ const allUsers = loggedInUsers.map(user => {
   })
 
 const allChats = allmessages.map(msg => {
-    return <p key={msg.chat_id}>{msg.text}</p>
+    return <p key={msg.chat_id}>{msg.username}: {msg.text}</p>
 })
 console.log(allmessages)
 

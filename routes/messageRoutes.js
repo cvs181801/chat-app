@@ -9,19 +9,16 @@ const router = express.Router();
 router.post(`/messages`, async (req, res)=> {
     const io = req.app.get("socketio");
     console.log(req.body)
-    let {text} = req.body;
+    let {text, userid} = req.body;
    // console.log(text)
     try {
-        const newMessage = await pool.query(`INSERT INTO messages(text) VALUES ($1) RETURNING *`, 
-            [text]);
-        //console.log(newMessage)
-        console.log('message', newMessage)
+        const newMessage = await pool.query(`INSERT INTO messages(text,user_id) VALUES ($1, $2) RETURNING *`, 
+            [text, userid]);
+        //console.log('message', newMessage)
         console.log('rows :', newMessage.rows[0])
         // emit message from server back to the client, this needs to be an object.
         io.emit("newMessage", { msg: newMessage.rows[0] });
         res.send(newMessage.rows[0]);
-  
-        res.send(newMessage.rows[0])
     } catch(err) {
         console.log(err)
     }  
@@ -29,7 +26,7 @@ router.post(`/messages`, async (req, res)=> {
 
 router.get(`/messages`, async (req, res)=> {
     try {
-        const messages = await pool.query('SELECT text FROM messages')
+        const messages = await pool.query('SELECT text, username, user_id FROM messages INNER JOIN users ON messages.user_id = users.id')
         console.log(messages.rows)
         res.send(messages.rows)
     }
