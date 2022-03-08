@@ -71,14 +71,14 @@ router.post(`/login`, async (req, res)=> {
 
 router.post(`/logout`, async (req, res)=> {
     console.log(req.body)
-    let {username, isloggedin} = req.body;
-    console.log(username, isloggedin)
+    let {userid, username} = req.body;
+    console.log(userid, username)
     
     try {     
-        const logOutNow = !isloggedin;
-        const logOutBool = await pool.query(`UPDATE users SET isloggedin = $2 WHERE username = $1 RETURNING *`, 
-        [username,logOutNow]);
-        console.log('logoutbool', logOutBool.rows[0].username, logOutBool.rows[0].isloggedin)
+        //const logOutNow = !isloggedin;
+        const logOutBool = await pool.query(`UPDATE users SET isloggedin = $1 WHERE id = $2 RETURNING *`, 
+        [false, userid]);
+        console.log('logoutbool', logOutBool.rows[0])
         res.send('See you later!' )
     }
     catch(err) {

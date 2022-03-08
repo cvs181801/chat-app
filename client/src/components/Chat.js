@@ -31,8 +31,8 @@ function postMsg() {
 }
 
 const logoutObj = {
-    username: localStorage.getItem('user'),
-    isloggedin: true
+    userid: localStorage.getItem('userid'),
+    username: localStorage.getItem('username')
 }
 
 function logOut() {
@@ -43,10 +43,12 @@ function logOut() {
             //console.log(response)
             //return response
             if(response.data === "See you later!") {
-                localStorage.removeItem('user')
+                localStorage.removeItem('userid')
+                localStorage.removeItem('username')
                 console.log('see you later!')
-                //const checkit = localStorage.getItem('user');
+                //const checkit = localStorage.getItem('userid');
                 //console.log(checkit)
+                location.reload()
             } else {
                console.log("please try logging out again")
             }
@@ -123,6 +125,11 @@ useEffect(()=> {
 
 useEffect(()=>{
     console.log(loggedInUsers)
+    const checkit = localStorage.getItem('userid');
+    console.log(checkit)
+    const checkitname = localStorage.getItem('username');
+    console.log(checkitname)
+   
 })
 
 

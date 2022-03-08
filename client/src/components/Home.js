@@ -36,8 +36,10 @@ function handleClick(event) {
         login()
             .then(res=>{
                 if(res.data[0] === "Welcome back!") {
-                    localStorage.setItem(`user`, `${res.data[2]}`)
-                    console.log(res.data[2])
+                    console.log(res.data)
+                    localStorage.setItem(`userid`, `${res.data[1]}`)
+                    localStorage.setItem(`username`, `${res.data[2]}`)
+                    location.reload()
                 } else {
                     setError('sorry, something went wrong!  Please try again.')
                 }
