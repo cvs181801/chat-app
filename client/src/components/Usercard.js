@@ -1,10 +1,12 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import Card from 'react-bootstrap/Card'
 
 export default function Usercard(props) {
     console.log(props)
   return <div>
-      <div>
+      <Card>
         {props.username}
-      </div>
+      </Card>
   </div>;
 }

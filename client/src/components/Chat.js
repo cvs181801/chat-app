@@ -3,8 +3,12 @@ import {Link} from "react-router-dom"
 import Usercard from './Usercard'
 import axios from 'axios'
 import { io } from "socket.io-client";
-//import {UserContext} from '../contexts/UserContext'
 import 'bootstrap/dist/css/bootstrap.css';
+import "./index.scss";
+import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
+import Container from 'react-bootstrap/Container'
+
 
 const socket = io();
 
@@ -76,20 +80,6 @@ useEffect(()=> {
     getUsers(); 
   },[])
 
-// useEffect(()=>{
-//     async function getUsers() {
-//         try {
-//             const response = await axios.get('api/users')
-//             setUsers(response.data)
-//         }
-//         catch(err) {
-//             console.log(err)
-//         }
-//     }
-
-//     getUsers(); 
-// },[newUserJoined])
-
 useEffect(()=> {
     socket.on("newMessage", (data)=>{
         setAllMessages((allMessages)=>[...allMessages, data.msg])
@@ -109,21 +99,6 @@ useEffect(()=> {
     getMessages();
 }, [])
 
-
-// useEffect(()=>{
-//     async function getNewMessages() {
-//         try {
-//             const response = await axios.get('api/messages')
-//             console.log('all messages :', response.data)
-//             setAllMessages(response.data)
-//         }
-//         catch(err) {
-//             console.log(err)
-//         }
-//     }
-//     getNewMessages();
-// },[newMsgQueued])
-
 useEffect(()=>{
     console.log(loggedInUsers)
     // const checkit = localStorage.getItem('userid');
@@ -139,52 +114,54 @@ const allUsers = loggedInUsers.map(user => {
   })
 
 const allChats = allmessages.map(msg => {
-    return <p key={msg.chat_id}>{msg.username}: {msg.text}</p>
+    return <Card key={msg.chat_id}>{msg.username}: {msg.text}</Card>
 })
 console.log(allmessages)
 
   return <div>
-      <div
+      <Container
         className="chatContainer"
       >
-        <div
-            className="chat_usersArea"
-          >
-               {allUsers} 
-        </div>
+            <Card
+                className="chat_usersArea"
+            >
+                {allUsers} 
+            </Card>
 
-        <div
-            className="chat_area"
-        >
-            <div>
-                 {allChats}  
-                 
-            </div>
-        </div>
+                
+  
+            <Card
+                className="chat_area"
+            >
+                {allChats}  
+            </Card>
+   
+        </Container>
 
         <div
             className="message_area"
         >
+
             <input 
                 type="text"     
                 placeholder="Type your message here"
                 value={messageInputValue}
                 onChange={event=>setMessageInputValue(event.target.value)}> 
             </input>
-            <button
+
+            <Button
                 onClick={postMsg}
-            >post</button> 
+                variant="secondary"
+            >post
+            </Button> 
 
         </div>
-
-      </div>
-      {/* <Link to="/"
-            className= "nav_link">
-                Log Out
-      </Link> */}
-      <button
+    
+      <Button
         onClick={logOut}
-      >Log Out</button>
+        variant="secondary"
+      >Log Out
+      </Button>
   </div>
 }
 
