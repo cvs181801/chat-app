@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@500&family=Fredoka+One&display=swap');
 @import url('bootstrap/dist/css/bootstrap.min.css');
 
+$mainColor: #313131;
+$apricot: #fadfbb;
+
 :root {
   --ff-main: 'Dosis', sans-serif;
   --ff-accent: 'Fredoka One', sans-serif;
@@ -26,6 +29,12 @@ body {
             linear-gradient(127deg, rgb(211, 207, 1), rgb(0, 51, 54) 70.71%),
             linear-gradient(336deg, rgba(0, 99, 61, 0.781), rgba(0, 255, 234, 0.993) 70.71%);
 }
+
+.chatContainer {
+  width: 90vw;
+  height: 90vh;
+}
+
 
 .title {
   font-family: var(--ff-accent);
@@ -54,7 +63,7 @@ body {
   text-align: center;
 }
 
-.loginBtn {
+.button {
   background-color: white;
   color: var(--dark-orange);
   border-style: none;
@@ -66,9 +75,30 @@ body {
   letter-spacing: .1rem;
   cursor: pointer;
 }
+
+.chat_button {
+  border-style: none;
+  border-radius: 13px;
+  margin-top: 1.5em;
+  padding: .5em;
+  font-size: 1rem;
+  font-family: var(--ff-accent);
+  letter-spacing: .1rem;
+  cursor: pointer;
+}
+
 .inactiveTab {
   display: none;
 }
 .activeTab {
   display: block;
+}
+
+.card {
+  color: $mainColor;
+  padding: .25em;
+  margin: .25em auto .25em auto;
+  width: 50%;
+  text-align: left;
+
 }

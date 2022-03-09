@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {Link} from "react-router-dom"
 import axios from 'axios';
-//import UserContext from '../contexts/UserContext'
 import 'bootstrap/dist/css/bootstrap.css';
+import '../index.scss';
 
 export default function CreateLogin() {
 

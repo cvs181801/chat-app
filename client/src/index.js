@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './App';
-import Chat from './components/Chat';
-import CreateLogin from './components/CreateLogin'
+
 
 import 'bootstrap/dist/css/bootstrap.css';
 import {UserContext} from './contexts/UserContext'

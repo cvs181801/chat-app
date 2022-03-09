@@ -2,6 +2,7 @@ import React, {createContext, useState, useEffect} from 'react'
 import axios from 'axios'
 import { io } from "socket.io-client";
 export const UserContext = createContext()
+//import "./index.scss";
 
 export default function UserContextProvider(props) {
     const [loggedInUsers, setLoggedInUsers] = useState([

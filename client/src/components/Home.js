@@ -4,7 +4,7 @@ import {Link} from "react-router-dom"
 import axios from 'axios'
 import Chat from './Chat'
 import CreateLogin from './CreateLogin';
-import '../index.css';
+import '../index.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Home() {
@@ -39,7 +39,7 @@ function handleClick(event) {
                     console.log(res.data)
                     localStorage.setItem(`userid`, `${res.data[1]}`)
                     localStorage.setItem(`username`, `${res.data[2]}`)
-                    location.reload()
+                    window.location.reload()
                 } else {
                     setError('sorry, something went wrong!  Please try again.')
                 }
@@ -78,7 +78,7 @@ function handleClick(event) {
                         ></input>
                     </div>
                         <button
-                            className="loginBtn"
+                            className="button"
                             onClick={handleClick}
                         >Log In
                         </button>
@@ -122,7 +122,8 @@ function handleClick(event) {
                             
                         </p>
                     
-                </form>                
+                </form>   
+                    
 
             </div>
 

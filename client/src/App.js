@@ -1,9 +1,8 @@
-import './index.css';
+import './index.scss';
 import React, {useState, useEffect} from 'react'
 import Home from './components/Home'
 import CreateLogin from './components/CreateLogin'
 import Chat from './components/Chat.js'
-//import UserContext from '../contexts/UserContext'
 import 'bootstrap/dist/css/bootstrap.css';
 import {
   BrowserRouter,
@@ -49,6 +48,8 @@ const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('userid'))
       
       </Switch>
   </BrowserRouter>,
+
+  
     </div>
   );
 }

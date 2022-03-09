@@ -4,7 +4,7 @@ import Usercard from './Usercard'
 import axios from 'axios'
 import { io } from "socket.io-client";
 import 'bootstrap/dist/css/bootstrap.css';
-import "./index.scss";
+import '../index.scss';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
@@ -53,7 +53,7 @@ function logOut() {
                 console.log('see you later!')
                 //const checkit = localStorage.getItem('userid');
                 //console.log(checkit)
-                location.reload()
+                window.location.reload()
             } else {
                console.log("please try logging out again")
             }
@@ -124,6 +124,8 @@ console.log(allmessages)
       >
             <Card
                 className="chat_usersArea"
+                style={{backgroundColor: "#fadfbb"
+                        }}
             >
                 {allUsers} 
             </Card>
@@ -152,6 +154,7 @@ console.log(allmessages)
             <Button
                 onClick={postMsg}
                 variant="secondary"
+                className="chat_button"
             >post
             </Button> 
 
@@ -159,9 +162,11 @@ console.log(allmessages)
     
       <Button
         onClick={logOut}
+        className="chat_button"
         variant="secondary"
       >Log Out
       </Button>
+
   </div>
 }
 
