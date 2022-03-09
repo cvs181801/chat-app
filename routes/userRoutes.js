@@ -1,23 +1,24 @@
 const express = require('express')
 const app = express()
-//const pool = require('pg').Pool;
-
-//const { Pool } = require('pg')
-//const pool = new Pool()
 const router = express.Router();
 const pool = require('../db-pool')
-//console.log(pool);
+
 
 router.get(`/users`, async (req, res)=> {
+   // const io = req.app.get("socketio");
     try {
         const usernames = await pool.query('SELECT id, username FROM users WHERE isloggedin = true')
         console.log(usernames.rows)
+        // emit message from server back to the client, this needs to be an object.
+       // io.emit("newMessage", usernames.rows)
         res.send(usernames.rows)
         } 
     catch(err) {
         console.log(err)
         }    
 })
+
+
 
 router.post(`/users`, async (req, res)=> { 
     //console.log(req.body)

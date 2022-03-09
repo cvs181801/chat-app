@@ -1,16 +1,11 @@
 const express = require('express')
-//const pool = require('pg').Pool;
 const pool = require('../db-pool')
-
-//const { Pool } = require('pg')
-//const pool = new Pool()
 const router = express.Router();
 
 router.post(`/messages`, async (req, res)=> {
     const io = req.app.get("socketio");
     console.log(req.body)
     let {text, userid} = req.body;
-   // console.log(text)
     try {
         const newMessage = await pool.query(`INSERT INTO messages(text,user_id) VALUES ($1, $2) RETURNING *`, 
             [text, userid]);

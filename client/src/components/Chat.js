@@ -16,11 +16,9 @@ export default function Chat() {
 
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
-//const [users, setUsers] = useState([])
-const [newMsgQueued, setNewMsgQueued] = useState(false)
-const [newUserJoined, setNewUserJoined] = useState(true)
+//const [newMsgQueued, setNewMsgQueued] = useState(false)
+//const [newUserJoined, setNewUserJoined] = useState(true)
 const [loggedInUsers, setLoggedInUsers] = useState([])
-//console.log(loggedInUsers)
 
 function postMsg() {
     setMessageInputValue('')
@@ -66,6 +64,10 @@ function logOut() {
 }
 
 useEffect(()=> {
+    // socket.on("loggedInUser", (data)=> {
+    //     setLoggedInUsers((loggedInUsers)=> [...loggedInUsers, data.user])
+    //     console.log(data)
+    // })
     async function getUsers() {
         try {
             const response = await axios.get('api/users')
@@ -148,6 +150,7 @@ console.log(allmessages)
                 type="text"     
                 placeholder="Type your message here"
                 value={messageInputValue}
+                className="chat_input"
                 onChange={event=>setMessageInputValue(event.target.value)}> 
             </input>
 
@@ -159,13 +162,19 @@ console.log(allmessages)
             </Button> 
 
         </div>
-    
-      <Button
-        onClick={logOut}
-        className="chat_button"
-        variant="secondary"
-      >Log Out
-      </Button>
+
+        <div
+            className="chat_logoutarea"
+        >
+
+        <Button
+            onClick={logOut}
+            className="chat_button"
+            variant="secondary"
+        >Log Out
+        </Button>
+
+        </div>
 
   </div>
 }
