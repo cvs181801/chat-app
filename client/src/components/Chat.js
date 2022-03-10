@@ -8,7 +8,8 @@ import '../index.scss';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
-
+import InputGroup from 'react-bootstrap/InputGroup'
+import FormControl from 'react-bootstrap/FormControl';
 
 const socket = io();
 
@@ -136,6 +137,8 @@ console.log(allmessages)
   
             <Card
                 className="chat_area"
+                style={{background: "transparent"
+                        }}
             >
                 {allChats}  
             </Card>
@@ -146,20 +149,34 @@ console.log(allmessages)
             className="message_area"
         >
 
-            <input 
+            <InputGroup 
+                className="chat_input"
+            >
+            <FormControl        
                 type="text"     
                 placeholder="Type your message here"
                 value={messageInputValue}
-                className="chat_input"
-                onChange={event=>setMessageInputValue(event.target.value)}> 
-            </input>
+                onChange={event=>setMessageInputValue(event.target.value)}
+            />
+                <Button
+                    onClick={postMsg}
+                    variant="secondary"
+                    className="chat_button--post"
+                >post
+                </Button> 
+            </InputGroup>
 
-            <Button
-                onClick={postMsg}
-                variant="secondary"
-                className="chat_button"
-            >post
-            </Button> 
+
+            {/* <InputGroup className="mb-3">
+    <FormControl
+      placeholder="Recipient's username"
+      aria-label="Recipient's username"
+      aria-describedby="basic-addon2"
+    />
+    <Button variant="outline-secondary" id="button-addon2">
+      Button
+    </Button>
+  </InputGroup> */}
 
         </div>
 
