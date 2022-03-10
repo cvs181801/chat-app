@@ -9,11 +9,19 @@ router.post(`/messages`, async (req, res)=> {
     try {
         const newMessage = await pool.query(`INSERT INTO messages(text,user_id) VALUES ($1, $2) RETURNING *`, 
             [text, userid]);
+        const userId = await pool.query('SELECT username FROM users WHERE id = $1',
+        [newMessage.rows[0].user_id])    
         //console.log('message', newMessage)
-        console.log('rows :', newMessage.rows[0])
+        console.log('message rows! :', newMessage.rows)
+        console.log('userIds!! :', userId.rows)
         // emit message from server back to the client, this needs to be an object.
-        io.emit("newMessage", { msg: newMessage.rows[0] });
-        res.send(newMessage.rows[0]);
+        const latestMsg = {
+                        text: newMessage.rows[0].text, 
+                        username: userId.rows[0].username, 
+                        userid: newMessage.rows[0].user_id}
+
+        io.emit("newMessage", { msg: latestMsg });
+        res.send(latestMsg);
     } catch(err) {
         console.log(err)
     }  

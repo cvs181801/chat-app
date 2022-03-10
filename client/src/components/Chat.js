@@ -90,7 +90,7 @@ useEffect(()=> {
     async function getMessages() {
         try {
             const response = await axios.get('api/messages')
-            //console.log('all messages :', response.data)
+            console.log('all messages :', response.data)
             setAllMessages(response.data)
         }
         catch(err) {
