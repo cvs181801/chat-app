@@ -80,13 +80,13 @@ body {
   margin-top: .5em;
   font-size: 1rem;
   text-align: center;
+  border-style: none;
 }
 
-.button {
-  background-color: white;
-  color: $darkOrange;
-  border-style: none;
-  border-radius: 13px;
+.button_home {
+  color: $mainColor;
+  // border-style: none;
+  // border-radius: 13px;
   margin-top: 1.5em;
   padding: .5em;
   font-size: 1rem;

@@ -12,7 +12,7 @@ export default function Home() {
 
 const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
-const [loggedIn, setLoggedIn] = useState(false);
+//const [loggedIn, setLoggedIn] = useState(false);
 const [error, setError] = useState('');
 
 
@@ -78,11 +78,12 @@ function handleClick(event) {
                             onChange={event=>setPasswordInputValue(event.target.value)}
                         ></input>
                     </div>
-                        <button
-                            className="button"
+                        <Button
+                            className="button_home"
+                            variant="outline-warning"
                             onClick={handleClick}
                         >Log In
-                        </button>
+                        </Button>
 
                         {/*      //****                   
                         <div> 
