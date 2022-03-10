@@ -23,7 +23,7 @@ const [logQueue, setLogQueue] = useState(false)
 function postMsg() {
     setMessageInputValue('')
     const msgData = {
-        userid: localStorage.getItem('userid'),
+        userid: localStorage.getItem('userId'),
         text: messageInputValue
       }
     const response = axios.post(`/api/messages`, msgData);
@@ -31,7 +31,7 @@ function postMsg() {
 }
 
 const logoutObj = {
-    userid: localStorage.getItem('userid'),
+    userid: localStorage.getItem('userId'),
     username: localStorage.getItem('username')
 }
 
@@ -40,10 +40,10 @@ function logOut() {
         try {
             var response = await axios.post('api/logout', logoutObj)
             if(response.data === "See you later!") {
-                localStorage.removeItem('userid')
+                localStorage.removeItem('userId')
                 localStorage.removeItem('username')
                 console.log('see you later!')
-                //const checkit = localStorage.getItem('userid');
+                //const checkit = localStorage.getItem('userId');
                 //console.log(checkit)
                 setLogQueue(true)
                 window.location.reload()
@@ -115,7 +115,7 @@ useEffect(()=> {
 
 // useEffect(()=>{
 //     console.log(loggedInUsers)
- const checkit = localStorage.getItem('userid');
+ const checkit = localStorage.getItem('userId');
  console.log(checkit)
 //     // const checkitname = localStorage.getItem('username');
 //     // console.log(checkitname)

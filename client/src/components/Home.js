@@ -36,26 +36,21 @@ function handleClick(event) {
     if (usernameInputValue !== "" && passwordInputValue !== "" ) {
         login()
             .then(res=>{
-                //if(res.data[0] === "Welcome back!") {
+                if(res.data[0] === "Welcome back!") {
                     console.log(res.data)
-                    //localStorage.setItem(`userid`, `${res.data[1]}`)
-                    //localStorage.setItem(`username`, `${res.data[2]}`)
-                    //const userToken = res.data[3]
-                    //window.location.reload()
-                //} else {
-                //    setError('sorry, something went wrong!  Please try again.')
-                //}
+                    const userId = res.data[1]
+                    const username = res.data[2]
+                    localStorage.setItem(`userId`, `${userId}`)
+                    localStorage.setItem(`username`, `${username}`)
+                    window.location.reload()
+                } else {
+                    setError('sorry, something went wrong!  Please try again.')
+                }
             })
     } else {
         setError('User not found...please try again.')
     }
 }
-
-// useEffect(()=>{
-//     localStorage.setItem(`userid`, '2c30765c-0ee0-4c9e-b38e-9f54636b4eb7')
-//     localStorage.setItem(`username`, 'happyhacker1')
-    
-// }, [])
 
   return <div>
             <div className="container">

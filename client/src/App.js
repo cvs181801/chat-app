@@ -13,7 +13,7 @@ import {
 
 const App = () => {
 
-const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('userid'))
+const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('userId'))
 
   return (
     <div className="App">     
