@@ -39,10 +39,20 @@ body {
 
 .message_area, 
 .chat_logoutarea {
-  margin: 1em auto 1em auto;
+  margin: 2em auto 2em auto;
   width: 80vw;
   text-align: center;
   align-items: center;
+}
+
+.chat_input {
+  height: 2.5em;
+}
+
+.message_area {
+  font-family: var(--ff-thin);
+  font-size: 1.2rem;
+  width: 90vw;
 }
 
 .title {
