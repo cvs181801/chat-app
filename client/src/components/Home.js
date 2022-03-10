@@ -36,14 +36,15 @@ function handleClick(event) {
     if (usernameInputValue !== "" && passwordInputValue !== "" ) {
         login()
             .then(res=>{
-                if(res.data[0] === "Welcome back!") {
+                //if(res.data[0] === "Welcome back!") {
                     console.log(res.data)
-                    localStorage.setItem(`userid`, `${res.data[1]}`)
-                    localStorage.setItem(`username`, `${res.data[2]}`)
-                    window.location.reload()
-                } else {
-                    setError('sorry, something went wrong!  Please try again.')
-                }
+                    //localStorage.setItem(`userid`, `${res.data[1]}`)
+                    //localStorage.setItem(`username`, `${res.data[2]}`)
+                    //const userToken = res.data[3]
+                    //window.location.reload()
+                //} else {
+                //    setError('sorry, something went wrong!  Please try again.')
+                //}
             })
     } else {
         setError('User not found...please try again.')

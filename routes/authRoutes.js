@@ -5,6 +5,7 @@ const router = express.Router();
 const pool = require('../db-pool')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const jwt = require("jsonwebtoken");
 
 router.post(`/register`, (req, res)=> {
     console.log(req.body)
@@ -50,7 +51,15 @@ router.post(`/login`, async (req, res)=> {
                     const logInBool = pool.query(`UPDATE users SET isloggedin = $2 WHERE username = $1 RETURNING *`, 
                     [username,loggedInNow]);
                     console.log(loginResponse1.rows[0].isloggedin)
-                    res.send(["Welcome back!", loginResponse1.rows[0].id, loginResponse1.rows[0].username])
+
+                    const payload = {
+                        userid: loginResponse1.rows[0].id,
+                        username: loginResponse1.rows[0].username
+                    }
+
+                    const token = jwt.sign(payload, process.env.TOKEN_SECRET) 
+
+                    res.json(["Welcome back!", loginResponse1.rows[0].id, loginResponse1.rows[0].username, token]) //add token to this array too
                  
                 } else {
                     console.log(err)
@@ -73,7 +82,6 @@ router.post(`/logout`, async (req, res)=> {
     console.log(userid, username)
     
     try {     
-        //const logOutNow = !isloggedin;
         const logOutBool = await pool.query(`UPDATE users SET isloggedin = $1 WHERE id = $2 RETURNING *`, 
         [false, userid]);
         console.log('logoutbool', logOutBool.rows[0])
