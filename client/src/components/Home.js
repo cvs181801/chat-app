@@ -50,6 +50,12 @@ function handleClick(event) {
     }
 }
 
+// useEffect(()=>{
+//     localStorage.setItem(`userid`, '2c30765c-0ee0-4c9e-b38e-9f54636b4eb7')
+//     localStorage.setItem(`username`, 'happyhacker1')
+    
+// }, [])
+
   return <div>
             <div className="container">
                 <h1

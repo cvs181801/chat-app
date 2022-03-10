@@ -18,6 +18,7 @@ export default function Chat() {
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
 const [loggedInUsers, setLoggedInUsers] = useState([])
+const [logQueue, setLogQueue] = useState(false)
 
 function postMsg() {
     setMessageInputValue('')
@@ -44,6 +45,7 @@ function logOut() {
                 console.log('see you later!')
                 //const checkit = localStorage.getItem('userid');
                 //console.log(checkit)
+                setLogQueue(true)
                 window.location.reload()
             } else {
                console.log("please try logging out again")
@@ -67,30 +69,30 @@ useEffect(()=> {
             console.log(err)
         }
     }
-  
     getUsers(); 
 },[])
 
 
-// useEffect(()=> {
-//     socket.on("loggedInUser", (data)=> {    
-//         getUsers()  
-//         setLoggedInUsers((loggedInUsers)=> [...loggedInUsers, data.user])
-//         console.log(data)
-//     })
-//             // async function getUsers() {
-//             //     try {
-//             //         const response = await axios.get('api/users')
-//             //         console.log(response.data)
-//             //         setLoggedInUsers(response.data)
-//             //     }
-//             //     catch(err) {
-//             //         console.log(err)
-//             //     }
-//             // }
+useEffect(()=> {
+    socket.on("loggedInUser", (data)=> {    
+         async function getLoggedUsers() {
+                try {
+                    const response = await axios.get('api/loggedusers')
+                    console.log(response.data)
+                    setLoggedInUsers(response.data)
+                }
+                catch(err) {
+                    console.log(err)
+                }
+            }
         
-//             // getUsers(); 
-//   },[loggedInUsers])
+            getLoggedUsers();  
+        setLoggedInUsers((loggedInUsers)=> [...loggedInUsers, data.user])
+        console.log(data)
+        setLogQueue(false)
+    })
+           
+  },[logQueue])
 
 useEffect(()=> {
     socket.on("newMessage", (data)=>{
@@ -113,8 +115,8 @@ useEffect(()=> {
 
 // useEffect(()=>{
 //     console.log(loggedInUsers)
-//     // const checkit = localStorage.getItem('userid');
-//     // console.log(checkit)
+ const checkit = localStorage.getItem('userid');
+ console.log(checkit)
 //     // const checkitname = localStorage.getItem('username');
 //     // console.log(checkitname)
 
