@@ -96,8 +96,30 @@ body {
   cursor: pointer;
 }
 
+.createlogin_button {
+  border-style: none;
+  border-radius: 13px;
+  margin:1em ;
+  padding: .5em;
+  font-size: 1rem;
+  font-family: var(--ff-accent);
+  letter-spacing: .1rem;
+  cursor: pointer;
+}
+
 .chat_button--post {
   height: auto;
+}
+
+.createlogin_username,
+.createlogin_password {
+  margin: 1em;
+  width: 50vw;
+}
+
+.createlogin_form {
+  font-family: var(--ff-thin);
+  font-size: 1.2rem;
 }
 
 .inactiveTab {

@@ -35,7 +35,7 @@ app.get('/*', (req, res) => {
   });
 
 //install web socket for active users on chat page
-//fix and style the create login page
+//style the create login page
 // JWT?
 //'like' system?
 //dark/light mode?

@@ -42,31 +42,11 @@ useEffect(()=> {
 },[confirmed])
 
   return <div>
-    {/* <form
-      onSubmit={handleSubmit}
-    >
-       <label>Login username (this will also be your screen name): </label>
-       <input 
-          type="text"
-          placeholder="login username"
-          onChange={event=>setUsername(event.target.value)}
-          value={username}
-        ></input>  
-       <label>Password</label>
-       <input 
-          type="password"
-          placeholder="password"
-          onChange={event=>setPassword(event.target.value)}
-          value={password}
-       ></input> 
-       <button
-          type="submit"
-       >Register</button> 
-       
-    </form> */}
-
-  <Form>
-    <Form.Group controlId="formBasicUsername">
+  
+  <Form
+    className='createlogin_form'
+  >
+    <Form.Group className="createlogin_username" controlId="formBasicUsername">
       <Form.Label>Login Username (this will also be your screenname)</Form.Label>
       <Form.Control
         type="text"
@@ -76,7 +56,7 @@ useEffect(()=> {
       />
     </Form.Group>
 
-    <Form.Group controlId="formBasicPassword">
+    <Form.Group className="createlogin_password" controlId="formBasicPassword">
       <Form.Label>Password</Form.Label>
       <Form.Control
         type="password"
@@ -86,6 +66,7 @@ useEffect(()=> {
       />
     </Form.Group>
     <Button
+      className="createlogin_button" 
       type="submit"
       variant="secondary"
       onSubmit={handleSubmit}
