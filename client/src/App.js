@@ -30,11 +30,16 @@ const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('userid'))
             }}
           />
 
-        <Route 
+        {/* <Route 
           path="/createlogin" 
           element={<CreateLogin />} 
-        />
+        /> */}
 
+        <Route 
+          exact path="/createlogin" 
+          render={() => <CreateLogin />} 
+        />
+        
         <Route 
           exact path="/" 
           render={()=>{

@@ -6,8 +6,6 @@ const pool = require('../db-pool')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-//const myPlaintextPassword = 'doodle';
-
 router.post(`/register`, (req, res)=> {
     console.log(req.body)
     let {username, password} = req.body;
@@ -34,7 +32,6 @@ router.post(`/register`, (req, res)=> {
 router.post(`/login`, async (req, res)=> {
     console.log(req.body)
     let {username, password} = req.body;
-    //console.log(username, password)
 
     const loginQuery = {
         name: "select-user",
@@ -54,6 +51,7 @@ router.post(`/login`, async (req, res)=> {
                     [username,loggedInNow]);
                     console.log(loginResponse1.rows[0].isloggedin)
                     res.send(["Welcome back!", loginResponse1.rows[0].id, loginResponse1.rows[0].username])
+                 
                 } else {
                     console.log(err)
                 }

@@ -57,10 +57,6 @@ function logOut() {
 }
 
 useEffect(()=> {
-     //socket.on("loggedInUser", (data)=> {        //string is ref the event which is being listened for on server and is for your reference. .
-     //    setLoggedInUsers((loggedInUsers)=> [...loggedInUsers, data.user])
-    //     console.log(data)
-    // })
     async function getUsers() {
         try {
             const response = await axios.get('api/users')
@@ -73,12 +69,33 @@ useEffect(()=> {
     }
   
     getUsers(); 
-  },[])
+},[])
+
+
+// useEffect(()=> {
+//     socket.on("loggedInUser", (data)=> {    
+//         getUsers()  
+//         setLoggedInUsers((loggedInUsers)=> [...loggedInUsers, data.user])
+//         console.log(data)
+//     })
+//             // async function getUsers() {
+//             //     try {
+//             //         const response = await axios.get('api/users')
+//             //         console.log(response.data)
+//             //         setLoggedInUsers(response.data)
+//             //     }
+//             //     catch(err) {
+//             //         console.log(err)
+//             //     }
+//             // }
+        
+//             // getUsers(); 
+//   },[loggedInUsers])
 
 useEffect(()=> {
     socket.on("newMessage", (data)=>{
         setAllMessages((allMessages)=>[...allMessages, data.msg])
-        //console.log(data)
+        console.log(data)
     });
     async function getMessages() {
         try {
@@ -94,14 +111,14 @@ useEffect(()=> {
     getMessages();
 }, [])
 
-useEffect(()=>{
-    console.log(loggedInUsers)
-    // const checkit = localStorage.getItem('userid');
-    // console.log(checkit)
-    // const checkitname = localStorage.getItem('username');
-    // console.log(checkitname)
+// useEffect(()=>{
+//     console.log(loggedInUsers)
+//     // const checkit = localStorage.getItem('userid');
+//     // console.log(checkit)
+//     // const checkitname = localStorage.getItem('username');
+//     // console.log(checkitname)
    
-})
+// })
 
 const allUsers = loggedInUsers.map(user => {
     return <Usercard key={user.id} username={user.username}/>
@@ -110,7 +127,6 @@ const allUsers = loggedInUsers.map(user => {
 const allChats = allmessages.map(msg => {
     return <Card key={msg.chat_id}>{msg.username}: {msg.text}</Card>
 })
-console.log(allmessages)
 
   return <div>
       <Container
@@ -156,9 +172,6 @@ console.log(allmessages)
                 >post
                 </Button> 
             </InputGroup>
-
-
-          
 
         </div>
 

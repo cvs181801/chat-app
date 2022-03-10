@@ -4,6 +4,9 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../index.scss';
 
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
+
 export default function CreateLogin() {
 
 const [username, setUsername] = useState('')
@@ -39,7 +42,7 @@ useEffect(()=> {
 },[confirmed])
 
   return <div>
-    <form
+    {/* <form
       onSubmit={handleSubmit}
     >
        <label>Login username (this will also be your screen name): </label>
@@ -60,7 +63,35 @@ useEffect(()=> {
           type="submit"
        >Register</button> 
        
-    </form>
+    </form> */}
+
+  <Form>
+    <Form.Group controlId="formBasicUsername">
+      <Form.Label>Login Username (this will also be your screenname)</Form.Label>
+      <Form.Control
+        type="text"
+        placeholder="login username"
+        onChange={event=>setUsername(event.target.value)}
+        value={username}
+      />
+    </Form.Group>
+
+    <Form.Group controlId="formBasicPassword">
+      <Form.Label>Password</Form.Label>
+      <Form.Control
+        type="password"
+        placeholder="password"
+        onChange={event=>setPassword(event.target.value)}
+        value={password}
+      />
+    </Form.Group>
+    <Button
+      type="submit"
+      variant="secondary"
+      onSubmit={handleSubmit}
+    >Register</Button>
+    
+  </Form>  
 
     {confirmed ? confirmMsg : ''}
       <Link to="/"
