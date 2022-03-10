@@ -25,22 +25,20 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('a user connected');
-  });
+});
 
 server.listen(process.env.PORT || 3000);
-
 
 //this is the line of code needed to get node to route the user to the correct page w/o needing to go back through the home page!
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'Client', 'build', 'index.html'));
   });
 
- // JWT?
-//dark/light mode
+//install web socket for active users on chat page
+//fix and style the create login page
+// JWT?
+//dark/light mode?
  //modular design?
- //bootstrap / styling
-
-
  //SQL injection attack and XSS attack and write blog post
  //timing attacks ?
 

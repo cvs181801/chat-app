@@ -17,21 +17,16 @@ export default function Chat() {
 
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
-//const [newMsgQueued, setNewMsgQueued] = useState(false)
-//const [newUserJoined, setNewUserJoined] = useState(true)
 const [loggedInUsers, setLoggedInUsers] = useState([])
 
 function postMsg() {
     setMessageInputValue('')
-    //setNewMsgQueued(false)
     const msgData = {
         userid: localStorage.getItem('userid'),
         text: messageInputValue
       }
-   // console.log(messageInputValue)
     const response = axios.post(`/api/messages`, msgData);
     console.log(response)
-    //setNewMsgQueued(true)
 }
 
 const logoutObj = {
@@ -40,12 +35,9 @@ const logoutObj = {
 }
 
 function logOut() {
-    //setNewUserJoined(false)
     async function logout() {
         try {
             var response = await axios.post('api/logout', logoutObj)
-            //console.log(response)
-            //return response
             if(response.data === "See you later!") {
                 localStorage.removeItem('userid')
                 localStorage.removeItem('username')
@@ -65,8 +57,8 @@ function logOut() {
 }
 
 useEffect(()=> {
-    // socket.on("loggedInUser", (data)=> {
-    //     setLoggedInUsers((loggedInUsers)=> [...loggedInUsers, data.user])
+     //socket.on("loggedInUser", (data)=> {        //string is ref the event which is being listened for on server and is for your reference. .
+     //    setLoggedInUsers((loggedInUsers)=> [...loggedInUsers, data.user])
     //     console.log(data)
     // })
     async function getUsers() {
@@ -86,7 +78,7 @@ useEffect(()=> {
 useEffect(()=> {
     socket.on("newMessage", (data)=>{
         setAllMessages((allMessages)=>[...allMessages, data.msg])
-        console.log(data)
+        //console.log(data)
     });
     async function getMessages() {
         try {
@@ -166,16 +158,7 @@ console.log(allmessages)
             </InputGroup>
 
 
-            {/* <InputGroup className="mb-3">
-    <FormControl
-      placeholder="Recipient's username"
-      aria-label="Recipient's username"
-      aria-describedby="basic-addon2"
-    />
-    <Button variant="outline-secondary" id="button-addon2">
-      Button
-    </Button>
-  </InputGroup> */}
+          
 
         </div>
 

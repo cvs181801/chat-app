@@ -6,6 +6,7 @@ import Chat from './Chat'
 import CreateLogin from './CreateLogin';
 import '../index.scss';
 import 'bootstrap/dist/css/bootstrap.css';
+import Button from 'react-bootstrap/Button'
 
 export default function Home() {
 
@@ -83,48 +84,30 @@ function handleClick(event) {
                         >Log In
                         </button>
 
-                        
+                        {/*      //****                   
                         <div> 
                             {loggedIn ? 
                         <Link to="/chat"
                             className= "nav_link"
-                            // render={(loggedInUsers)=>(
-                            //     <UserContext>
-                            //         <Chat {...loggedInUsers}/>
-                            //     </UserContext>
-                            //)}
                             >
                             Enter the Chat
                             </Link> : ''} 
                             
-                        </div>
+                        </div> */}
                         
                         <p>{error}</p>
-                        <p>New here? 
+                        <p
+                            className="home_link"
+                        >New here? 
                             <Link to="/createlogin"
                             className= "nav_link"
-                            // render={(loggedInUsers)=>(
-                            //     <UserContext>
-                            //         <CreateLogin {...loggedInUsers}/>
-                            //     </UserContext>
-                            // )}
-                            >Create a login
-                            </Link > or 
-                            <Link to="/chat"
-                            className= "nav_link"
-                            // render={(loggedInUsers)=>(
-                            //     <UserContext>
-                            //         <Chat {...loggedInUsers}/>
-                            //     </UserContext>
-                            // )}
-                            >view as a guest
-                            </Link> 
+                            >  Create a login
+                            </Link >
                             
                         </p>
                     
                 </form>   
                     
-
             </div>
 
          </div>
