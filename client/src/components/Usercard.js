@@ -8,6 +8,7 @@ export default function Usercard(props) {
   return <div>
       <Card
         className="usercard_title"
+        style={{backgroundColor:"#fadfbb"}}
       >
         {props.username}
       </Card>

@@ -111,7 +111,6 @@ useEffect(()=>{
    
 })
 
-
 const allUsers = loggedInUsers.map(user => {
     return <Usercard key={user.id} username={user.username}/>
   })
@@ -127,16 +126,16 @@ console.log(allmessages)
       >
             <Card
                 className="chat_usersArea"
-                style={{backgroundColor: "#fadfbb"
+                border="warning"
+                style={{backgroundColor: "transparent"
                         }}
             >
                 {allUsers} 
             </Card>
-
-                
   
             <Card
                 className="chat_area"
+                border="warning"
                 style={{background: "transparent"
                         }}
             >
