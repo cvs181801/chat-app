@@ -27,12 +27,18 @@ async function addNewUser() {
 
 function handleSubmit(event) {
   event.preventDefault() 
+  setConfirmMsg('')
+  if (username !== "" && password !== "" ) {
     addNewUser()
-      .then(response => {
-        console.log(response.data)
-        setScreenname(response.data)
-        setConfirmed(true)
-      })
+    .then(response => {
+      console.log(response.data)
+      setScreenname(response.data)
+      setConfirmed(true)
+    })
+  } else {
+    setConfirmMsg('Oops - please enter a username and password to register!')
+  }
+   
 }
 
 useEffect(()=> {
