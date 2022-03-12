@@ -4,6 +4,8 @@
 $mainColor: #313131;
 $apricot: #fadfbb;
 $darkOrange: #834a01;
+$darkBlue: #02024b;
+$royalBlue: #3902ff;
 
 :root {
   --ff-main: 'Dosis', sans-serif;
@@ -85,6 +87,7 @@ body {
   font-size: 1rem;
   text-align: center;
   border-style: none;
+  font-family: var(--ff-thin);
 }
 
 .button_home {
@@ -179,7 +182,8 @@ body {
   height: 100vh;
 }
 
-.nav_link--createlogin {
+.nav_link--createlogin,
+.nav_link--createlogin--dark {
   text-decoration: none;
   color: grey;
   padding: .5em;
@@ -189,7 +193,12 @@ body {
 }
 
 .nav_link--createlogin:hover {
-  color: rgb(57, 2, 255);
+  color: $royalBlue;
+  transition: all 1s ease-out;
+}
+
+.nav_link--createlogin--dark:hover {
+  color: $apricot;
   transition: all 1s ease-out;
 }
 

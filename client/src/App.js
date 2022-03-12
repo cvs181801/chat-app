@@ -11,7 +11,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import { ThemeContext } from './contexts/ThemeContext';
+//import { ThemeContext } from './contexts/ThemeContext';
 
 const App = () => {
 
@@ -29,7 +29,7 @@ function handleClickDark() {
   return (
     <div 
       className="App"
-      style={{backgroundColor: theme === "light" ? "white" : "black"}}
+      style={{backgroundColor: theme === "light" ? "white" : "#02024b"}}
       
     >  
   <Button 
@@ -39,34 +39,29 @@ function handleClickDark() {
       🌞
   </Button>
   <Button 
-    variant="outline-dark"
+    variant="outline-light"
     onClick={handleClickDark}
     >
       🌜
   </Button>
 
-    <ThemeContext.Provider value={theme}>
+    {/* <ThemeContext.Provider value={theme}> */}
     <BrowserRouter>
     <Switch>
         <Route 
           path="/chat"
           render={()=>{
             return loggedInUser ? (
-              <Chat setIsLoggedIn={loggedInUser} />
+              <Chat setIsLoggedIn={loggedInUser} theme={theme}/>
               ) : (
               <Redirect to= "/" />
               );
             }}
           />
 
-        {/* <Route 
-          exact path="/chat" 
-          render={() => <Chat />} 
-        /> */}
-
         <Route 
           exact path="/createlogin" 
-          render={() => <CreateLogin />} 
+          render={() => <CreateLogin theme={theme} />} 
         />
 
         <Route 
@@ -75,14 +70,14 @@ function handleClickDark() {
               return loggedInUser ? (
                 <Redirect to="/chat"/>
               ) : (
-                <Home setIsLoggedIn={loggedInUser}/>
+                <Home setIsLoggedIn={loggedInUser} theme={theme}/>
               );
             }} 
           />
       
       </Switch>
   </BrowserRouter>,
-  </ThemeContext.Provider>   
+  {/* </ThemeContext.Provider>    */}
   
     </div>
   );

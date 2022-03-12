@@ -7,16 +7,17 @@ import CreateLogin from './CreateLogin';
 import '../index.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button'
-import { ThemeContext } from '../contexts/ThemeContext';
+//import { ThemeContext } from '../contexts/ThemeContext';
 
-export default function Home() {
+export default function Home(props) {
 
 const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
 //const [loggedIn, setLoggedIn] = useState(false);
 const [error, setError] = useState('');
-const theme = useContext(ThemeContext);
-console.log(theme)
+//const theme = useContext(ThemeContext);
+//const theme = useState(props.theme)
+console.log(props.theme)
 
 
 const loginObj = {
@@ -77,12 +78,18 @@ function handleClick(event) {
                             placeholder="username"
                             value={usernameInputValue}
                             onChange={event=>setUsernameInputValue(event.target.value)}
+                            style={{backgroundColor: props.theme === "light" ? "white" : "#02024b",
+                                    color: props.theme === "light" ? "#313131" : "white"
+                            }}
                         ></input>
                         <input
                             type="password"     
                             placeholder="password"
                             value={passwordInputValue}
                             onChange={event=>setPasswordInputValue(event.target.value)}
+                            style={{backgroundColor: props.theme === "light" ? "white" : "#02024b",
+                                    color:props.theme ===  "light" ? "#313131" : "white"
+                            }}
                         ></input>
                     </div>
                         <Button

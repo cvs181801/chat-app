@@ -3,20 +3,21 @@ import {Link} from "react-router-dom"
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../index.scss';
-import { ThemeContext } from '../contexts/ThemeContext';
+//import { ThemeContext } from '../contexts/ThemeContext';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 
-export default function CreateLogin() {
+export default function CreateLogin(props) {
 
 const [username, setUsername] = useState('')
 const [password, setPassword] = useState('')
 const [confirmMsg, setConfirmMsg] = useState('')
 const [confirmed, setConfirmed] = useState(false);
 const [screenname, setScreenname] = useState('')
-const theme = useContext(ThemeContext);
-console.log(theme)
+//const theme = useContext(ThemeContext);
+//const theme = useState(props.theme)
+console.log(props.theme)
 
 const registration = {
   username: username,
@@ -50,16 +51,18 @@ useEffect(()=> {
   }
 },[confirmed])
 
+useEffect(()=>{}, [])
+
   return <div 
     className="container_createlogin"
     style={{
-      backgroundColor: theme === "light" ? "white" : "black",
-       color: theme === "dark" ? "white" : "black",
+      backgroundColor: props.theme === "light" ? "white" : "#02024b",
+       color: props.theme === "dark" ? "white" : "#02024b",
       }}
     >
 
   <Link to="/"
-    className= "nav_link--createlogin"
+    className = {props.theme === "light" ? "nav_link--createlogin" : "nav_link--createlogin--dark"}
     >  ← Back
   </Link >
   
@@ -74,8 +77,8 @@ useEffect(()=> {
         onChange={event=>setUsername(event.target.value)}
         value={username}
         style={{
-          backgroundColor: theme === "light" ? "white" : "black",
-           color: theme === "dark" ? "white" : "black",
+          backgroundColor: props.theme === "light" ? "white" : "#02024b",
+           color: props.theme === "dark" ? "white" : "#02024b",
           }}
       />
     </Form.Group>
@@ -88,24 +91,24 @@ useEffect(()=> {
         onChange={event=>setPassword(event.target.value)}
         value={password}
         style={{
-          backgroundColor: theme === "light" ? "white" : "black",
-           color: theme === "dark" ? "white" : "black",
+          backgroundColor: props.theme === "light" ? "white" : "#02024b",
+           color: props.theme === "dark" ? "white" : "#02024b",
           }}
       />
     </Form.Group>
     <Button
       className="createlogin_button" 
       type="submit"
-      variant="secondary"
+      variant={props.theme ==="light" ? "secondary" : "light"}
       onSubmit={handleSubmit}
     >Register</Button>
     
   </Form>  
 
     {confirmed ? confirmMsg : ''}
-      <Link to="/"
+      {/* <Link to="/"
             className= "nav_link">
                 Log In
-      </Link>
+      </Link> */}
   </div>;
 }

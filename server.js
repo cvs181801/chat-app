@@ -34,11 +34,10 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'Client', 'build', 'index.html'));
   });
 
-//install web socket for active users on chat page
-//style the create login page
-// JWT?
+//sass global style wrapper to create dark theme feature ? emotion or styled components?
+//fix web socket for active users on chat page
+// JWT usage?
 //'like' system?
-//dark/light mode?
  //modular design?
  //SQL injection attack and XSS attack and write blog post
  //timing attacks ?

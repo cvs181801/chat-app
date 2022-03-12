@@ -10,18 +10,20 @@ import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl';
-import { ThemeContext } from '../contexts/ThemeContext';
+//import { ThemeContext } from '../contexts/ThemeContext';
 
 const socket = io();
 
-export default function Chat() {
+export default function Chat(props) {
+    console.log(props)
 
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
 const [loggedInUsers, setLoggedInUsers] = useState([])
 const [logQueue, setLogQueue] = useState(false)
-const theme = useContext(ThemeContext);
-console.log(theme)
+//const theme = useContext(ThemeContext);
+//const theme = useState(props.theme)
+console.log(props.theme)
 
 function postMsg() {
     setMessageInputValue('')
@@ -116,28 +118,19 @@ useEffect(()=> {
     getMessages();
 }, [])
 
- useEffect(()=>{
-//     console.log(loggedInUsers)
- //const checkit = localStorage.getItem('userId');
- //console.log(checkit)
-//     // const checkitname = localStorage.getItem('username');
-//     // console.log(checkitname)
-
-   
- }, [theme])
 
 const allUsers = loggedInUsers.map(user => {
-    return <Usercard key={user.id} username={user.username}/>
+    return <Usercard key={user.id} username={user.username} theme={props.theme}/>
   })
 
 const allChats = allmessages.map(msg => {
     return <Card style={{
-                        backgroundColor: theme === "light" ? "white" : "black",
-                         color: theme === "dark" ? "white" : "black",
+                        backgroundColor: props.theme === "light" ? "white" : "#02024b",
+                         color: props.theme === "dark" ? "white" : "#02024b",
                         }} key={msg.chat_id}>{msg.username}: {msg.text}</Card>
 })
 
-  return <div style={{backgroundColor: theme === "light" ? "white" : "black"}}>
+  return <div style={{backgroundColor: props.theme === "light" ? "white" : "#02024b"}}>
       <Container
         className="chatContainer"
       >
@@ -175,8 +168,8 @@ const allChats = allmessages.map(msg => {
                 value={messageInputValue}
                 onChange={event=>setMessageInputValue(event.target.value)}
                 style={{
-                    backgroundColor: theme === "light" ? "white" : "black",
-                     color: theme === "dark" ? "white" : "black",
+                    backgroundColor: props.theme === "light" ? "white" : "#02024b",
+                     color: props.theme === "dark" ? "white" : "#02024b",
                     }}
             />
                 <Button
@@ -196,7 +189,7 @@ const allChats = allmessages.map(msg => {
         <Button
             onClick={logOut}
             className="chat_button"
-            variant="secondary"
+            variant={props.theme ==="light" ? "secondary" : "light"}
         >Log Out
         </Button>
 
