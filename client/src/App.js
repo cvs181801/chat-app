@@ -10,13 +10,16 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
+import { ThemeContext } from './contexts/ThemeContext';
 
 const App = () => {
 
 const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('userId'))
+const [theme, setTheme] = useState('light')
 
   return (
-    <div className="App">     
+    <div className="App">  
+    <ThemeContext.Provider value={theme}>
     <BrowserRouter>
     <Switch>
         <Route 
@@ -53,7 +56,7 @@ const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('userId'))
       
       </Switch>
   </BrowserRouter>,
-
+  </ThemeContext.Provider>   
   
     </div>
   );

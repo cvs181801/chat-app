@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../index.scss';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
@@ -14,6 +15,7 @@ const [password, setPassword] = useState('')
 const [confirmMsg, setConfirmMsg] = useState('')
 const [confirmed, setConfirmed] = useState(false);
 const [screenname, setScreenname] = useState('')
+const theme = useContext(ThemeContext);
 
 const registration = {
   username: username,
@@ -47,7 +49,12 @@ useEffect(()=> {
   }
 },[confirmed])
 
-  return <div>
+  return <div className="container_createlogin">
+
+  <Link to="/"
+    className= "nav_link--createlogin"
+    >  ← Back
+  </Link >
   
   <Form
     className='createlogin_form'

@@ -7,6 +7,7 @@ import CreateLogin from './CreateLogin';
 import '../index.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button'
+import { ThemeContext } from '../contexts/ThemeContext';
 
 export default function Home() {
 
@@ -14,6 +15,8 @@ const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
 //const [loggedIn, setLoggedIn] = useState(false);
 const [error, setError] = useState('');
+const theme = useContext(ThemeContext);
+console.log(theme)
 
 
 const loginObj = {
@@ -36,7 +39,7 @@ function handleClick(event) {
     if (usernameInputValue !== "" && passwordInputValue !== "" ) {
         login()
             .then(res=>{
-                if(res.data[0] === "Welcome back!") {
+                if(res.data[3]) {
                     console.log(res.data)
                     const userId = res.data[1]
                     const username = res.data[2]

@@ -10,6 +10,7 @@ import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 const socket = io();
 
@@ -19,6 +20,7 @@ const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
 const [loggedInUsers, setLoggedInUsers] = useState([])
 const [logQueue, setLogQueue] = useState(false)
+const theme = useContext(ThemeContext);
 
 function postMsg() {
     setMessageInputValue('')
@@ -170,9 +172,9 @@ const allChats = allmessages.map(msg => {
             />
                 <Button
                     onClick={postMsg}
-                    variant="secondary"
+                    variant="warning"
                     className="chat_button--post"
-                >post
+                >Post
                 </Button> 
             </InputGroup>
 
