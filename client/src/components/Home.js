@@ -1,24 +1,18 @@
 import React, {useState, useEffect, useContext} from 'react';
-import App from '../App'
+//import App from '../App'
 import {Link} from "react-router-dom"
 import axios from 'axios'
-import Chat from './Chat'
-import CreateLogin from './CreateLogin';
+//import Chat from './Chat'
+//import CreateLogin from './CreateLogin';
 import '../index.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button'
-//import { ThemeContext } from '../contexts/ThemeContext';
 
 export default function Home(props) {
 
 const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
-//const [loggedIn, setLoggedIn] = useState(false);
 const [error, setError] = useState('');
-//const theme = useContext(ThemeContext);
-//const theme = useState(props.theme)
-console.log(props.theme)
-
 
 const loginObj = {
     username: usernameInputValue,
@@ -98,17 +92,6 @@ function handleClick(event) {
                             onClick={handleClick}
                         >Log In
                         </Button>
-
-                        {/*      //****                   
-                        <div> 
-                            {loggedIn ? 
-                        <Link to="/chat"
-                            className= "nav_link"
-                            >
-                            Enter the Chat
-                            </Link> : ''} 
-                            
-                        </div> */}
                         
                         <p>{error}</p>
                         <p

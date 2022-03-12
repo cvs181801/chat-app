@@ -11,7 +11,6 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-//import { ThemeContext } from './contexts/ThemeContext';
 
 const App = () => {
 
@@ -45,7 +44,6 @@ function handleClickDark() {
       🌜
   </Button>
 
-    {/* <ThemeContext.Provider value={theme}> */}
     <BrowserRouter>
     <Switch>
         <Route 
@@ -77,7 +75,6 @@ function handleClickDark() {
       
       </Switch>
   </BrowserRouter>,
-  {/* </ThemeContext.Provider>    */}
   
     </div>
   );

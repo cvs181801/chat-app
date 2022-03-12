@@ -10,7 +10,7 @@ import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl';
-//import { ThemeContext } from '../contexts/ThemeContext';
+
 
 const socket = io();
 
@@ -21,9 +21,7 @@ const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
 const [loggedInUsers, setLoggedInUsers] = useState([])
 const [logQueue, setLogQueue] = useState(false)
-//const theme = useContext(ThemeContext);
-//const theme = useState(props.theme)
-console.log(props.theme)
+
 
 function postMsg() {
     setMessageInputValue('')
@@ -48,8 +46,6 @@ function logOut() {
                 localStorage.removeItem('userId')
                 localStorage.removeItem('username')
                 console.log('see you later!')
-                //const checkit = localStorage.getItem('userId');
-                //console.log(checkit)
                 setLogQueue(true)
                 window.location.reload()
             } else {
