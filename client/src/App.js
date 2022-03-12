@@ -4,6 +4,7 @@ import Home from './components/Home'
 import CreateLogin from './components/CreateLogin'
 import Chat from './components/Chat.js'
 import 'bootstrap/dist/css/bootstrap.css';
+import Button from 'react-bootstrap/Button'
 import {
   BrowserRouter,
   Switch,
@@ -17,8 +18,33 @@ const App = () => {
 const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('userId'))
 const [theme, setTheme] = useState('light')
 
+function handleClickLight() {
+  setTheme("light")
+}
+
+function handleClickDark() {
+  setTheme("dark")
+}
+
   return (
-    <div className="App">  
+    <div 
+      className="App"
+      style={{backgroundColor: theme === "light" ? "white" : "black"}}
+      
+    >  
+  <Button 
+    variant="outline-light"
+    onClick={handleClickLight}
+    >
+      🌞
+  </Button>
+  <Button 
+    variant="outline-dark"
+    onClick={handleClickDark}
+    >
+      🌜
+  </Button>
+
     <ThemeContext.Provider value={theme}>
     <BrowserRouter>
     <Switch>

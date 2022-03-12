@@ -55,7 +55,9 @@ function handleClick(event) {
     }
 }
 
-  return <div>
+  return <div
+        className='container_home'
+        >
             <div className="container">
                 <h1
                     className="title"

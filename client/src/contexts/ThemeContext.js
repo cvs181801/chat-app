@@ -1,6 +1,7 @@
 import React, {createContext, useState, useEffect} from 'react'
 export const ThemeContext = createContext()
-//import "./index.scss";
+import 'bootstrap/dist/css/bootstrap.css';
+import '../index.scss';
 
 export default function ThemeContextProvider(props) {
     const [theme, setTheme] = useState('light');

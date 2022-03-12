@@ -21,6 +21,7 @@ const [allmessages, setAllMessages] = useState([])
 const [loggedInUsers, setLoggedInUsers] = useState([])
 const [logQueue, setLogQueue] = useState(false)
 const theme = useContext(ThemeContext);
+console.log(theme)
 
 function postMsg() {
     setMessageInputValue('')
@@ -115,25 +116,28 @@ useEffect(()=> {
     getMessages();
 }, [])
 
-// useEffect(()=>{
+ useEffect(()=>{
 //     console.log(loggedInUsers)
- const checkit = localStorage.getItem('userId');
- console.log(checkit)
+ //const checkit = localStorage.getItem('userId');
+ //console.log(checkit)
 //     // const checkitname = localStorage.getItem('username');
 //     // console.log(checkitname)
 
    
-// })
+ }, [theme])
 
 const allUsers = loggedInUsers.map(user => {
     return <Usercard key={user.id} username={user.username}/>
   })
 
 const allChats = allmessages.map(msg => {
-    return <Card key={msg.chat_id}>{msg.username}: {msg.text}</Card>
+    return <Card style={{
+                        backgroundColor: theme === "light" ? "white" : "black",
+                         color: theme === "dark" ? "white" : "black",
+                        }} key={msg.chat_id}>{msg.username}: {msg.text}</Card>
 })
 
-  return <div>
+  return <div style={{backgroundColor: theme === "light" ? "white" : "black"}}>
       <Container
         className="chatContainer"
       >
@@ -163,12 +167,17 @@ const allChats = allmessages.map(msg => {
 
             <InputGroup 
                 className="chat_input"
+                
             >
             <FormControl        
                 type="text"     
                 placeholder="Type your message here"
                 value={messageInputValue}
                 onChange={event=>setMessageInputValue(event.target.value)}
+                style={{
+                    backgroundColor: theme === "light" ? "white" : "black",
+                     color: theme === "dark" ? "white" : "black",
+                    }}
             />
                 <Button
                     onClick={postMsg}

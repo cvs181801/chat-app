@@ -16,6 +16,7 @@ const [confirmMsg, setConfirmMsg] = useState('')
 const [confirmed, setConfirmed] = useState(false);
 const [screenname, setScreenname] = useState('')
 const theme = useContext(ThemeContext);
+console.log(theme)
 
 const registration = {
   username: username,
@@ -49,7 +50,13 @@ useEffect(()=> {
   }
 },[confirmed])
 
-  return <div className="container_createlogin">
+  return <div 
+    className="container_createlogin"
+    style={{
+      backgroundColor: theme === "light" ? "white" : "black",
+       color: theme === "dark" ? "white" : "black",
+      }}
+    >
 
   <Link to="/"
     className= "nav_link--createlogin"
@@ -66,6 +73,10 @@ useEffect(()=> {
         placeholder="login username"
         onChange={event=>setUsername(event.target.value)}
         value={username}
+        style={{
+          backgroundColor: theme === "light" ? "white" : "black",
+           color: theme === "dark" ? "white" : "black",
+          }}
       />
     </Form.Group>
 
@@ -76,6 +87,10 @@ useEffect(()=> {
         placeholder="password"
         onChange={event=>setPassword(event.target.value)}
         value={password}
+        style={{
+          backgroundColor: theme === "light" ? "white" : "black",
+           color: theme === "dark" ? "white" : "black",
+          }}
       />
     </Form.Group>
     <Button

@@ -11,7 +11,7 @@ CREATE TABLE messages(
     messageid SERIAL PRIMARY KEY,
     text TEXT,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
-    user_id integer REFERENCES users(id) NOT NULL
+    user_id uuid REFERENCES users(id) NOT NULL
 );
 
 
