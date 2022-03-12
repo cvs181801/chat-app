@@ -32,14 +32,19 @@ function handleClickDark() {
       
     >  
   <Button 
-    variant="outline-light"
+    variant="outline-warning"
     onClick={handleClickLight}
+    style={{borderRadius: "50%",
+            marginRight: ".2em"
+    }}
     >
       🌞
   </Button>
+
   <Button 
-    variant="outline-light"
+    variant="outline-warning"
     onClick={handleClickDark}
+    style={{borderRadius: "50%"}}
     >
       🌜
   </Button>
