@@ -27,14 +27,15 @@ io.on('connection', (socket) => {
     console.log('a user connected');
 });
 
-server.listen(process.env.PORT || 3000);
+//server.listen(process.env.PORT || 3000);
+
+server.listen(process.env.HOST);
 
 //this is the line of code needed to get node to route the user to the correct page w/o needing to go back through the home page!
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'Client', 'build', 'index.html'));
   });
 
-//sass global style wrapper to create dark theme feature ? emotion or styled components?
 //fix web socket for active users on chat page
 // JWT usage?
 //'like' system?
@@ -42,8 +43,6 @@ app.get('/*', (req, res) => {
  //SQL injection attack and XSS attack and write blog post
  //timing attacks ?
 
- // a6b94856-3234-4049-b8e8-6598d2303beb CasS hello123
- // fa576daf-a343-484b-a16b-25f4ad520522 Spongebob1 hoopla
- //2c30765c-0ee0-4c9e-b38e-9f54636b4eb7 happyhacker1 tohackornottohack
+ 
 
  
