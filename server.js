@@ -27,9 +27,9 @@ io.on('connection', (socket) => {
     console.log('a user connected');
 });
 
-//server.listen(process.env.PORT || 3000);
+server.listen(process.env.PORT || 3000);
 
-server.listen(process.env.HOST);
+//server.listen(process.env.HOST);
 
 //this is the line of code needed to get node to route the user to the correct page w/o needing to go back through the home page!
 app.get('/*', (req, res) => {
