@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from "react-router-dom"
 import Usercard from './Usercard'
 import axios from 'axios'
 import { io } from "socket.io-client";
@@ -11,12 +10,19 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl';
-
+import {
+    BrowserRouter,
+    Switch,
+    Route,
+    Redirect, 
+    withRouter
+  } from "react-router-dom";
 
 const socket = io();
 
-export default function Chat(props) {
+function Chat(props) {
     console.log(props)
+    console.log(props.setIsLoggedIn)
 
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
@@ -49,6 +55,9 @@ function logOut() {
                 console.log('see you later!')
                 setLogQueue(true)
                 window.location.reload()
+                console.log(props.setIsLoggedIn)
+                //<Route exact path="/" component={Home} <Redirect to="/"/>
+                
             } else {
                console.log("please try logging out again")
             }
@@ -190,8 +199,8 @@ const allChats = allmessages.map(msg => {
         <Button
             onClick={logOut}
             className="chat_button"
-            //variant={props.theme ==="light" ? "secondary" : "light"}
-            variant="secondary"
+            variant={props.theme ==="light" ? "secondary" : "light"}
+            
         >Log Out
         </Button>
 
@@ -200,3 +209,4 @@ const allChats = allmessages.map(msg => {
   </div>
 }
 
+export default withRouter(Chat);
