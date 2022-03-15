@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom"
 import Usercard from './Usercard'
 import axios from 'axios'
@@ -8,6 +8,7 @@ import '../index.scss';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
+import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl';
 
@@ -153,6 +154,9 @@ const allChats = allmessages.map(msg => {
         <div
             className="message_area"
         >
+            <Form
+                onSubmit={(event)=>postMsg(event)}
+            >
 
             <InputGroup 
                 className="chat_input"
@@ -169,12 +173,13 @@ const allChats = allmessages.map(msg => {
                     }}
             />
                 <Button
-                    onClick={postMsg}
+                    type="submit"
                     variant="warning"
                     className="chat_button--post"
                 >Post
                 </Button> 
             </InputGroup>
+            </Form>
 
         </div>
 
