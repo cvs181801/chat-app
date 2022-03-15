@@ -14,9 +14,8 @@ router.post(`/register`, (req, res)=> {
     try {
         bcrypt.genSalt(saltRounds, async function(err, salt) {
             bcrypt.hash(password, salt, async function(err, hash) { //adding async returns a promise! 
-                console.log('hash :', hash)
-                console.log('salt :', salt)
-                //console.log(username, password)
+                //console.log('hash :', hash)
+                ////console.log('salt :', salt)
                 
                 const newUser = await pool.query(`INSERT INTO users(username, password) VALUES ($1, $2) RETURNING *`, 
                 [username, hash]);
@@ -27,6 +26,7 @@ router.post(`/register`, (req, res)=> {
     }
     catch(err) {
         console.log(err)
+        res.send(err)
     }
 })
 
@@ -59,7 +59,7 @@ router.post(`/login`, async (req, res)=> {
 
                     const token = jwt.sign(payload, process.env.TOKEN_SECRET) 
 
-                    res.json(["Welcome back!", loginResponse1.rows[0].id, loginResponse1.rows[0].username, token]) //add token to this array too
+                    res.json(["Welcome back!", loginResponse1.rows[0].id, loginResponse1.rows[0].username, token]) 
                  
                 } else {
                     console.log(err)

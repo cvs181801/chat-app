@@ -1,10 +1,11 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom"
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../index.scss';
-
+import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
+//import { Form, FormControl } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 
 export default function CreateLogin(props) {
@@ -27,7 +28,7 @@ async function addNewUser() {
 }
 
 function handleSubmit(event) {
-  event.preventDefault() 
+  event.preventDefault(); 
   setConfirmMsg('')
   if (username !== "" && password !== "" ) {
     addNewUser()
@@ -35,9 +36,12 @@ function handleSubmit(event) {
       console.log(response.data)
       setScreenname(response.data)
       setConfirmed(true)
+      setConfirmMsg("Welcome!  Please log in.")
     })
+   // console.log("e listener worked")
   } else {
     setConfirmMsg('Oops - please enter a username and password to register!')
+    //console.log("didn't work.")
   }
    
 }
@@ -62,9 +66,10 @@ useEffect(()=>{}, [])
     className = {props.theme === "light" ? "nav_link--createlogin" : "nav_link--createlogin--dark"}
     >  ← Back
   </Link >
-  
-  <Form
+
+   <Form
     className='createlogin_form'
+    onSubmit={(event)=>handleSubmit(event)}
   >
     <Form.Group className="createlogin_username" controlId="formBasicUsername">
       <Form.Label>Login Username (this will also be your screenname)</Form.Label>
@@ -73,10 +78,10 @@ useEffect(()=>{}, [])
         placeholder="login username"
         onChange={event=>setUsername(event.target.value)}
         value={username}
-        style={{
-          backgroundColor: props.theme === "light" ? "white" : "#02024b",
-           color: props.theme === "dark" ? "white" : "#02024b",
-          }}
+       style={{
+         backgroundColor: props.theme === "light" ? "white" : "#02024b",
+          color: props.theme === "dark" ? "white" : "#02024b",
+         }}
       />
     </Form.Group>
 
@@ -87,20 +92,42 @@ useEffect(()=>{}, [])
         placeholder="password"
         onChange={event=>setPassword(event.target.value)}
         value={password}
-        style={{
-          backgroundColor: props.theme === "light" ? "white" : "#02024b",
-           color: props.theme === "dark" ? "white" : "#02024b",
-          }}
+       style={{
+         backgroundColor: props.theme === "light" ? "white" : "#02024b",
+          color: props.theme === "dark" ? "white" : "#02024b",
+         }}
       />
     </Form.Group>
     <Button
       className="createlogin_button" 
       type="submit"
       variant={props.theme ==="light" ? "secondary" : "light"}
-      onSubmit={handleSubmit}
+      
     >Register</Button>
     
-  </Form>  
+  </Form>   
+
+
+{/* <form
+  onSubmit={handleSubmit}
+>
+<input
+  type="text"
+  placeholder="login username"
+  onChange={event=>setUsername(event.target.value)}
+  value={username}
+></input>
+<input
+  type="password"
+  placeholder="password"
+  onChange={event=>setPassword(event.target.value)}
+  value={password}
+></input>
+<button
+  onClick={handleSubmit}
+>Register</button>
+</form> */}
+ 
 
     {confirmed ? confirmMsg : ''}
       {/* <Link to="/"
