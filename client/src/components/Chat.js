@@ -187,12 +187,12 @@ const allChats = allmessages.map(msg => {
             className="chat_logoutarea"
         >
 
-        <Button
+        <button
             onClick={logOut}
             className="chat_button"
             variant={props.theme ==="light" ? "secondary" : "light"}
         >Log Out
-        </Button>
+        </button>
 
         </div>
 
