@@ -21,7 +21,6 @@ import {
 
 const socket = io();
 
-
 function Chat(props) {
     console.log(props)
     //console.log(props.setIsLoggedIn)
@@ -58,9 +57,9 @@ function logOut() {
                 localStorage.removeItem('username')
                 console.log('see you later!')
                 setLogQueue(true)
-                window.location.reload()
+                //window.location.reload()
                 console.log(props.setIsLoggedIn)
-                //history.push("/")
+                history.push("/")
                 
             } else {
                console.log("please try logging out again")
@@ -74,6 +73,10 @@ function logOut() {
 }
 //the logged in users automatically get rendered upon page load
 useEffect(()=> {
+    socket.on("loggedInUser", (data)=> { 
+        console.log(data)
+    });
+
     async function getUsers() {
         try {
             const response = await axios.get('api/users')

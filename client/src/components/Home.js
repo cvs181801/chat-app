@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 //import App from '../App'
 import {Link, useHistory} from "react-router-dom"
 import axios from 'axios'
+import { io } from "socket.io-client";
 //import Chat from './Chat'
 //import CreateLogin from './CreateLogin';
 import '../index.scss';
@@ -16,6 +17,8 @@ const [error, setError] = useState('');
 
 let history = useHistory();
 //console.log(history)
+
+const socket = io();
 
 const loginObj = {
     username: usernameInputValue,
@@ -43,8 +46,11 @@ function handleClick(event) {
                     const username = res.data[2]
                     localStorage.setItem(`userId`, `${userId}`)
                     localStorage.setItem(`username`, `${username}`)
-                    window.location.reload()
-                    //history.push("/chat")
+                    //window.location.reload()
+                    history.push("/chat")
+                    socket.on("loggedInUser", (data)=> { 
+                        console.log(data)
+                    });
                 } else {
                     setError('sorry, something went wrong!  Please try again.')
                 }

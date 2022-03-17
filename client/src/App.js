@@ -58,7 +58,7 @@ function handleClickDark() {
         <Route 
           path="/chat"
           render={()=>{
-            return loggedInUser ? (
+            return localStorage.getItem('userId') ? (
               <Chat setIsLoggedIn={loggedInUser} theme={theme}/>
               ) : (
               <Redirect to= "/" />
@@ -74,7 +74,7 @@ function handleClickDark() {
         <Route 
           exact path="/" 
           render={()=>{
-              return loggedInUser ? ( //localStorage.getItem('userId')
+              return localStorage.getItem('userId') ? ( //localStorage.getItem('userId')
                 <Redirect to="/chat"/>
               ) : (
                 <Home setIsLoggedIn={loggedInUser} theme={theme}/>

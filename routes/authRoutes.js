@@ -32,7 +32,8 @@ router.post(`/login`, async (req, res)=> {
     console.log(req.body)
     let {username, password} = req.body;
     //console.log(req.body)
-    //const io = req.app.get("socketio");
+    const io = req.app.get("socketio");
+    console.log(io)
 
     const loginQuery = {
         name: "select-user",
@@ -56,10 +57,10 @@ router.post(`/login`, async (req, res)=> {
                         userid: loginResponse1.rows[0].id,
                         username: loginResponse1.rows[0].username
                     }
-
+                    console.log("login payload :", payload)
                     const token = jwt.sign(payload, process.env.TOKEN_SECRET) 
                     // emit message from server back to the client, this needs to be an object.
-                    //io.emit("loggedInUser", {payload} )
+                    io.emit("loggedInUser", { user: payload } )
                     res.json(["Welcome back!", loginResponse1.rows[0].id, loginResponse1.rows[0].username, token]) 
                  
                 } else {
