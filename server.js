@@ -37,7 +37,7 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/build/index.html'))
   });
 
-//fix white screen issue upon initial log in!!
+//why did adding localStorage.getItem in both render methods (Chat and Home componenet) stop the infinite route loop?
 //fix web socket for active users on chat page
 // cookies
 

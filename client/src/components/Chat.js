@@ -22,7 +22,7 @@ import {
 const socket = io();
 
 function Chat(props) {
-    console.log(props)
+    //console.log(props)
     //console.log(props.setIsLoggedIn)
 
 const [messageInputValue, setMessageInputValue] = useState('')
@@ -40,7 +40,7 @@ function postMsg() {
         text: messageInputValue
       }
     const response = axios.post(`/api/messages`, msgData);
-    console.log(response)
+    //console.log(response)
 }
 
 const logoutObj = {
@@ -56,9 +56,10 @@ function logOut() {
                 localStorage.removeItem('userId')
                 localStorage.removeItem('username')
                 console.log('see you later!')
+                
                 setLogQueue(true)
                 //window.location.reload()
-                console.log(props.setIsLoggedIn)
+                //console.log(props.setIsLoggedIn)
                 history.push("/")
                 
             } else {
@@ -74,7 +75,8 @@ function logOut() {
 //the logged in users automatically get rendered upon page load
 useEffect(()=> {
     socket.on("loggedInUser", (data)=> { 
-        console.log(data)
+        console.log("listening to users socket ! :", data)
+        setLoggedInUsers((users)=>[...loggedInUsers, data.user.username])
     });
 
     async function getUsers() {
@@ -107,23 +109,13 @@ useEffect(()=> {
     // console.log(data)
     // setLogQueue(false)
 
-    socket.on("loggedInUser", (data)=> {    
-         async function getLoggedUsers() {
-                try {
-                    const response = await axios.get('api/loggedusers')
-                    console.log(response.data)
-                    setLoggedInUsers(response.data)
-                }
-                catch(err) {
-                    console.log(err)
-                }
-            }
-        
-            getLoggedUsers();  
-        setLoggedInUsers((loggedInUsers)=> [...loggedInUsers, data.user])
-        console.log(data)
+    socket.on("loggedOutUser", (data)=> { 
+        console.log("listening to logged out users socket ! :", data.user.user)
+        //setLoggedInUsers((users)=>[loggedInUsers.pop(data.user.user)])  //loggedInUsers is an array of objects containing user data.  we want to look for the object that matches the newly logged out user, then pop it out of the array.
+        //console.log(loggedInUsers)
+    });
         setLogQueue(false)
-    })
+    
 
     // socket.on("logOut", (data)=> {
     //     getLoggedUsers()
@@ -137,13 +129,13 @@ useEffect(()=> {
 useEffect(()=> {
     socket.on("newMessage", (data)=>{
         setAllMessages((allMessages)=>[...allMessages, data.msg])
-        console.log(data)
+        //console.log(data)
     });
 
     async function getMessages() {
         try {
             const response = await axios.get('api/messages')
-            console.log('all messages :', response.data)
+            //console.log('all messages :', response.data)
             setAllMessages(response.data)
         }
         catch(err) {

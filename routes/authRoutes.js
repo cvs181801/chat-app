@@ -33,7 +33,7 @@ router.post(`/login`, async (req, res)=> {
     let {username, password} = req.body;
     //console.log(req.body)
     const io = req.app.get("socketio");
-    console.log(io)
+    //console.log(io)
 
     const loginQuery = {
         name: "select-user",
@@ -83,14 +83,17 @@ router.post(`/logout`, async (req, res)=> {
     let {userid, username} = req.body;
     console.log(userid, username)
     //console.log(req.body)
-    //const io = req.app.get("socketio");
+    const io = req.app.get("socketio");
     
     try {     
         const logOutBool = await pool.query(`UPDATE users SET isloggedin = $1 WHERE id = $2 RETURNING *`, 
         [false, userid]);
         console.log('logout - user', logOutBool.rows[0])
+        const logOutPayload = {
+            user: logOutBool.rows[0].username
+        }
         // emit message from server back to the client, this needs to be an object. send the minimim amt of info needed.
-        //io.emit("loggedInUser", {user: logOutBool.rows[0]} )
+        io.emit("loggedOutUser", {user: logOutPayload} )
         res.send('See you later!' )
     }
     catch(err) {

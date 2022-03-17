@@ -14,6 +14,7 @@ export default function Home(props) {
 const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
 const [error, setError] = useState('');
+const [testUserData, setTestUserData] = useState('')
 
 let history = useHistory();
 //console.log(history)
@@ -46,11 +47,14 @@ function handleClick(event) {
                     const username = res.data[2]
                     localStorage.setItem(`userId`, `${userId}`)
                     localStorage.setItem(`username`, `${username}`)
+                    socket.on("loggedInUser", (data)=> { 
+                        console.log("listening to users socket ! :", data)
+                        //setTestUserData(data.user.userid)
+                    });
                     //window.location.reload()
                     history.push("/chat")
-                    socket.on("loggedInUser", (data)=> { 
-                        console.log(data)
-                    });
+                    
+                   
                 } else {
                     setError('sorry, something went wrong!  Please try again.')
                 }
@@ -115,7 +119,7 @@ function handleClick(event) {
                         </p>
                     
                 </form>   
-                    
+                    {/* {testUserData} */}
             </div>
 
          </div>
