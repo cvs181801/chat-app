@@ -15,20 +15,24 @@ import {
     Switch,
     Route,
     Redirect, 
-    withRouter
+    withRouter,
+    useHistory
   } from "react-router-dom";
 
 const socket = io();
 
+
 function Chat(props) {
     console.log(props)
-    console.log(props.setIsLoggedIn)
+    //console.log(props.setIsLoggedIn)
 
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
 const [loggedInUsers, setLoggedInUsers] = useState([])
 const [logQueue, setLogQueue] = useState(false)
 
+let history = useHistory();
+console.log(history)
 
 function postMsg() {
     setMessageInputValue('')
@@ -54,9 +58,9 @@ function logOut() {
                 localStorage.removeItem('username')
                 console.log('see you later!')
                 setLogQueue(true)
-                window.location.reload()
+                //window.location.reload()
                 console.log(props.setIsLoggedIn)
-                //<Route exact path="/" component={Home} <Redirect to="/"/>
+                history.push("/")
                 
             } else {
                console.log("please try logging out again")
@@ -132,6 +136,7 @@ useEffect(()=> {
         setAllMessages((allMessages)=>[...allMessages, data.msg])
         console.log(data)
     });
+    
     async function getMessages() {
         try {
             const response = await axios.get('api/messages')
@@ -231,4 +236,4 @@ const allChats = allmessages.map(msg => {
   </div>
 }
 
-export default withRouter(Chat);
+export default Chat;
