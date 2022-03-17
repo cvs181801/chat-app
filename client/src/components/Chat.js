@@ -68,7 +68,7 @@ function logOut() {
     }
     logout();
 }
-
+//the logged in users automatically get rendered upon page load
 useEffect(()=> {
     async function getUsers() {
         try {
@@ -83,8 +83,23 @@ useEffect(()=> {
     getUsers(); 
 },[])
 
+//then want to create a way to re-render the logged in users each time someone logs out or logs in.
 
 useEffect(()=> {
+//     async function getLoggedUsers() {
+//         try {
+//             const response = await axios.get('api/loggedusers')
+//             console.log(response.data)
+//             setLoggedInUsers(response.data)
+//         }
+//         catch(err) {
+//             console.log(err)
+//         }
+//     }
+    // setLoggedInUsers((loggedInUsers)=> [...loggedInUsers, data.user])
+    // console.log(data)
+    // setLogQueue(false)
+
     socket.on("loggedInUser", (data)=> {    
          async function getLoggedUsers() {
                 try {
@@ -102,6 +117,13 @@ useEffect(()=> {
         console.log(data)
         setLogQueue(false)
     })
+
+    // socket.on("logOut", (data)=> {
+    //     getLoggedUsers()
+    //     setLoggedInUsers((loggedInUsers)=> [...loggedInUsers, data.user])
+    //     console.log(data)
+    //     setLogQueue(false)
+    // })
            
   },[logQueue])
 

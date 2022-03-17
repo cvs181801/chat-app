@@ -33,7 +33,8 @@ server.listen(process.env.PORT || 3000);
 
 //this is the line of code needed to get node to route the user to the correct page w/o needing to go back through the home page!
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Client', 'build', 'index.html'));
+    //res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname + '/client/build/index.html'))
   });
 
 //fix web socket for active users on chat page
