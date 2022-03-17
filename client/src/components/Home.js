@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 //import App from '../App'
-import {Link} from "react-router-dom"
+import {Link, useHistory} from "react-router-dom"
 import axios from 'axios'
 //import Chat from './Chat'
 //import CreateLogin from './CreateLogin';
@@ -13,6 +13,9 @@ export default function Home(props) {
 const [usernameInputValue, setUsernameInputValue] = useState('');
 const [passwordInputValue, setPasswordInputValue] = useState('');
 const [error, setError] = useState('');
+
+let history = useHistory();
+//console.log(history)
 
 const loginObj = {
     username: usernameInputValue,
@@ -40,7 +43,8 @@ function handleClick(event) {
                     const username = res.data[2]
                     localStorage.setItem(`userId`, `${userId}`)
                     localStorage.setItem(`username`, `${username}`)
-                    window.location.reload()
+                    //window.location.reload()
+                    history.push("/chat")
                 } else {
                     setError('sorry, something went wrong!  Please try again.')
                 }
