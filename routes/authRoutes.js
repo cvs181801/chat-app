@@ -54,7 +54,7 @@ router.post(`/login`, async (req, res)=> {
                     console.log("Login - user :", loginResponse1.rows[0])
 
                     const payload = {
-                        userid: loginResponse1.rows[0].id,
+                        id: loginResponse1.rows[0].id,
                         username: loginResponse1.rows[0].username
                     }
                     console.log("login payload :", payload)
@@ -90,7 +90,8 @@ router.post(`/logout`, async (req, res)=> {
         [false, userid]);
         console.log('logout - user', logOutBool.rows[0])
         const logOutPayload = {
-            user: logOutBool.rows[0].username
+            id: logOutBool.rows[0].id,
+            username: logOutBool.rows[0].username
         }
         // emit message from server back to the client, this needs to be an object. send the minimim amt of info needed.
         io.emit("loggedOutUser", {user: logOutPayload} )

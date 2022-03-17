@@ -21,6 +21,12 @@ import {
 
 const socket = io();
 
+const testArr = [
+    {id: '123', username: 'happy'},
+    {id: '456', username: 'sleepy'},
+    {id: '789', username: 'grumpy'}
+]
+
 function Chat(props) {
     //console.log(props)
     //console.log(props.setIsLoggedIn)
@@ -76,13 +82,13 @@ function logOut() {
 useEffect(()=> {
     socket.on("loggedInUser", (data)=> { 
         console.log("listening to users socket ! :", data)
-        setLoggedInUsers((users)=>[...loggedInUsers, data.user.username])
+        setLoggedInUsers((users)=>[...loggedInUsers, data.user])
     });
 
     async function getUsers() {
         try {
             const response = await axios.get('api/users')
-            console.log(response.data)
+            console.log("logged in users upon mount:", response.data)
             setLoggedInUsers(response.data)
         }
         catch(err) {
@@ -110,9 +116,15 @@ useEffect(()=> {
     // setLogQueue(false)
 
     socket.on("loggedOutUser", (data)=> { 
-        console.log("listening to logged out users socket ! :", data.user.user)
-        //setLoggedInUsers((users)=>[loggedInUsers.pop(data.user.user)])  //loggedInUsers is an array of objects containing user data.  we want to look for the object that matches the newly logged out user, then pop it out of the array.
-        //console.log(loggedInUsers)
+        console.log(loggedInUsers)//<<< empty array
+
+        console.log("listening to logged out users socket ! :", data.user.username)
+
+        const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
+        console.log(usersStillLoggedIn); //<<< empty array
+
+        //setLoggedInUsers(usersStillLoggedIn) 
+        
     });
         setLogQueue(false)
     
