@@ -32,7 +32,7 @@ const [loggedInUsers, setLoggedInUsers] = useState([])
 const [logQueue, setLogQueue] = useState(false)
 
 let history = useHistory();
-console.log(history)
+//console.log(history)
 
 function postMsg() {
     setMessageInputValue('')
@@ -136,7 +136,7 @@ useEffect(()=> {
         setAllMessages((allMessages)=>[...allMessages, data.msg])
         console.log(data)
     });
-    
+
     async function getMessages() {
         try {
             const response = await axios.get('api/messages')

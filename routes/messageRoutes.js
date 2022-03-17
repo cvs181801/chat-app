@@ -12,8 +12,8 @@ router.post(`/messages`, async (req, res)=> {
         const userId = await pool.query('SELECT username FROM users WHERE id = $1',
         [newMessage.rows[0].user_id])    
 
-        console.log('message rows! :', newMessage.rows)
-        console.log('userIds!! :', userId.rows)
+        //console.log('message rows! :', newMessage.rows)
+        //console.log('userIds!! :', userId.rows)
         // emit message from server back to the client, this needs to be an object.
         const latestMsg = {
                         text: newMessage.rows[0].text, 
@@ -30,7 +30,7 @@ router.post(`/messages`, async (req, res)=> {
 router.get(`/messages`, async (req, res)=> {
     try {
         const messages = await pool.query('SELECT text, username, user_id FROM messages INNER JOIN users ON messages.user_id = users.id')
-        console.log("here are all the msgs: ", messages.rows)
+        //console.log("here are all the msgs: ", messages.rows)
         res.send(messages.rows)
     }
         catch(err) {
