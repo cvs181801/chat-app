@@ -43,8 +43,8 @@ function handleClick(event) {
                     const username = res.data[2]
                     localStorage.setItem(`userId`, `${userId}`)
                     localStorage.setItem(`username`, `${username}`)
-                    //window.location.reload()
-                    history.push("/chat")
+                    window.location.reload()
+                    //history.push("/chat")
                 } else {
                     setError('sorry, something went wrong!  Please try again.')
                 }

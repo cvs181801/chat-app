@@ -58,9 +58,9 @@ function logOut() {
                 localStorage.removeItem('username')
                 console.log('see you later!')
                 setLogQueue(true)
-                //window.location.reload()
+                window.location.reload()
                 console.log(props.setIsLoggedIn)
-                history.push("/")
+                //history.push("/")
                 
             } else {
                console.log("please try logging out again")

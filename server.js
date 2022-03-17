@@ -37,13 +37,16 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/build/index.html'))
   });
 
+//fix white screen issue upon initial log in!!
 //fix web socket for active users on chat page
-// JWT usage?
-//'like' system?
+// cookies
+
  //modular design?
  //SQL injection attack and XSS attack and write blog post
  //timing attacks ?
+//like system? 
+
 
  
 
- //CasS testing123!
+ 

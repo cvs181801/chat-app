@@ -59,7 +59,7 @@ router.post(`/login`, async (req, res)=> {
 
                     const token = jwt.sign(payload, process.env.TOKEN_SECRET) 
                     // emit message from server back to the client, this needs to be an object.
-                    //io.emit("loggedInUser", {user: usernames.rows} )
+                    //io.emit("loggedInUser", {payload} )
                     res.json(["Welcome back!", loginResponse1.rows[0].id, loginResponse1.rows[0].username, token]) 
                  
                 } else {
@@ -88,8 +88,8 @@ router.post(`/logout`, async (req, res)=> {
         const logOutBool = await pool.query(`UPDATE users SET isloggedin = $1 WHERE id = $2 RETURNING *`, 
         [false, userid]);
         console.log('logout - user', logOutBool.rows[0])
-        // emit message from server back to the client, this needs to be an object.
-        //io.emit("loggedInUser", {user: usernames.rows} )
+        // emit message from server back to the client, this needs to be an object. send the minimim amt of info needed.
+        //io.emit("loggedInUser", {user: logOutBool.rows[0]} )
         res.send('See you later!' )
     }
     catch(err) {
