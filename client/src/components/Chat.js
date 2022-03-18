@@ -82,8 +82,9 @@ function logOut() {
 //the logged in users automatically get rendered upon page load
  useEffect(()=> {
     socket.on("loggedInUser", (data)=> { 
-        console.log("listening to users socket ! :", data)
-        setLoggedInUsers((users)=>[...loggedInUsers, data.user])
+        console.log("listening to users socket data.user! :", data.user)
+        
+        setLoggedInUsers((loggedInUsers)=>[...loggedInUsers, data.user])
     });
 
     async function getUsers() {
@@ -106,8 +107,8 @@ useEffect(()=> {
 
     socket.on("loggedOutUser", (data)=> { 
         console.log(loggedInUsers)//<<< empty array
-        const transport = socket.io.engine.transport.name;
-        console.log(transport) //<< websocket
+        ////const transport = socket.io.engine.transport.name;
+        //console.log(transport) //<< websocket
 
         console.log("listening to logged out users socket ! :", data.user.username)
 

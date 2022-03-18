@@ -37,14 +37,15 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/build/index.html'))
   });
 
-//why did adding localStorage.getItem in both render methods (Chat and Home componenet) stop the infinite route loop?
 //fix web socket for active users on chat page
 // cookies
-
- //modular design?
- //SQL injection attack and XSS attack and write blog post
- //timing attacks ?
+//make the text input field bigger esp on mobile
+//modular design?
+//SQL injection attack and XSS attack and write blog post
+//timing attacks ?
+//hacking websockets
 //like system? 
+//Add “{user} is typing” functionality.
 
 
  
