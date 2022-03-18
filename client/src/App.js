@@ -17,8 +17,6 @@ const App = () => {
 const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('userId'))
 const [theme, setTheme] = useState('light')
 
-//const storedUserID = localStorage.getItem('userId');
-
 function handleClickLight() {
   setTheme("light")
 }
@@ -74,7 +72,7 @@ function handleClickDark() {
         <Route 
           exact path="/" 
           render={()=>{
-              return localStorage.getItem('userId') ? ( //localStorage.getItem('userId')
+              return localStorage.getItem('userId') ? ( 
                 <Redirect to="/chat"/>
               ) : (
                 <Home setIsLoggedIn={loggedInUser} theme={theme}/>

@@ -75,7 +75,7 @@ function logOut() {
             console.log(err)
         }
     }
-    
+    setLogQueue(false)
     logout();
 }
 
@@ -98,34 +98,30 @@ function logOut() {
         }
     }
     getUsers(); 
+    
 },[])
 
 //then want to create a way to re-render the logged in users each time someone logs out or logs in.
 
-useEffect(()=> {
+// useEffect(()=> {
+//     if(logQueue){
+//         console.log('log queue true')
+//     }
+//     console.log(loggedInUsers)
+//     socket.on("loggedOutUser", (data)=> { 
+//         console.log(loggedInUsers)//<<< empty array
+//         ////const transport = socket.io.engine.transport.name;
 
 
-    socket.on("loggedOutUser", (data)=> { 
-        console.log(loggedInUsers)//<<< empty array
-        ////const transport = socket.io.engine.transport.name;
-        //console.log(transport) //<< websocket
+//         console.log("listening to logged out users socket ! :", data.user.username)
 
-        console.log("listening to logged out users socket ! :", data.user.username)
+//         const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
+//         console.log(usersStillLoggedIn); //<<< undefined
 
-        const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
-        console.log(usersStillLoggedIn); //<<< undefined
-
-        //setLoggedInUsers(usersStillLoggedIn) 
+//         //setLoggedInUsers(usersStillLoggedIn) 
         
-    });
-
-    // return () => {
-    //     socket.off();
-    //   };
-    //    setLogQueue(false)
-
-           
-  },[logQueue])
+//     });           
+//   },[logQueue])
 
 useEffect(()=> {
     socket.on("newMessage", (data)=>{
@@ -151,10 +147,18 @@ useEffect(()=> {
     getMessages();
 }, [])
 
-// useEffect(()=>{
-//     console.log(loggedInUsers)
-// })
+useEffect(()=>{
+    console.log(loggedInUsers)
+},[])
 
+socket.on("loggedOutUser", (data)=> {
+    console.log("listening to logged out users socket ! :", data.user.username)
+    //console.log(loggedInUsers);
+    const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
+    console.log(usersStillLoggedIn); 
+    setLoggedInUsers(usersStillLoggedIn) 
+
+ });
 
 const allUsers = loggedInUsers.map(user => {
     return <Usercard key={user.id} username={user.username} theme={props.theme}/>

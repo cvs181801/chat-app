@@ -8,8 +8,6 @@ router.get(`/users`, async (req, res)=> {
     try {
         const usernames = await pool.query('SELECT id, username FROM users WHERE isloggedin = true') 
         //console.log(usernames.rows)
-        // emit message from server back to the client, this needs to be an object.
-        //console.log("logged in users!! :", usernames.rows)
         
         res.send(usernames.rows)
         } 
