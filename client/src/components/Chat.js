@@ -81,14 +81,10 @@ function logOut() {
 
 //the logged in users automatically get rendered upon page load
  useEffect(()=> {
-    // socket.on("loggedInUser", (data)=> { 
-    //     console.log("listening to users socket ! :", data)
-    //     setLoggedInUsers((users)=>[...loggedInUsers, data.user])
-    // });
-
-    // return () => {
-    //     socket.off();
-    //   };
+    socket.on("loggedInUser", (data)=> { 
+        console.log("listening to users socket ! :", data)
+        setLoggedInUsers((users)=>[...loggedInUsers, data.user])
+    });
 
     async function getUsers() {
         try {
@@ -105,47 +101,30 @@ function logOut() {
 
 //then want to create a way to re-render the logged in users each time someone logs out or logs in.
 
-//useEffect(()=> {
-//     async function getLoggedUsers() {
-//         try {
-//             const response = await axios.get('api/loggedusers')
-//             console.log(response.data)
-//             setLoggedInUsers(response.data)
-//         }
-//         catch(err) {
-//             console.log(err)
-//         }
-//     }
-    // setLoggedInUsers((loggedInUsers)=> [...loggedInUsers, data.user])
-    // console.log(data)
-    // setLogQueue(false)
+useEffect(()=> {
 
-    // socket.on("loggedOutUser", (data)=> { 
-    //     console.log(loggedInUsers)//<<< empty array
 
-    //     console.log("listening to logged out users socket ! :", data.user.username)
+    socket.on("loggedOutUser", (data)=> { 
+        console.log(loggedInUsers)//<<< empty array
+        const transport = socket.io.engine.transport.name;
+        console.log(transport) //<< websocket
 
-    //     const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
-    //     console.log(usersStillLoggedIn); //<<< undefined
+        console.log("listening to logged out users socket ! :", data.user.username)
 
-    //     //setLoggedInUsers(usersStillLoggedIn) 
+        const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
+        console.log(usersStillLoggedIn); //<<< undefined
+
+        //setLoggedInUsers(usersStillLoggedIn) 
         
-    // });
+    });
 
     // return () => {
     //     socket.off();
     //   };
     //    setLogQueue(false)
-    
 
-    // socket.on("logOut", (data)=> {
-    //     getLoggedUsers()
-    //     setLoggedInUsers((loggedInUsers)=> [...loggedInUsers, data.user])
-    //     console.log(data)
-    //     setLogQueue(false)
-    // })
            
-  //},[logQueue])
+  },[logQueue])
 
 useEffect(()=> {
     socket.on("newMessage", (data)=>{
