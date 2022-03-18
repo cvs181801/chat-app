@@ -62,12 +62,12 @@ function logOut() {
                 localStorage.removeItem('userId')
                 localStorage.removeItem('username')
                 console.log('see you later!')
-                
-                setLogQueue(true)
+
                 //window.location.reload()
                 //console.log(props.setIsLoggedIn)
+                setLogQueue(true)
                 history.push("/")
-                
+               
             } else {
                console.log("please try logging out again")
             }
@@ -76,10 +76,12 @@ function logOut() {
             console.log(err)
         }
     }
+    
     logout();
+   
 }
 //the logged in users automatically get rendered upon page load
-useEffect(()=> {
+ useEffect(()=> {
     socket.on("loggedInUser", (data)=> { 
         console.log("listening to users socket ! :", data)
         setLoggedInUsers((users)=>[...loggedInUsers, data.user])
@@ -121,7 +123,7 @@ useEffect(()=> {
         console.log("listening to logged out users socket ! :", data.user.username)
 
         const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
-        console.log(usersStillLoggedIn); //<<< empty array
+        console.log(usersStillLoggedIn); //<<< undefined
 
         //setLoggedInUsers(usersStillLoggedIn) 
         
@@ -157,6 +159,10 @@ useEffect(()=> {
 
     getMessages();
 }, [])
+
+// useEffect(()=>{
+//     console.log(loggedInUsers)
+// })
 
 
 const allUsers = loggedInUsers.map(user => {
