@@ -49,6 +49,7 @@ function postMsg() {
     //console.log(response)
 }
 
+
 const logoutObj = {
     userid: localStorage.getItem('userId'),
     username: localStorage.getItem('username')
@@ -63,10 +64,18 @@ function logOut() {
                 localStorage.removeItem('username')
                 console.log('see you later!')
                 //window.location.reload()
-                //console.log(props.setIsLoggedIn)
-                setLogQueue(true)
+                //setLogQueue(true)
+
+                socket.on("loggedOutUser", (data)=> {
+                    console.log("listening to logged out users socket ! :", data.user.username)
+                    //console.log(loggedInUsers);
+                    const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
+                    console.log(usersStillLoggedIn); 
+                    setLoggedInUsers(usersStillLoggedIn) 
+                }); 
+
                 history.push("/")
-               
+
             } else {
                console.log("please try logging out again")
             }
@@ -75,8 +84,9 @@ function logOut() {
             console.log(err)
         }
     }
+
+    logout();  
     setLogQueue(false)
-    logout();
 }
 
 //the logged in users automatically get rendered upon page load
@@ -103,25 +113,21 @@ function logOut() {
 
 //then want to create a way to re-render the logged in users each time someone logs out or logs in.
 
-// useEffect(()=> {
-//     if(logQueue){
-//         console.log('log queue true')
-//     }
-//     console.log(loggedInUsers)
-//     socket.on("loggedOutUser", (data)=> { 
-//         console.log(loggedInUsers)//<<< empty array
-//         ////const transport = socket.io.engine.transport.name;
-
-
-//         console.log("listening to logged out users socket ! :", data.user.username)
-
-//         const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
-//         console.log(usersStillLoggedIn); //<<< undefined
-
-//         //setLoggedInUsers(usersStillLoggedIn) 
-        
-//     });           
-//   },[logQueue])
+useEffect(()=> {
+    if(logQueue) {
+    socket.on("loggedOutUser", (data)=> {
+        console.log("listening to logged out users socket ! :", data.user.username)
+        //console.log(loggedInUsers);
+        const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
+        console.log(usersStillLoggedIn); 
+        setLoggedInUsers(usersStillLoggedIn) 
+       
+     });
+    } else {
+        console.log('no log queue! srry')
+    }
+    
+},[logQueue])
 
 useEffect(()=> {
     socket.on("newMessage", (data)=>{
@@ -151,14 +157,7 @@ useEffect(()=>{
     console.log(loggedInUsers)
 },[])
 
-socket.on("loggedOutUser", (data)=> {
-    console.log("listening to logged out users socket ! :", data.user.username)
-    //console.log(loggedInUsers);
-    const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
-    console.log(usersStillLoggedIn); 
-    setLoggedInUsers(usersStillLoggedIn) 
 
- });
 
 const allUsers = loggedInUsers.map(user => {
     return <Usercard key={user.id} username={user.username} theme={props.theme}/>

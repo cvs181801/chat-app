@@ -37,7 +37,8 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/build/index.html'))
   });
 
-//fix web socket for active users on chat page
+//fix web sockets issues causing users to show incorrectly.  it works fine the first time but when someone logs out the broadcast starts going haywire
+//program 'enter key
 // cookies
 //make the text input field bigger esp on mobile
 //modular design?
