@@ -64,16 +64,7 @@ function logOut() {
                 localStorage.removeItem('username')
                 console.log('see you later!')
                 //window.location.reload()
-                //setLogQueue(true)
-
-                socket.on("loggedOutUser", (data)=> {
-                    console.log("listening to logged out users socket ! :", data.user.username)
-                    //console.log(loggedInUsers);
-                    const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
-                    console.log(usersStillLoggedIn); 
-                    setLoggedInUsers(usersStillLoggedIn) 
-                }); 
-
+                setLogQueue(true)
                 history.push("/")
 
             } else {
@@ -91,6 +82,14 @@ function logOut() {
 
 //the logged in users automatically get rendered upon page load
  useEffect(()=> {
+
+    socket.on("loggedOutUser", (data)=> {
+        console.log("listening to logged out users socket ! :", data.user.username)
+        const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
+        console.log(usersStillLoggedIn); 
+        setLoggedInUsers(usersStillLoggedIn) 
+    });
+
     socket.on("loggedInUser", (data)=> { 
         console.log("listening to users socket data.user! :", data.user)
         
@@ -113,31 +112,31 @@ function logOut() {
 
 //then want to create a way to re-render the logged in users each time someone logs out or logs in.
 
-useEffect(()=> {
-    if(logQueue) {
-    socket.on("loggedOutUser", (data)=> {
-        console.log("listening to logged out users socket ! :", data.user.username)
-        //console.log(loggedInUsers);
-        const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
-        console.log(usersStillLoggedIn); 
-        setLoggedInUsers(usersStillLoggedIn) 
+//  useEffect(()=> {
+//      if(logQueue) {
+//      socket.on("loggedOutUser", (data)=> {
+//          console.log("listening to logged out users socket ! :", data.user.username)
+// //         console.log(loggedInUsers);
+// //         const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
+// //         console.log(usersStillLoggedIn); 
+// //         setLoggedInUsers(usersStillLoggedIn) 
+// //         return () => {
+// //            socket.off("loggedOutUser");
+//          //};
        
-     });
-    } else {
-        console.log('no log queue! srry')
-    }
-    
-},[logQueue])
+//       });
+//      } else {
+//         console.log('no log queue! srry')
+//      } 
+//  },[logQueue])
+
+//*** the first login / logout went fine but then upon repeating, the browser showed another infinte loop upon login */
 
 useEffect(()=> {
     socket.on("newMessage", (data)=>{
         setAllMessages((allMessages)=>[...allMessages, data.msg])
         //console.log(data)
     });
-
-    // return () => {
-    //     socket.off();
-    //   };
 
     async function getMessages() {
         try {
@@ -156,8 +155,6 @@ useEffect(()=> {
 useEffect(()=>{
     console.log(loggedInUsers)
 },[])
-
-
 
 const allUsers = loggedInUsers.map(user => {
     return <Usercard key={user.id} username={user.username} theme={props.theme}/>
