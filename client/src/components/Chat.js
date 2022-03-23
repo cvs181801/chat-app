@@ -11,25 +11,12 @@ import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl';
 import {
-    BrowserRouter,
-    Switch,
-    Route,
-    Redirect, 
-    withRouter,
     useHistory
   } from "react-router-dom";
 
 const socket = io();
 
-const testArr = [
-    {id: '123', username: 'happy'},
-    {id: '456', username: 'sleepy'},
-    {id: '789', username: 'grumpy'}
-]
-
 function Chat(props) {
-    //console.log(props)
-    //console.log(props.setIsLoggedIn)
 
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
@@ -37,7 +24,6 @@ const [loggedInUsers, setLoggedInUsers] = useState([])
 const [logQueue, setLogQueue] = useState(false)
 
 let history = useHistory();
-//console.log(history)
 
 function postMsg() {
     setMessageInputValue('')
@@ -46,7 +32,7 @@ function postMsg() {
         text: messageInputValue
       }
     const response = axios.post(`/api/messages`, msgData);
-    //console.log(response)
+
 }
 
 
@@ -63,7 +49,6 @@ function logOut() {
                 localStorage.removeItem('userId')
                 localStorage.removeItem('username')
                 console.log('see you later!')
-                //window.location.reload()
                 setLogQueue(true)
                 history.push("/")
 
@@ -80,7 +65,7 @@ function logOut() {
     setLogQueue(false)
 }
 
-//the logged in users automatically get rendered upon page load
+//the logged in users automatically get rendered, then disappear when they log out
  useEffect(()=> {
 
     socket.on("loggedOutUser", (data)=> {
@@ -90,11 +75,16 @@ function logOut() {
         setLoggedInUsers(usersStillLoggedIn) 
     });
 
+    //socket.off("loggedOutUser");
+    //socket.disconnect();
+
     socket.on("loggedInUser", (data)=> { 
         console.log("listening to users socket data.user! :", data.user)
-        
         setLoggedInUsers((loggedInUsers)=>[...loggedInUsers, data.user])
     });
+
+    //socket.off("loggedInUser");
+    //socket.disconnect();
 
     async function getUsers() {
         try {
@@ -107,6 +97,10 @@ function logOut() {
         }
     }
     getUsers(); 
+
+    return () => {
+        socket.off();
+      };
     
 },[])
 

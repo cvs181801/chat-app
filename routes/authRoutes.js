@@ -96,21 +96,11 @@ router.post(`/logout`, async (req, res)=> {
         }
         // emit message from server back to the client, this needs to be an object. send the minimim amt of info needed.
         
-        // io.on("connection", (socket) => {
-        //     socket.on('disconnect', function() {
-        //         console.log('Got disconnect!');
-        //         socket.broadcast.emit("loggedOutUser", {user: logOutPayload} )  
-        //       }); 
-        // });
-
-        io.on("disconnect", (socket) => {
-            socket.on('disconnect', function() {
-                console.log('Got disconnect!');
-                socket.broadcast.emit("loggedOutUser", {user: logOutPayload} )  
-              }); 
+        io.on("connection", (socket) => {
+            socket.broadcast.emit("loggedOutUser", {user: logOutPayload} )  
         });
 
-
+        //io.sockets.emit("loggedOutUser", {user: logOutPayload} )  
         res.send('See you later!' )
     }
     catch(err) {
