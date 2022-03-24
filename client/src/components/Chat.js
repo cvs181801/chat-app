@@ -32,9 +32,7 @@ function postMsg() {
         text: messageInputValue
       }
     const response = axios.post(`/api/messages`, msgData);
-
 }
-
 
 const logoutObj = {
     userid: localStorage.getItem('userId'),
@@ -70,16 +68,16 @@ function logOut() {
 
     socket.on("loggedOutUser", (data)=> {
         console.log("listening to logged out users socket ! :", data.user.username)
-        const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
-        console.log(usersStillLoggedIn); 
-        setLoggedInUsers(usersStillLoggedIn) 
+        //const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
+        //console.log(usersStillLoggedIn); 
+        //setLoggedInUsers(usersStillLoggedIn) 
     });
 
     //socket.off("loggedOutUser");
     //socket.disconnect();
 
     socket.on("loggedInUser", (data)=> { 
-        console.log("listening to users socket data.user! :", data.user)
+        console.log("listening to logged in users socket! :", data.user)
         setLoggedInUsers((loggedInUsers)=>[...loggedInUsers, data.user])
     });
 
@@ -98,9 +96,9 @@ function logOut() {
     }
     getUsers(); 
 
-    return () => {
-        socket.off();
-      };
+    // return () => {
+    //     socket.off();
+    //   };
     
 },[])
 
