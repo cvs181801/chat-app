@@ -66,23 +66,10 @@ function logOut() {
 //the logged in users automatically get rendered, then disappear when they log out
  useEffect(()=> {
 
-    socket.on("loggedOutUser", (data)=> {
-        console.log("listening to logged out users socket ! :", data.user.username)
-        //const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
-        //console.log(usersStillLoggedIn); 
-        //setLoggedInUsers(usersStillLoggedIn) 
-    });
-
-    //socket.off("loggedOutUser");
-    //socket.disconnect();
-
     socket.on("loggedInUser", (data)=> { 
         console.log("listening to logged in users socket! :", data.user)
         setLoggedInUsers((loggedInUsers)=>[...loggedInUsers, data.user])
     });
-
-    //socket.off("loggedInUser");
-    //socket.disconnect();
 
     async function getUsers() {
         try {
@@ -95,45 +82,27 @@ function logOut() {
         }
     }
     getUsers(); 
-
-    // return () => {
-    //     socket.off();
-    //   };
     
 },[])
 
-//then want to create a way to re-render the logged in users each time someone logs out or logs in.
+useEffect(()=> {
 
-//  useEffect(()=> {
-//      if(logQueue) {
-//      socket.on("loggedOutUser", (data)=> {
-//          console.log("listening to logged out users socket ! :", data.user.username)
-// //         console.log(loggedInUsers);
-// //         const usersStillLoggedIn = loggedInUsers.filter((user) => user.username !== data.user.username );
-// //         console.log(usersStillLoggedIn); 
-// //         setLoggedInUsers(usersStillLoggedIn) 
-// //         return () => {
-// //            socket.off("loggedOutUser");
-//          //};
-       
-//       });
-//      } else {
-//         console.log('no log queue! srry')
-//      } 
-//  },[logQueue])
+    socket.on("loggedOutUser", (data)=> {
+        console.log("listening to logged out users socket ! :", data.user.username)
+        setLoggedInUsers((loggedInUsers) => loggedInUsers.filter((user) => user.id !== data.user.id))
+    });
 
-//*** the first login / logout went fine but then upon repeating, the browser showed another infinte loop upon login */
+},[])
 
 useEffect(()=> {
     socket.on("newMessage", (data)=>{
         setAllMessages((allMessages)=>[...allMessages, data.msg])
-        //console.log(data)
+       
     });
 
     async function getMessages() {
         try {
             const response = await axios.get('api/messages')
-            //console.log('all messages :', response.data)
             setAllMessages(response.data)
         }
         catch(err) {
