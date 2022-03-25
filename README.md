@@ -2,7 +2,10 @@ Let's Chat, Day-2-Nite
 
 Have fun chatting with others in this chat app complete with a yummy night mode.  Built with Node.js, React.js, Express.js and PostgreSQL.!
 
-[Uploading Screen Shot 2022-03-25 at 4.12.26 PM.png…]()
+<img width="1080" alt="Screen Shot 2022-03-25 at 4 38 13 PM" src="https://user-images.githubusercontent.com/79177146/160214907-77239c5d-2fc7-4ce1-9f67-1f3fd8a5179d.png">
+<img width="1080" alt="Screen Shot 2022-03-25 at 4 37 56 PM" src="https://user-images.githubusercontent.com/79177146/160214915-678cc4d6-d617-40d7-8731-a6e91b109df0.png">
+<img width="1080" alt="Screen Shot 2022-03-25 at 4 37 33 PM" src="https://user-images.githubusercontent.com/79177146/160214919-db4621b1-a189-4d78-b4e1-295f2db79269.png">
+
 
 
 Take it for a spin: https://lets-chat-lets-hack.herokuapp.com/chat
