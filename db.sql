@@ -10,3 +10,8 @@
 --     RAISE NOTICE 'users table created 🎉';
 -- END
 -- $do$;
+
+
+--ALTER TABLE tableA ALTER COLUMN colA SET DATA TYPE UUID USING (uuid_generate_v4());
+--CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+--CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public; 

@@ -21,12 +21,13 @@ function Chat(props) {
 const [messageInputValue, setMessageInputValue] = useState('')
 const [allmessages, setAllMessages] = useState([])
 const [loggedInUsers, setLoggedInUsers] = useState([])
-const [logQueue, setLogQueue] = useState(false)
+const [chatMsg, setChatMsg] = useState('')
 
 let history = useHistory();
 
 function postMsg() {
     setMessageInputValue('')
+    setChatMsg('')
     const msgData = {
         userid: localStorage.getItem('userId'),
         text: messageInputValue
@@ -47,11 +48,10 @@ function logOut() {
                 localStorage.removeItem('userId')
                 localStorage.removeItem('username')
                 console.log('see you later!')
-                setLogQueue(true)
                 history.push("/")
 
             } else {
-               console.log("please try logging out again")
+               setChatMsg("Please try logging out again.")
             }
         }
         catch(err) {
@@ -60,21 +60,17 @@ function logOut() {
     }
 
     logout();  
-    setLogQueue(false)
 }
 
-//the logged in users automatically get rendered, then disappear when they log out
  useEffect(()=> {
 
     socket.on("loggedInUser", (data)=> { 
-        console.log("listening to logged in users socket! :", data.user)
         setLoggedInUsers((loggedInUsers)=>[...loggedInUsers, data.user])
     });
 
     async function getUsers() {
         try {
             const response = await axios.get('api/users')
-            console.log("logged in users upon mount:", response.data)
             setLoggedInUsers(response.data)
         }
         catch(err) {
@@ -88,7 +84,6 @@ function logOut() {
 useEffect(()=> {
 
     socket.on("loggedOutUser", (data)=> {
-        console.log("listening to logged out users socket ! :", data.user.username)
         setLoggedInUsers((loggedInUsers) => loggedInUsers.filter((user) => user.id !== data.user.id))
     });
 
@@ -112,10 +107,6 @@ useEffect(()=> {
 
     getMessages();
 }, [])
-
-useEffect(()=>{
-    console.log(loggedInUsers)
-},[])
 
 const allUsers = loggedInUsers.map(user => {
     return <Usercard key={user.id} username={user.username} theme={props.theme}/>
@@ -192,11 +183,12 @@ const allChats = allmessages.map(msg => {
             onClick={logOut}
             className="chat_button"
             variant={props.theme ==="light" ? "secondary" : "light"}
-            
         >Log Out
         </Button>
 
+        <p>{chatMsg ? chatMsg : ''}</p>
         </div>
+      
 
   </div>
 }

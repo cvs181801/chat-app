@@ -1,10 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
-//import App from '../App'
 import {Link, useHistory} from "react-router-dom"
 import axios from 'axios'
-//import { io } from "socket.io-client";
-//import Chat from './Chat'
-//import CreateLogin from './CreateLogin';
 import '../index.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button'
@@ -16,9 +12,6 @@ const [passwordInputValue, setPasswordInputValue] = useState('');
 const [error, setError] = useState('');
 
 let history = useHistory();
-//console.log(history)
-
-//const socket = io();
 
 const loginObj = {
     username: usernameInputValue,
@@ -41,13 +34,10 @@ function handleClick(event) {
         login()
             .then(res=>{
                 if(res.data[3]) {
-                    console.log(res.data)
                     const userId = res.data[1]
                     const username = res.data[2]
                     localStorage.setItem(`userId`, `${userId}`)
                     localStorage.setItem(`username`, `${username}`)
-                    
-                    //window.location.reload()
                     history.push("/chat")
      
                 } else {
@@ -99,6 +89,7 @@ function handleClick(event) {
                             className="button_home"
                             variant="outline-warning"
                             onClick={handleClick}
+                            
                         >Log In
                         </Button>
                         
@@ -114,7 +105,7 @@ function handleClick(event) {
                         </p>
                     
                 </form>   
-              
+
             </div>
 
          </div>

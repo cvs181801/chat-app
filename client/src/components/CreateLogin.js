@@ -15,7 +15,6 @@ const [password, setPassword] = useState('')
 const [confirmMsg, setConfirmMsg] = useState('')
 const [confirmed, setConfirmed] = useState(false);
 const [screenname, setScreenname] = useState('')
-console.log(props.theme)
 
 const registration = {
   username: username,
@@ -33,15 +32,12 @@ function handleSubmit(event) {
   if (username !== "" && password !== "" ) {
     addNewUser()
     .then(response => {
-      console.log(response.data)
       setScreenname(response.data)
       setConfirmed(true)
       setConfirmMsg("Welcome!  Please log in.")
     })
-   // console.log("e listener worked")
   } else {
     setConfirmMsg('Oops - please enter a username and password to register!')
-    //console.log("didn't work.")
   }
    
 }
@@ -107,32 +103,7 @@ useEffect(()=>{}, [])
     
   </Form>   
 
-
-{/* <form
-  onSubmit={handleSubmit}
->
-<input
-  type="text"
-  placeholder="login username"
-  onChange={event=>setUsername(event.target.value)}
-  value={username}
-></input>
-<input
-  type="password"
-  placeholder="password"
-  onChange={event=>setPassword(event.target.value)}
-  value={password}
-></input>
-<button
-  onClick={handleSubmit}
->Register</button>
-</form> */}
- 
-
     {confirmed ? confirmMsg : ''}
-      {/* <Link to="/"
-            className= "nav_link">
-                Log In
-      </Link> */}
+
   </div>;
 }

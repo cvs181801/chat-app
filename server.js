@@ -25,34 +25,14 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('a user connected: socket id', socket.id);
-
-    // socket.on('disconnect', function() {
-    //   console.log('Got disconnect!');
-    // });
 });
-
-
 
 server.listen(process.env.PORT || 3000);
 
-//server.listen(process.env.HOST);
-
-//this is the line of code needed to get node to route the user to the correct page w/o needing to go back through the home page!
 app.get('/*', (req, res) => {
-    //res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
     res.sendFile(path.join(__dirname + '/client/build/index.html'))
   });
 
-//fix web sockets issues causing users to show incorrectly.  it works fine the first time but when someone logs out the broadcast starts going haywire
-//program 'enter key
-// cookies
-//make the text input field bigger esp on mobile
-//modular design?
-//SQL injection attack and XSS attack and write blog post
-//timing attacks ?
-//hacking websockets
-//like system? 
-//Add “{user} is typing” functionality.
 
 
  

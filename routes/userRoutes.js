@@ -7,12 +7,11 @@ router.get(`/users`, async (req, res)=> {
     
     try {
         const usernames = await pool.query('SELECT id, username FROM users WHERE isloggedin = true') 
-        //console.log(usernames.rows)
         
         res.send(usernames.rows)
         } 
     catch(err) {
-        console.log(err)
+        res.send('something went wrong')
         }    
 })
 
@@ -20,12 +19,10 @@ router.get(`/loggedusers`, async (req, res)=> {
     
     try{
         const loggedUser =  await pool.query('SELECT id, username FROM users WHERE isloggedin = true');
-            console.log('logged user rows :', loggedUser.rows)
-           
             res.send(loggedUser.rows)
     } 
     catch(err){
-        console.log(err)
+        res.send(['something went wrong', err])
     }
     
 })
