@@ -13,6 +13,8 @@ Or find it on my website at www.casspicer.com
 
 My goal with this project was to get some experience building a full stack application using the PERN stack.  Also, I wanted it to have an immensely relaxing UI.  Kick your feet up, pour yourself a martini, and send some emojis to a friend or two.  :)
 
+This app helped me gain a lot of basic full-stack development skills.  However, I am looking forward to adding more advanced backend features as I learn and grow, expecially when it comes to cybersecurity and protecting children from online predators.  If you're interested in learning more about folks who are building tools which can be integrated into online platforms (such as chat / messaging platforms) balancing online privacy with protecting kids online, may I recommend Thorn.  Check them out at www.thorn.org.
+
 Some more interesting facets of this chat app:
 - Built using SocketIO for reduced chat lag time
 - I learned how to include JSON Web Tokens in the authentication process.  
