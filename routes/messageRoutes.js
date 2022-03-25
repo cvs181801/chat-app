@@ -27,7 +27,6 @@ router.get(`/messages`, async (req, res)=> {
     try {
         const messages = await pool.query('SELECT text, username, user_id FROM messages INNER JOIN users ON messages.user_id = users.id')
         res.send(messages.rows)
-        console.log((messages.rows))
     }
         catch(err) {
             res.send(['something went wrong', err])  

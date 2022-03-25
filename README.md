@@ -13,6 +13,7 @@ Some more interesting facets of this chat app:
 
 Things I'd like to add/improve upon:
 - Adding a session cookie to the authentication process for enhanced security
+- Secure username and password retrieval feature using an email address
 - A 'like' feature
 - A 'currently typing' feature
 - Modular design
