@@ -25,6 +25,7 @@ Things I'd like to add/improve upon:
 - A 'like' feature
 - A 'currently typing' feature
 - Modular design
+- An automatic logout feature for users who forget to log out
 
 Enjoy!
 
