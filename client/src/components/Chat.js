@@ -8,8 +8,9 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
-import InputGroup from 'react-bootstrap/InputGroup'
-import FormControl from 'react-bootstrap/FormControl';
+// import InputGroup from 'react-bootstrap/InputGroup'
+// import FormControl from 'react-bootstrap/FormControl';
+// import FloatingLabel from 'react-bootstrap/esm/FloatingLabel';
 import {
     useHistory
   } from "react-router-dom";
@@ -28,10 +29,10 @@ let history = useHistory();
 function postMsg() {
     setMessageInputValue('')
     setChatMsg('')
-    const msgData = {
-        userid: localStorage.getItem('userId'),
-        text: messageInputValue
-      }
+        const msgData = {
+            userid: localStorage.getItem('userId'),
+            text: messageInputValue
+        }
     const response = axios.post(`/api/messages`, msgData);
 }
 
@@ -146,31 +147,29 @@ const allChats = allmessages.map(msg => {
         <div
             className="message_area"
         >
+ 
             <Form
                 onSubmit={(event)=>postMsg(event)}
             >
 
-            <InputGroup 
-                className="chat_input"
-                
-            >
-            <FormControl        
-                type="text"     
-                placeholder="Type your message here"
-                value={messageInputValue}
-                onChange={event=>setMessageInputValue(event.target.value)}
-                style={{
-                    backgroundColor: props.theme === "light" ? "white" : "#02024b",
-                     color: props.theme === "dark" ? "white" : "#02024b",
-                    }}
-            />
+                <Form.Control 
+                    as="textarea" 
+                    placeholder="Type your message here" 
+                    value={messageInputValue}
+                    onChange={event=>setMessageInputValue(event.target.value)}
+                    style={{
+                        backgroundColor: props.theme === "light" ? "white" : "#02024b",
+                         color: props.theme === "dark" ? "white" : "#02024b",
+                         height: "7em"
+                        }}
+                />
+
                 <Button
                     type="submit"
                     variant="warning"
                     className="chat_button--post"
                 >Post
                 </Button> 
-            </InputGroup>
             </Form>
 
         </div>

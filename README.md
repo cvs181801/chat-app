@@ -1,6 +1,6 @@
 Let's Chat, Day-2-Nite
 
-Have fun chatting with others in this chat app complete with a yummy night mode.  Built with Node.js, React.js, Express.js and PostgreSQL.!
+Have fun chatting with others in this chat app complete with a yummy night mode.  Built with Node.js, React.js, Express.js and PostgreSQL.
 
 [Uploading Screen Shot 2022-03-25 at 4.12.26 PM.png…]()
 

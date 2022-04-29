@@ -3,9 +3,8 @@ import {Link} from "react-router-dom"
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../index.scss';
-import FormControl from 'react-bootstrap/FormControl';
+//import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
-//import { Form, FormControl } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 
 export default function CreateLogin(props) {
@@ -39,12 +38,11 @@ function handleSubmit(event) {
   } else {
     setConfirmMsg('Oops - please enter a username and password to register!')
   }
-   
 }
 
 useEffect(()=> {
   if(confirmed) {
-    setConfirmMsg(`Welcome, ${screenname}!  You may now log in.`)
+    setConfirmMsg(`Welcome, ${screenname}!  You may now go back to the home page to log in.`)
   }
 },[confirmed])
 
@@ -74,8 +72,8 @@ useEffect(()=>{}, [])
         placeholder="login username"
         onChange={event=>setUsername(event.target.value)}
         value={username}
-       style={{
-         backgroundColor: props.theme === "light" ? "white" : "#02024b",
+        style={{
+          backgroundColor: props.theme === "light" ? "white" : "#02024b",
           color: props.theme === "dark" ? "white" : "#02024b",
          }}
       />
@@ -88,8 +86,8 @@ useEffect(()=>{}, [])
         placeholder="password"
         onChange={event=>setPassword(event.target.value)}
         value={password}
-       style={{
-         backgroundColor: props.theme === "light" ? "white" : "#02024b",
+        style={{
+          backgroundColor: props.theme === "light" ? "white" : "#02024b",
           color: props.theme === "dark" ? "white" : "#02024b",
          }}
       />
@@ -103,7 +101,11 @@ useEffect(()=>{}, [])
     
   </Form>   
 
-    {confirmed ? confirmMsg : ''}
+        <div 
+          className="confirmedMsg"
+        >
+            {confirmed ? confirmMsg : ''}
+        </div>
 
   </div>;
 }

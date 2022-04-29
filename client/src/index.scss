@@ -51,9 +51,10 @@ body {
   align-items: center;
 }
 
-.chat_input {
-  height: 3em;
-}
+// .chat_input {
+//   height: 5em;
+  
+// }
 
 .message_area {
   font-family: var(--ff-thin);
@@ -122,10 +123,16 @@ body {
   cursor: pointer;
 }
 
+.confirmedMsg {
+  font-size: 3.5rem;
+  line-height: 3.5rem;
+}
+
 .chat_button--post {
   height: auto;
   font-family: var(--ff-accent);
   letter-spacing: .2rem;
+  margin-top: .4em;
 }
 
 .createlogin_username,
