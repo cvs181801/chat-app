@@ -19,6 +19,9 @@ Some more interesting facets of this chat app:
 - Built using SocketIO for reduced chat lag time
 - I learned how to include JSON Web Tokens in the authentication process.  
 
+*Bug Fixes/Features Added/Improvements*
+- 4/29/2022: Changed the input field to a text field on the chat page, so users can more easily write longer messages 
+
 Things I'd like to add/improve upon:
 - Adding a session cookie to the authentication process for enhanced security
 - Secure username and password retrieval feature using an email address
