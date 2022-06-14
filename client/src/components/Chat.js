@@ -114,10 +114,15 @@ const allUsers = loggedInUsers.map(user => {
   })
 
 const allChats = allmessages.map(msg => {
-    return <Card style={{
-                        backgroundColor: props.theme === "light" ? "white" : "#02024b",
-                         color: props.theme === "dark" ? "white" : "#02024b",
-                        }} key={msg.chat_id}>{msg.username}: {msg.text}</Card>
+    return <Card 
+                key={msg.chat_id} 
+                style={{
+                    backgroundColor: props.theme === "light" ? "white" : "#02024b",
+                    color: props.theme === "dark" ? "white" : "#02024b",
+                    }} 
+            >
+                {msg.username}: {msg.text}
+            </Card>
 })
 
   return <div style={{backgroundColor: props.theme === "light" ? "white" : "#02024b"}}>
